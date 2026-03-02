@@ -56,6 +56,23 @@
 - also the resume hwich i've done creaging it will have a link tag.
 
 - i've also use a custom hooks and function on both each jobs and the all jobs.
+- i've faced a minor error of spelling: `bookmars` which cause data fetching another app.
+
+
+- i've add the middlerare of isUserloggein and isOwner middleare.
+>:warning: i shouldn't keep a setvalue initially on the normal flow should add on teh effect to not reerender too many.
+- i also make sure that the pass a ... value so it can recieve a data.
+- i've also impleemte a update a jobs with skills  features.
+- now i will make sure to implmement a deleete features and 
+- now i've done creatinga  delete feature now i will work on new Job features.
+
+- with new jobs wrorkign perfely.
+
+## The Input Comps:
+- on the input comps i've make a way if i sendging on the group i'm sending also a name else not sending.
+- now i'll be implmenet a debounce throutle.
+
+
 
 
 ## Libraries Used:

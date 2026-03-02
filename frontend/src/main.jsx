@@ -16,6 +16,12 @@ import Edituser from './pages/User/Edituser'
 import ProfilePhoto from './pages/User/addProfilePhoto'
 import Addresume from './pages/User/AddResume'
 import AllBookmarks from './pages/Jobs/AllBookmarks'
+import EditJob from './pages/Jobs/EditJob'
+import IsloggedinUser from './components/auth/isLoggedInUser'
+import IsownerUser from './components/auth/isOwnerUser'
+import Newjob from './pages/Jobs/Newjob'
+import Searchjobs from './pages/Jobs/Searchjobs'
+import GetallApplied from './pages/Applications/GetallApplied'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -32,18 +38,23 @@ const router = createBrowserRouter([
       },
       {
         path: "jobs",
+        element: <IsloggedinUser/>,
         children: [
           { index: true, element: <Jobs /> },
+          { path: "new", element: <Newjob /> },
+          { path: "search", element: <Searchjobs /> },
           { path: ":id", element: <EachJob /> },
-          { path: "bookmars", element: <AllBookmarks /> },
+          { path: ":id/edit", element: <IsownerUser />, children:[{index: true, element: <EditJob/>}] },
+          { path: "bookmarks", element: <AllBookmarks /> },
         ]
       },
       {
         path: "users",
         children: [
-          { path: "all", element: <Alluser /> },
+          { path: "all", element: <Alluser  /> },
           {
             path: ":id",
+            element: <IsloggedinUser/>,
             children: [
               { path: "profile", element: <Individualuser /> },
               { path: "profile/edit", element: <Edituser /> },
@@ -53,6 +64,10 @@ const router = createBrowserRouter([
           },
         ]
       },
+      {
+        path: 'applications',
+        element: <GetallApplied/> 
+      }
     ],
   },
 
