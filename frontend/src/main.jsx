@@ -22,51 +22,86 @@ import IsownerUser from './components/auth/isOwnerUser'
 import Newjob from './pages/Jobs/Newjob'
 import Searchjobs from './pages/Jobs/Searchjobs'
 import GetallApplied from './pages/Applications/GetallApplied'
+import Jobapplicant from './pages/Applications/jobApplicant'
+import AuthProvider from './context/Authcontext'
+import Allcompanies from './pages/Companies/Allcompanies'
+import NewCompany from './pages/Companies/NewCompany'
+import Singlecompany from './pages/Companies/Singlecompany'
+import Dashboard from './pages/Companies/Dashboard'
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      { index: true, element: <Home /> },
-      {
-        path: "auth",
-        children: [
-          { path: "login", element: <Login /> },
-          { path: "signup", element: <Signup /> },
-          { path: "verify-email", element: <VerifyEmail /> },
-        ]
-      },
-      {
-        path: "jobs",
-        element: <IsloggedinUser/>,
-        children: [
-          { index: true, element: <Jobs /> },
-          { path: "new", element: <Newjob /> },
-          { path: "search", element: <Searchjobs /> },
-          { path: ":id", element: <EachJob /> },
-          { path: ":id/edit", element: <IsownerUser />, children:[{index: true, element: <EditJob/>}] },
-          { path: "bookmarks", element: <AllBookmarks /> },
-        ]
-      },
-      {
-        path: "users",
-        children: [
-          { path: "all", element: <Alluser  /> },
-          {
-            path: ":id",
-            element: <IsloggedinUser/>,
-            children: [
-              { path: "profile", element: <Individualuser /> },
-              { path: "profile/edit", element: <Edituser /> },
-              { path: "profile/profile-picture", element: <ProfilePhoto /> },
-              { path: "profile/resume", element: <Addresume /> },
+      {index: true, 
+      element: <Home/>
+    },
+    {
+      path: "auth",
+      children: [
+        { path: "login", element: <Login /> },
+        { path: "signup", element: <Signup /> },
+        { path: "verify-email", element: <VerifyEmail /> },
+      ]
+    },
+    {
+      path: "jobs",
+      element: <IsloggedinUser/>,
+      children: [
+        { index: true, element: <Jobs /> },
+        { path: "new", element: <Newjob /> },
+        { path: "search", element: <Searchjobs /> },
+        { path: ":id", element: <EachJob /> },
+        { path: ":id/edit", element: <IsownerUser />, children:[{index: true, element: <EditJob/>}] },
+        { path: "bookmarks", element: <AllBookmarks /> },
+      ]
+  },
+    {
+      path: "users",
+      children: [
+        { path: "all", element: <Alluser  /> },
+        {
+          path: ":id",
+          element: <IsloggedinUser/>,
+          children: [
+            { path: "profile", element: <Individualuser /> },
+            { path: "profile/edit", element: <Edituser /> },
+            { path: "profile/profile-picture", element: <ProfilePhoto /> },
+            { path: "profile/resume", element: <Addresume /> },
             ]
           },
         ]
       },
       {
         path: 'applications',
-        element: <GetallApplied/> 
+        children: [
+          {
+            path: 'me',
+            element: <GetallApplied/>   
+          },
+          {
+            path: ':id/applylist',
+            element: <Jobapplicant/> 
+          }
+        ]
+        
+      },
+      {
+        path: "companies",
+        children: [
+          {
+            path: "all",
+            element: <Allcompanies/>
+          },
+          {
+            path: ":id",
+            element: <Singlecompany/>
+          },
+          {
+            path: ":id/dashboard",
+            element: <Dashboard/>
+          },
+        ]
       }
     ],
   },
@@ -80,6 +115,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <AuthProvider>
     <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 )

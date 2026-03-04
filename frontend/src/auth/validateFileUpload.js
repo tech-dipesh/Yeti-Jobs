@@ -1,10 +1,8 @@
 const validateFileUpload= (value, content)=>{
-  console.log('value', value)
   if(!value.name){
     return "Please Upload a file."
   }
 
-  console.log('value', value)
   if(value.type!=content){
     return `Only ${content} is allowed`
   }
