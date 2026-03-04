@@ -4,6 +4,8 @@ import { Link, useNavigate, useParams } from 'react-router'
 import { bookMarkJob, deleteExistingJobs, individualJobs, removeBookmark } from '../../api/auth.job';
 import useFetchData from '../../hooks/useFetchData';
 import ButtonComps from "../../components/Button"
+import isOwnerMiddleware from '../../../../backend/Middleware/isOwner';
+import Applyjob from '../Applications/Applyjob';
 export default function EachJob() {
   const navigate = useNavigate()
   const [value, setValue] = useState({});
@@ -44,7 +46,6 @@ export default function EachJob() {
     if(!con) return;
     const res=await deletes(id)
     if(!res){
-      console.log('err', errdelete)
       setError(errdelete);
       return;
     }
@@ -55,14 +56,17 @@ export default function EachJob() {
   }
   const showEditButton = () => {
     // if (is_owner) {
-      const sendAllValue={title: value.title, description: value.description, job_type: value.job_type, salary: value.salary, skills: value.skills}
-      return (
+      const sendAllValue={uid: value.uid, title: value.title, description: value.description, job_type: value.job_type, salary: value.salary, skills: value.skills}
+      return is_owner && (
         <>
         <div onClick={deleteJob}>
           <ButtonComps values="Delete Job" color='bg-red-500  '/>
         </div>
         <Link to={`edit`} state={sendAllValue}>
           <ButtonComps values="Edit Job" />
+        </Link>
+        <Link to={`../../applications/${value.uid}/applylist`} state={sendAllValue}>
+          <ButtonComps values="All applicant" />
         </Link>
         </>
       );
@@ -74,7 +78,6 @@ export default function EachJob() {
 
     const valueButton = is_save  ? "Remove from Saved Jobs" : "Save Job";
     const clickFun = is_save ? RemoveSavedJobs : saveJob
-
     return (
       <div>
         {success && <div className='text-green-500'>{success}</div>}
@@ -94,8 +97,11 @@ export default function EachJob() {
         </div>
         {!is_owner && 
         <div onClick={clickFun}><ButtonComps values={valueButton} /></div>
-        }
+      }
         {error && <div className='text-red-500'>{error}</div>}
+        <div className='flex justify-end w-full'>
+    <Applyjob value={value.is_applied}/>
+  </div>
       </div>
     )
   }

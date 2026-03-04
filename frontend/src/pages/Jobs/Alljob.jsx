@@ -7,19 +7,17 @@ import ButtonComps from '../../components/Button';
 const {VITE_SERVER_URL}=import.meta.env
 
 export default function Jobs() {
-  const [job, setJob]=useState([])
   
   const {data, error, loading, execute } = UseFetchData(allJobsList)
   useEffect(()=>{
     ;(async()=>{
-      await execute().then(t=>setJob(t?.message))
+      await execute()
   })()
 }, [])
 
   if(loading){
     return <div>Loading...</div>
   }
-
   // const buttons=['1', '2', '3', '4', '5', '7']
   return (
     <>
@@ -29,11 +27,12 @@ export default function Jobs() {
     <Link to='search'>
     <ButtonComps values='Search Job' className='text-4xl' />
     </Link>
-    <Link to='../applications' className='text-blue-500 underline'>
+    <Link to='../applications/me' className='text-blue-500 underline'>
     <ButtonComps values='Get All Applied Jobs' className='text-4xl' />
     </Link>
+      
     <div className='container grid grid-cols-4 gap-16 p-8'>
-      {job.map(({ uid, title, description, salary, job_type, total_job_views, skills, is_job_open, experience_years, company_name }) => (
+      {data && data?.message.map(({ uid, title, description, salary, job_type, total_job_views, skills, is_job_open, experience_years, company_name }) => (
         <div key={uid} className='bg-taupe-600 rounded-xl p-8 gap-8 '>
           <Link to={`./${uid}`} className='text-blue-500 underline'>{uid}</Link>
           <h2 className=''>Title: {title}</h2>
