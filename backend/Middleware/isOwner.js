@@ -1,10 +1,9 @@
 const isOwnerMiddleware=async (req, res, next)=>{
   const {id}=req.params;
-    const {uid}=req.user;
-    if(id!=uid){
-      return res.status(401).json({message: "You're not the owner of this Profile Picture"})
-    }
-    next()
+  const {uid, role}=req.user;
+  if(id!=uid && role!='admin'){
+      return res.status(401).json({message: "You're not a Owner of This Route."})
+  }
+  next()
 }
-
 export default isOwnerMiddleware;

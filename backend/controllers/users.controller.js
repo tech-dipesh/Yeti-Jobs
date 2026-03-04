@@ -50,13 +50,14 @@ export const getloginUserController= async (req, res) => {
 
 
 export const getParticularUserController=  async (req, res) => {
-  const {id}=req.params;
+  const {id, company_id}=req.params;
   try {
-    const { rows } = await connect.query("select uid, profile_pic_url, fname, education, email, experience_years, resume_url, skills from users where uid=$1", [id]);
+    const { rows } = await connect.query("SELECT uid, profile_pic_url, fname, education, email, experience, resume_url, skills, company_id IS NOT NULL AS is_employee, uid AS job_uid FROM users WHERE uid =$1", [id]);
     if(!rows) return res.status(404).json({message: "Please Enter Correct Uid"})
-      return res.status(200).json(rows[0]);
+    return res.status(200).json(rows[0]);
   } catch (error) {
-    return res.status(500).json(error)
+    console.log(error)
+    return res.status(500).json({message: error})
   }
 };
 

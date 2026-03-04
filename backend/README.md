@@ -374,10 +374,21 @@ for allow all teh credentiants now work.
 - with zod valdation of aray convertion i'm so stuck let see how it goes.
 - with simple mistake of: `j.uid = s.job_id and j.uid` with must be a : `j.uid = s.job_id and j.uid` with it's returning a different value.
 - i've not the ` on delete cascade` of foreign relation for data with violate a constraint with i addd a on delete cascade.
- 
+- i've used the three join method to find all the applicant on the particular Job.
+- minor mistake of i'm writing: `experience_years instead of experience` which is still not fetching a data
+
 
 
 03/02:
 - with select exists(select 1) return only true false if exists.
 - the `z.coerce` conver tour any value to that native alue for the zod valiadtion.
+
+03/03:
+- the recruiter can't apply to the jobs
+- i'm mistakenly add a company_id from users cookie data, rather i should get from url.
+- one problem is: `/all` routes i've add after: `/:id` which is catching later.
+
+
 # The Backend Project is finished on: 2026/02/26
+
+

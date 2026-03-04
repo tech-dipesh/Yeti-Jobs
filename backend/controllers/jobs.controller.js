@@ -39,7 +39,7 @@ export const getListingController= async (req, res) => {
   const {id}=req.params;
   const {uid}=req?.user;
   try {
-    const {rows}=await client.query("select j.*, j.created_by, case when j.created_by=$1 then true else false end as is_owner, s.uid as job_uid, case when s.job_id is not null then true else false end as is_save from jobs j left join saved_jobs s on j.uid = s.job_id where j.uid =$2 limit 1;", [uid, id]) 
+    const {rows}=await client.query("select j.*,j.created_by,j.created_by=$1 is_owner,s.job_id is not null is_save,a.user_id is not null is_applied from jobs j left join saved_jobs s on j.uid=s.job_id and s.users_id=$1 left join applications a on j.uid=a.job_id and a.user_id=$1 where j.uid=$2 limit 1;", [uid, id]) 
     if(rows.length===0){
       return res.status(404).json({message: "Id Doesn't exist that you're looking for"})
     }

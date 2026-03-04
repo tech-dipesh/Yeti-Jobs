@@ -16,8 +16,15 @@ export const allAppliedJobs=async (req, res)=>{
   }
 }
 
-export const particularJobsList=async(req, res)=>{
-  
+export const particularJobsListController=async(req, res)=>{
+  const {id}=req.params;
+  try {
+    const {rows}=await connect.query("SELECT CONCAT(u.fname,' ', u.lname) AS full_name, u.experience, u.resume_url, u.skills AS user_skills, a.status, a.applied_at FROM applications a INNER JOIN users u ON a.user_id = u.uid WHERE a.job_id=$1;", [id]);
+    return res.json({message: rows})
+  } catch (error) {
+    console.log('error', error)
+     return  res.status(504).json({message:error.message})
+  }
 }
 export const applyJobApplicationController=async (req, res)=>{
   const {id: job_id}=req.params;
@@ -37,8 +44,8 @@ export const applyJobApplicationController=async (req, res)=>{
       await connect.query("update applications set status=$1 where user_id=$2 and job_id=$3", [status, user_id, job_id])
       return res.status(201).json({message: "Application Status Updated Successfully"});
     }
-    const {rows}=await connect.query("insert into applications (user_id, job_id, status) values ($1, $2, $3) returning *", [user_id, job_id, status])
-    return res.status(201).json(rows[0])
+    await connect.query("insert into applications (user_id, job_id, status) values ($1, $2, $3)", [user_id, job_id, status])
+    return res.status(201).json({message: "You've Successfully applied to the role."})
   } catch (error) {
     console.log(error)
   }
