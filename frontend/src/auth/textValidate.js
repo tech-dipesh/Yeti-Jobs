@@ -1,7 +1,6 @@
 const validateText= (value)=>{
   if(!value) return "Please Enter a Text."
   const regex=/^[a-zA-Z]+$/
-  console.log('value', value)
   if(value.length<3){
     return `${value} must be 3 leter.`
   }

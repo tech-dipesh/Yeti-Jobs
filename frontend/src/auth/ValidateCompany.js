@@ -26,7 +26,6 @@ const validateCompany= ({name, description, website})=>{
   if(website.length<3 || website.length>20){
     return "website Can't be more than a 20 letter and less than 3 letter."
   }
-  console.log(isValidWebsite(website))
   if(!isValidWebsite(website)){
     return "Please Enter Website in correct format."
   }
