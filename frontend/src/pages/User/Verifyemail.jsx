@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
-import validateVerifyMail from '../../auth/authVerifyMail';
+import validateVerifyMail from '../../auth/User/Validatecodeemail';
 import ButtonComps from "../../components/Button"
 import InputComps from '../../components/Input';
 import  {verifyUser, resendVerificationCode} from '../../api/auth.user';
 
-import { useNavigate } from "react-router"
+import { useLocation, useNavigate } from "react-router"
+import useFetchData from '../../hooks/useFetchData';
+import Errorloading from '../../components/Errorloading';
+import Successcomps from '../../components/Success';
 
 export default function VerifyEmail() {
   const [value, setValue] = useState();
@@ -14,48 +17,40 @@ export default function VerifyEmail() {
   const [resendCode, setResendCode]=useState();
 
   const navigate = useNavigate()
+
+  const {state}=useLocation();
+  const {error:apierror, loading, data, execute}=useFetchData(verifyUser);
+  const {error:apiresend, loading:loadresend, data:resenddata, execute:resendexecute}=useFetchData(resendVerificationCode);
   const verifyYourMail = async (e) => {
     e.preventDefault();
-    const err = validateVerifyMail(value);
-    if (err) return setError(err);
-    try {
-      const { data } = await verifyUser(value);
-      console.log('data', data)
-      setSuccess(data);
-    } catch ({ response }) {
-      if (response?.status == 401) {
-        setError(response?.data?.message)
-        setTimeout(() => {
-          navigate("/home")
-        }, 2500);
-      }
-      setError(response?.data?.message);
+    const err=validateVerifyMail(value);
+    if(err){
+      setError(err)
+      return;
+    }
+  
+   await execute(value)
+    if(data){
+      navigate(state.from || '../')
     }
   }
 
   
   const verifyResendCode=async ()=>{
- 
-    try {
-      const {data}=await resendVerificationCode()
-      console.log('data', data)
-    } catch (error) {
-      if(!error.response){
-        setError("Network Error")
-      }
-      console.log('error value', error.response)
-      const {data, status}=error.response
-      console.log(data)
-      setError(data?.message || data?.error)
-    }
-    
+    setError("")
+    const res= await resendexecute(value);
+
+    // if(res){
+
+    // }
   }
 
-  console.log('error', error)
   return (
     <div className='grid align-middle justify-center'>
+      <Successcomps data={resenddata?.message}/>
+      <Errorloading data={{error:apierror, loading}}/>
         <div>
-        <h1 className=''>Verify Your Mail</h1>
+        <h1 className='text-blue-500'>Verify Your Mail</h1>
         <form onSubmit={verifyYourMail}>
         <InputComps type='number' placeholder='Please Enter a Number' value={value} click={setValue} error={setError} />
         {/* <input type="number" placeholder='' value={value} /> */}

@@ -46,36 +46,48 @@ export default function Individualuser() {
   }
 
   return (
-    <div>
+    <div className='max-w-3xl mx-auto p-6 space-y-6'>
       {error || err && <div className='text-red-500'>{error || err}</div>}
       {loading && <div>Loading...</div>}
       {data &&
         <div>
-          <img src={data.profile_pic_url || defaultImage} alt='profile' className='h-20 w-20 rounded-full object-cover' />
+          <div className='flex justify-center mb-4'>
+          <img src={data.profile_pic_url || defaultImage} alt='profile' 
+            className='h-32 w-32 rounded-full object-cover border-4 border-gray-300 shadow-lg' />
+      </div>
           <h2>your Profile Picture:</h2>
-          <h2>Full Name: {data.fname}{data.lname}</h2>
-          <h3>Education: {data.education}</h3>
-          <Textcomps content={`Email: ${data.email}`} size={'text-2xl'}/>
-          <h3>Experience: {data.experience_years}</h3>
+          <h1 className='text-2xl font-bold text-center'>{data.fname} {data.lname}</h1>
+          <p className='text-gray-600 text-center mb-4'>{data.email}</p>
+         <div className='grid grid-cols-2 gap-4 bg-slate-500 p-4 rounded-lg'>
+          <span className='font-semibold'>Education:</span> {data.education}</div>
+        <div><span className='font-semibold'>Experience:</span> {data.experience_years} years
+      </div>
           <h3>Profile Pic url: {data.profile_pic_url ?? 'none'}</h3>
           {data.profile_pic_url &&
           <Link to={data.resume_url} target='_blank' className='text-blue-300 underline'> {data.resume_url ?? 'none'}</Link>
           }
           <h4>Skills:</h4>
-          <div className='flex gap-8 text-gray-400 text-2xl'>
-            {!data.skills && <div className="flex">none</div> }
-            {data.skills && data.skills.map((u, i) => <p key={i}>{u}</p>)}
+          <div className='flex flex-wrap  gap-2 text-gray-400 text-2xl'>
+            {!data.skills?.length && <div className="text-gray-400">No skills added</div>}
+            <div className='flex flex-wrap gap-2 my-4'>
+            {data.skills && data.skills.map((u, i) => <p key={i} className='bg-gray-200 text-gray-800 px-4 py-2 rounded-full text-sm font-medium'>{u}</p>)}
+            </div>
           </div>
           <h3>Add User Skills:</h3>
           <div onClick={() => setIsSkillOpen(!isSkillsOpen)}><ButtonComps values={isSkillsOpen ? 'Escape Skills': 'Add Skills'} /></div>
           {isSkillsOpen &&
           <>
-            <div> <Inputcomps placeholder='New Skill' type='text' click={setSkills} value={skill}/></div>
-              <div onClick={submitSkill}><ButtonComps values='Submit' /></div>
+            <div className='flex gap-2 items-center mt-2'>
+          <Inputcomps placeholder='New Skill' type='text' click={setSkills} value={skill}/>
+          <ButtonComps values='Add' onClick={submitSkill}/>
+        </div>
           </>  }
-              <Link to='edit'><ButtonComps values="Edit Profile" /></Link>
-              <Link to='profile-picture'><ButtonComps values="Add Profile Picture" /></Link>
-              <Link to='resume'><ButtonComps values="Upload Resume" /></Link>
+        
+            <div className='flex flex-wrap gap-3 mt-6 pt-4 border-t'>
+            <Link to='edit'><ButtonComps values="Edit Profile" /></Link>
+            <Link to='profile-picture'><ButtonComps values="Add Profile Picture" /></Link>
+            <Link to='resume'><ButtonComps values="Upload Resume" /></Link>
+          </div>
               {data.is_employee && <ButtonComps values="You're a employee." />}
         </div>
       }
