@@ -28,7 +28,6 @@ export default function NewCompany() {
     }
   }
   
-  console.log('error', Error)
   return (
     <div>
       <h1>New Company.</h1>

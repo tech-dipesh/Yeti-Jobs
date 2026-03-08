@@ -5,6 +5,7 @@ import { deleteCompany, getSingleCompany, updateCompany } from '../../api/auth.c
 import ButtonComps from '../../components/Button'
 import validateCompany from '../../auth/ValidateCompany'
 import InputComps from '../../components/Input'
+import Errorloading from '../../components/Errorloading'
 
 export default function Singlecompany() {
   const {id}=useParams()
@@ -36,13 +37,11 @@ export default function Singlecompany() {
   const editForm=(event)=>{
   event.preventDefault()
   const err=validateCompany(value)
-  console.log('err', err)
     if(err){
       setError(err)
       return;
     }
     update({id, value});
-    console.log('data', updatedata)
     if(updatedata){
       navigate(0)
       return;
@@ -54,7 +53,7 @@ export default function Singlecompany() {
   }
   return (
     <div>
-      {loading && <div>Loading...</div>}
+      <Errorloading data={{error, loading}}/>
       {data &&
         <div>
             <h1>Name: {data.name}</h1>
