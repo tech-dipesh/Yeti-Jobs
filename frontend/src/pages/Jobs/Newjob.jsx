@@ -28,7 +28,6 @@ export default function EditJob() {
   const submitForm = async (e) => {
     e.preventDefault()
     const err = validateJobs(value);
-    console.log('err', err)
     if(err){
       setError(err)
       return;
@@ -36,21 +35,18 @@ export default function EditJob() {
     const skill= typeof value.skills=='string' && value.skills.split(",");
     
     setValue((prev)=>({...prev, skills: skill}))
-    console.log('skill', value.skills)
     const res = await execute(value);
-    console.log('errors', errors)
     setError(errors)
     if(res){
-      console.log('res', res)
       setTimeout(() => {
         navigate(`../${res.message}`)
       }, 100);
     }
   }
   return (
-    <div>
+    <div className='grid'>
       <h2>Add New Job:</h2>
-      <form method="post" onSubmit={submitForm}>
+      <form method="post" onSubmit={submitForm} className=''>
         <div className='justify-center align-middle'>
           <div>Title</div>
           <InputComps

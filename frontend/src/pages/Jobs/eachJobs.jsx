@@ -39,7 +39,7 @@ export default function EachJob() {
   if (error || errabookmark || removeerrbookmark) {
     return <div className='text-red-500'>{error || errabookmark}</div>
   }
-  const { is_owner, is_save } = value;
+  const { is_owner, is_save } = value || {};
 
   const deleteJob=async ()=>{
     const con=confirm("Are you really want to delete a job.");
@@ -81,7 +81,7 @@ export default function EachJob() {
     return (
       <div>
         {success && <div className='text-green-500'>{success}</div>}
-        <div>
+        <div  className='bg-neutral-900 p-8 h-auto w-120 rounded-lg'>
           <p>Job Id: {value.uid}</p>
           <p>Title: {value.title}</p>
           <p>Description: {value.description}</p>

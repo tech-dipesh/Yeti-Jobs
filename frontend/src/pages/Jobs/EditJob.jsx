@@ -43,16 +43,12 @@ export default function EditJob() {
       return;
     }
     const skill=typeof value.skills=='string' && value.skills?.split(",");
-    console.log('skill', skill)
     setValue((prev)=>({...prev, skills: skill}))
-    console.log('value', value.skills)
 
     const res = await sendData({ id, value });
     if(res){
       navigate("..")
     }
-    console.log('res', res)
-    // console.log('submitload', submitload)
   }
   return (
     <div>
