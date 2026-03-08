@@ -66,7 +66,7 @@ export const forgetEmailPassword=async (req,res)=>{
   try {
     const {rows, rowCount}=await connect.query("select fname, lname, uid from users where email=$1", [email])
     if(rowCount===0){
-      return res.status(422).json({message: "User Database Doesn't Exist Please Logged In First."})
+      return res.status(422).json({message: "Email Doesnt Exist."})
     }
     const {fname, lname, uid}=rows[0];
     sendMail(uid, fname, lname, email, 'forget')

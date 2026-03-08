@@ -22,7 +22,7 @@ import IsownerUser from './components/auth/isOwnerUser'
 import Newjob from './pages/Jobs/Newjob'
 import Searchjobs from './pages/Jobs/Searchjobs'
 import GetallApplied from './pages/Applications/GetallApplied'
-import Jobapplicant from './pages/Applications/jobApplicant'
+import Jobapplicant from './pages/Applications/JobApplicant'
 import AuthProvider from './context/Authcontext'
 import Allcompanies from './pages/Companies/Allcompanies'
 import NewCompany from './pages/Companies/NewCompany'
@@ -33,47 +33,50 @@ import AllCompanyJobs from './pages/Companies/AllCompanyJobs'
 import Allapplications from './pages/Companies/Allapplicationscompany'
 import Resetpassword from './pages/User/Resetpassword'
 import IsEmployee from './components/auth/IsEmployee'
+import AllEmployees from './pages/Companies/AllEmployees'
+import Editcompany from './pages/Companies/Editcompany'
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      {index: true, 
-      element: <Home/>
-    },
-    {
-      path: "auth",
-      children: [
-        { path: "login", element: <Login /> },
-        { path: "signup", element: <Signup /> },
-        { path: "verify-email", element: <VerifyEmail /> },
-        { path: "forget-password", element: <Resetpassword /> },
-      ]
-    },
-    {
-      path: "jobs",
-      element: <IsloggedinUser/>,
-      children: [
-        { index: true, element: <Jobs /> },
-        { path: "new", element: <Newjob /> },
-        { path: "search", element: <Searchjobs /> },
-        { path: ":id", element: <EachJob /> },
-        { path: ":id/edit", element: <IsownerUser />, children:[{index: true, element: <EditJob/>}] },
-        { path: "bookmarks", element: <AllBookmarks /> },
-      ]
-  },
-    {
-      path: "users",
-      children: [
-        { path: "all", element: <Alluser  /> },
-        {
-          path: ":id",
-          element: <IsloggedinUser/>,
-          children: [
-            { path: "profile", element: <Individualuser /> },
-            { path: "profile/edit", element: <Edituser /> },
-            { path: "profile/profile-picture", element: <ProfilePhoto /> },
-            { path: "profile/resume", element: <Addresume /> },
+      {
+        index: true,
+        element: <Home />
+      },
+      {
+        path: "auth",
+        children: [
+          { path: "login", element: <Login /> },
+          { path: "signup", element: <Signup /> },
+          { path: "verify-email", element: <VerifyEmail /> },
+          { path: "forget-password", element: <Resetpassword /> },
+        ]
+      },
+      {
+        path: "jobs",
+        element: <IsloggedinUser />,
+        children: [
+          { index: true, element: <Jobs /> },
+          { path: "new", element: <Newjob /> },
+          { path: "search", element: <Searchjobs /> },
+          { path: ":id", element: <EachJob /> },
+          { path: ":id/edit", element: <IsownerUser />, children: [{ index: true, element: <EditJob /> }] },
+          { path: "bookmarks", element: <AllBookmarks /> },
+        ]
+      },
+      {
+        path: "users",
+        children: [
+          { path: "all", element: <Alluser /> },
+          {
+            path: ":id",
+            element: <IsloggedinUser />,
+            children: [
+              { path: "profile", element: <Individualuser /> },
+              { path: "profile/edit", element: <Edituser /> },
+              { path: "profile/profile-picture", element: <ProfilePhoto /> },
+              { path: "profile/resume", element: <Addresume /> },
             ]
           },
         ]
@@ -83,67 +86,76 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'me',
-            element: <GetallApplied/>   
+            element: <GetallApplied />
           },
           {
             path: ':id/applylist',
-            element: <Jobapplicant/> 
+            element: <IsEmployee />, children: [{ index: true, element: <Jobapplicant /> }]
           }
         ]
-        
+
       },
       {
         path: "companies",
         children: [
           {
             path: "all",
-            element: <Allcompanies/>
+            element: <Allcompanies />
           },
           {
             path: "new",
-            element: <NewCompany/>
+            element: <NewCompany />
           },
-
           {
             path: "dashboard",
-            element: <IsEmployee/>,
-            children: [{
-              index:true,
-              element: <Companydashboard/>
-            }]
+            element: <IsEmployee />,
+            children: [
+              {
+                index: true,
+                element: <Companydashboard />
+              }]
           },
           {
             path: ":id",
-            element: <Singlecompany/>
-          },
-          {
-            path: ":id/analytics",
-            element: <Stats/>
-          },
-          {
-            path: ":id/jobs",
-            element: <AllCompanyJobs/>
-          },
-          {
-            path: ":id/applications",
-            element: <Allapplications/>
+            element: <IsEmployee />,
+            children: [
+              {
+                index: true,
+                element: <Singlecompany />
+              },
+              {
+                path: "edit",
+                element: <Editcompany />
+              },
+              {
+                path: "analytics",
+                element: <Stats />
+              },
+              {
+                path: "jobs",
+                element: <AllCompanyJobs />
+              },
+              {
+                path: "applications",
+                element: <Allapplications />
+              },
+              {
+                path: "users/all",
+                element: <AllEmployees />
+              },
+            ],
           },
         ]
       },
-    ],
-  },
-
-  // {
-  //   path: "dev/colors", 
-  //   element: <ColorPaletteTester />
-  // }
-]);
-
+    ]
+  }]);
+      
+//  { path: "dev/colors",  element: <ColorPaletteTester />}
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </AuthProvider>
   </StrictMode>,
 )

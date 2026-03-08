@@ -392,8 +392,10 @@ for allow all teh credentiants now work.
 
 - one things that i missed when user is verify their mail i make sure that again resned a token with updated token ok.
 - i make sure that addJwtKey to reusable fucntion as i've use multiple place so it's better to have a reusable function.
+- add the two column of: `founded_year, location` on the company details.
 
 
+- i've make the company dashboard to show a company all employees, total jobs like this.
 # The Backend Project is finished on: 2026/02/26
 
 

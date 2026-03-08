@@ -27,5 +27,4 @@ router.get("/:id/applications", validateCorrectUid, isCompanyEmployee, getallApp
 
 
 
-
 export default router;
