@@ -1,3 +1,5 @@
+import validateFileUpload from "./User/validateFileUpload";
+
 const isValidWebsite=(val)=>{
   try {
     new URL(val)
@@ -7,7 +9,7 @@ const isValidWebsite=(val)=>{
   }
 }
 
-const validateCompany= ({name, description, website, location, founded_year})=>{
+const validateCompany= ({name, description, website, location, founded_year, company_logo})=>{
   if(!name){
     return "Please Enter the Name."
   }
@@ -19,6 +21,12 @@ const validateCompany= ({name, description, website, location, founded_year})=>{
   }
   if(!founded_year){
     return "Please Enter the Founded Year."
+  }
+  if(founded_year>2026){
+    return "Founded Year Can't be a future Date."
+  }
+  if(founded_year<1900){
+    return "Founded Year Can't be a Before 1900."
   }
   if(!location){
     return "Please Enter the Location of Company."
@@ -34,6 +42,10 @@ const validateCompany= ({name, description, website, location, founded_year})=>{
   }
   if(!isValidWebsite(website)){
     return "Please Enter Website in correct format."
+  }
+  const err=validateFileUpload(company_logo, 'image');
+  if(err){
+    return err;
   }
   return null;
 }

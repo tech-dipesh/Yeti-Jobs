@@ -5,9 +5,6 @@ const validateFileUpload= (value, content)=>{
   if(value.type!=content){
     return `Only ${content} is allowed`
   }
-  if(!value.name){
-    return "Please Add a file."
-  }
   if(value.size>1500){
     return "file Can't be more than 1.5mb."
   }

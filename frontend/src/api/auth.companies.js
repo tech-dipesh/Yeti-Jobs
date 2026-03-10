@@ -2,7 +2,7 @@ import api from "../lib/axios.js"
 
 
 export const getSingleCompany=(id)=>api.get(`companies/${id}`)
-export const postNewCompany=(content)=>api.post(`companies/new`, content)
+export const postNewCompany=(formData)=>api.post(`companies/new`, formData)
 export const deleteCompany=(id)=>api.delete(`companies/${id}`)
 export const updateCompany=({id, ...content})=>api.put(`companies/${id}`, content.value)
 

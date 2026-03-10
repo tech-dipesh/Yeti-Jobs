@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import { getAllAppliedJobs, getAllJobsApplicant } from '../../api/auth.applications'
 import { Link, useParams } from 'react-router'
+import Loading from '../../components/Loading'
 
 export default function Jobapplicant() {
   const [result, setResult]=useState([])
@@ -10,9 +11,11 @@ export default function Jobapplicant() {
   useEffect(()=>{
     execute(id)
   }, [result])
+   if(loading){
+    return <Loading/>
+   }
   return (
     <div>
-      {loading && <div>Loading...</div>}
       {error && <div className='text-red-500'>{error}</div>}
       <h1>Who've applied so far on the role:</h1>
       <div className='container grid grid-cols-2 gap-16 p-8'>

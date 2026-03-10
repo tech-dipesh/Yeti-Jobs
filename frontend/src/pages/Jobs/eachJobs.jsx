@@ -6,6 +6,8 @@ import useFetchData from '../../hooks/useFetchData';
 import ButtonComps from "../../components/common/Button"
 import isOwnerMiddleware from '../../../../backend/Middleware/isOwner';
 import Applyjob from '../Applications/Applyjob';
+import Loading from '../../components/Loading';
+import Errorloading from '../../components/common/Errorloading';
 export default function EachJob() {
   const navigate = useNavigate()
   const [value, setValue] = useState({});
@@ -34,10 +36,10 @@ export default function EachJob() {
     navigate(0)
   }
   if (loading || loadabookmark || loadremovebookmark) {
-    return <div>Loading...</div>
+    return <Loading/>
   }
   if (error || errabookmark || removeerrbookmark) {
-    return <div className='text-red-500'>{error || errabookmark}</div>
+    return <Errorloading data={{error: error || errabookmark}}/>
   }
   const { is_owner, is_save } = value || {};
 
@@ -72,10 +74,9 @@ export default function EachJob() {
       );
     // }
   }
-  if(loading){
-    return <div>Loading....</div>
-  }
-
+ if(loading){
+  return <Loading/>
+ }
     const valueButton = is_save  ? "Remove from Saved Jobs" : "Save Job";
     const clickFun = is_save ? RemoveSavedJobs : saveJob
     return (

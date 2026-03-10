@@ -5,6 +5,7 @@ import {allJobsList} from "../../api/auth.job"
 import UseFetchData from "../../hooks/useFetchData"
 import ButtonComps from '../../components/common/Button';
 import Jobcomps from '../../components/common/Jobcomps';
+import Loading from '../../components/Loading';
 const {VITE_SERVER_URL}=import.meta.env
 
 export default function Jobs() {
@@ -16,9 +17,9 @@ export default function Jobs() {
   })()
 }, [])
 
-  if(loading){
-    return <div>Loading...</div>
-  }
+ if(loading){
+  return <Loading/>
+ }
   // const buttons=['1', '2', '3', '4', '5', '7']
   return (
     <div className='grid w-auto'>

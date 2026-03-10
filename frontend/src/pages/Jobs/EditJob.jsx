@@ -4,8 +4,10 @@ import { individualJobs, isUserOwnedRoute, updateExistingJobs } from '../../api/
 import { useLocation, useNavigate, useParams } from 'react-router'
 import InputComps from '../../components/common/Input'
 import ButtonComps from '../../components/common/Button'
+import Selectcomps from "../../components/common/Selectcomps"
 import validateJobs from '../../auth/validateJobs'
 import { JobtypeOption } from '../../Data/OptionList'
+import Loading from '../../components/Loading'
 
 export default function EditJob() {
   const { id } = useParams()
@@ -32,10 +34,9 @@ export default function EditJob() {
   if (errValue) {
     return <div>{navigate("../../")}</div>
   }
-  if (loading || submitload) {
-    return <div>loading....</div>
-  }
-
+   if(loading || submitload){
+    return <Loading/>
+   }
   const submitForm = async (e) => {
     e.preventDefault()
     const err = validateJobs(value, sameValue);

@@ -92,6 +92,7 @@
 
 
   - also makre sure i added a 2 exrta info on teh companies of locationand the founded_year,
+- i've ad the loading feature and update to the every page.
 
   ## More:
   - for the line truncation of the any content or split a line we can use: `line-clamp-2`
@@ -100,4 +101,5 @@
   ## Libraries Used:
   1. axios: for data fetching:
   2. tailwindcss: for styling
-  3. fontaswesome: for adding a iconsW
+  3. fontaswesome: for adding a icons
+  4. react-spinners for the loading icon.

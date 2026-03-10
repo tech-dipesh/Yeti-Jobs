@@ -6,6 +6,7 @@ import Selectcomps from '../../components/common/Selectcomps'
 import { ApplystatusOption } from '../../Data/OptionList'
 import { Link } from 'react-router'
 import ButtonComps from '../../components/common/Button'
+import Loading from '../../components/Loading'
 
 export default function GetallApplied() {
   const {data, error, loading, execute}=useFetchData(getAllAppliedJobs)
@@ -13,13 +14,12 @@ export default function GetallApplied() {
     execute()
   }, [])
   const [application, setApplication]=useState("")
-  console.log('data', data?.message)
-  console.log('data', application)
   const filter=application ? data?.message.filter(d=>d.status==application.toLowerCase()):data?.message;
-  console.log('filter', filter)
+   if(loading){
+    return <Loading/>
+   }
   return (
     <div>
-      {loading && <div>Loading...</div>}
       {error && <div className='text-red-500'>{error}</div>}
       <h1>Get All Applied Jobs:</h1>
       <Selectcomps option={ApplystatusOption} value={application} change={setApplication}/>

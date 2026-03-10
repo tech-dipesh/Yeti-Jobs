@@ -35,8 +35,8 @@ export default function Home() {
   const allLinks=[
         { name: 'Browse Jobs', path: '/jobs' },
         { name: 'Search Jobs', path: '/jobs/search' },
-        { name: 'All Companies', path: '/companies' },
-        { name: 'All Your Applications', path: '/applications' }
+        { name: 'All Companies', path: '/companies/all' },
+        { name: 'All Your Applications', path: '/applications/me' }
       ];
   const first5Job=jobs?.message?.slice(0, 5);
   return (

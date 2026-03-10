@@ -8,6 +8,8 @@ import UseFetchData from '../../hooks/useFetchData'
 import useFetchData from '../../hooks/useFetchData'
 import Selectcomps from '../../components/common/Selectcomps'
 import { EducationOption } from '../../Data/OptionList'
+import Loading from '../../components/Loading'
+import Errorloading from '../../components/common/Errorloading'
 
 export default function Edituser() {
   const navigate=useNavigate()
@@ -15,7 +17,7 @@ export default function Edituser() {
   const [value, setValue] = useState({ fname: '', lname: '', education: '', email: '', experience: '' });
   const [error, setError]=useState("")
   const { execute: fetchUser, error: errorData, loading } = useFetchData(getIndividualUser);
-  const { execute: updateUser, loading: isUpdating } = useFetchData(patchIndivualUser);
+  const { execute: updateUser, error:patchError, loading: isUpdating } = useFetchData(patchIndivualUser);
   useEffect(() => {
     fetchUser(id)
     .then(data => {
@@ -33,14 +35,12 @@ export default function Edituser() {
       navigate(-1)
     }, 500);
   };
-  if(loading || isUpdating){
-    return <div>Loading...</div>
-  }
-  if(errorData){
-    return <div className='text-red-500'>{errorData}</div>
-  }
+   if(loading || isUpdating){
+    return <Loading/>
+   }
   return (
     <div className='flex flex-col items-center max-w-md mx-auto w-full'>
+      <Errorloading data={{error: error || errorData || patchError}}/>
       <h2 className='mb-8 relative'>Edit User: </h2>
       <form onSubmit={submitForm} className='w-full h-full space-y-4 bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md'>
         <div className='flex flex-col gap-1'>
@@ -64,7 +64,6 @@ export default function Edituser() {
       </div>
         <ButtonComps values='Submit' />
       </form>
-      {error && <div className='text-red-500 left-20 relative'>{error}</div>}
     </div>
   )
 }

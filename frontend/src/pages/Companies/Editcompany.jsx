@@ -40,10 +40,15 @@ export default function Editcompany() {
   }
   return (
      <div>
-          <h1>Edit Company.</h1>
-          <form onSubmit={editForm} className='w-full space-y-4 bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md'>
-              <h3>Name</h3>
+      <div className='mb-6 border-b border-neutral-200 pb-4'>
+      <h1 className='text-3xl font-bold text-gray-900 dark:text-white'>Edit Company</h1>
+      <p className='text-sm text-neutral-500 mt-1'>Update your company details below</p>
+      </div>
+          <form onSubmit={editForm} className='w-full space-y-4 bg-white dark:bg-gray-900 p-6  md:p-4 rounded-lg shadow-md'>
+            <div className='flex flex-col gap-1'>
+              <h3 className='text-sm font-medium text-gray-700 '>Name</h3>
               <InputComps placeholder='Name' name='name' type='text' value={value.name} click={setValue} error={setError}/>
+            </div>
               <h3>Description</h3>
               <InputComps placeholder='Description' name='description' type='text' value={value.description} click={setValue} error={setError}/>
               <h3>Website</h3>
@@ -52,10 +57,11 @@ export default function Editcompany() {
               <InputComps placeholder='Founded Year' name='founded_year' type='number' value={value.founded_year} click={setValue} error={setError}/>
                 <h3>Location:</h3>
             <InputComps placeholder='Company Location' name='location' type='text' value={value.location} click={setValue} error={setError}/>
-              <hr />
-              <ButtonComps values='Submit'/>
+            <div className='pt-4 border-t border-neutral-200'>
+            <ButtonComps values='Save Changes'/>
+          </div>
           </form>
           <Errorloading data={{error, loading}}/>
-        </div>
+      </div>
   )
 }

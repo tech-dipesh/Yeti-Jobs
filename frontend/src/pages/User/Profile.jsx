@@ -9,6 +9,7 @@ import useFetchData from '../../hooks/useFetchData';
 import Textcomps from '../../components/common/Textcomps';
 import defaultImage from "../../assets/default-image.webp"
 import Linkcomps from "../../components/common/Linkcomps"
+import Loading from '../../components/Loading';
 export default function Individualuser() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -45,11 +46,12 @@ export default function Individualuser() {
       setError(skilllerr)
     }
   }
-
+   if(loading){
+  return <Loading/>
+ }
   return (
     <div className='max-w-3xl mx-auto p-6 space-y-6'>
       {error || err && <div className='text-red-500'>{error || err}</div>}
-      {loading && <div>Loading...</div>}
       {data &&
         <div>
           <div className='flex justify-center mb-4'>

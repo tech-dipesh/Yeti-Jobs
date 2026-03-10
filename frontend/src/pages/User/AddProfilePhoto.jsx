@@ -14,7 +14,6 @@ export default function ProfilePhoto() {
   const navigate=useNavigate()
   const [file, setFile] = useState({ name: '', type: '', size: '' })
   const [content, setContent] = useState()
-  const [success, setSuccess] = useState()
   const [error, setError] = useState()
 
   const {data:oldData, execute:oldExec}=useFetchData(getIndividualUser)
@@ -57,7 +56,7 @@ return (
     <h2>Add Your Profile Photo</h2>
     <Errorloading data={{error}}/>
     <Errorloading data={{error: errState, loading}}/>
-    <Successcomps data={data?.message || success}/>
+    <Successcomps data={data?.message}/>
     <form encType="multipart/form-data" method="post" onChange={handleUpload} >
     <form encType="multipart/form-data" method="post" onChange={handleUpload}>
         <div className='border-2 border-dashed rounded-lg p-6 text-center hover:border-blue-500 cursor-pointer'>
@@ -74,7 +73,7 @@ return (
     <h2>your Old Profile Picture.</h2>
     {!profile_pic_url && <div>You've not upadted Profile Picture. as of now.</div>}
     {profile_pic_url && <>
-      <img src={profile_pic_url} alt="Resume" className='h-2/4 w-2/4 cover '/>
+      <img src={profile_pic_url} alt="Resume" className='h-2/4 w-2/4 cover'/>
       <Link to={`https://${profile_pic_url}`} className='text-blue-500 underline'>Link to Profile Pic</Link>
     </>}
   </div>

@@ -22,7 +22,7 @@ export default function Companycomps({uid, resume_url, name, description, websit
   }
 
   return (
-    <div key={uid} className='bg-neutral-600  rounded-xl shadow-lg transition-shadow flex justify-between items-start flex-col gap-3 border border-gray-200 p-8 min-h-auto w-82 '>
+    <div key={uid} className='bg-neutral-600  rounded-xl shadow-lg transition-shadow  hover:shadow-xl flex justify-between items-start flex-col gap-3 border border-gray-200 p-8 w-80 '>
         {title && <Textcomps content={`Title: ${title}`} size='text-2xl'/>}
         {name &&  <h2 className='line-clamp-2'>Name: {name}</h2>}
         <h2 className='line-clamp-2'>Description: {description}</h2>
@@ -31,7 +31,7 @@ export default function Companycomps({uid, resume_url, name, description, websit
         <h3>Created At: {new Date(created_at).toLocaleDateString()}</h3>
         {salary && <div>Salary: {salary}</div>}
         {status && (
-          <div className='mt-3 pt-3 border-t border-gray-300'>
+          <div className='mt-3 pt-3 border-t border-neutral-400'>
             <span className={`text-sm px-3 py-1 rounded-full ${
               status === 'accepted' ? 'bg-green-200' : 
               status === 'rejected' ? 'bg-red-200' : 'bg-yellow-200'

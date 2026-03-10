@@ -7,6 +7,7 @@ import Jobcomps from '../../components/common/Jobcomps'
 import { Link } from 'react-router'
 import ButtonComps from '../../components/common/Button'
 import Errorloading from '../../components/common/Errorloading'
+import Loading from '../../components/Loading'
 
 export default function AllBookmarks() {
   const [value, setValue]=useState()
@@ -16,9 +17,9 @@ export default function AllBookmarks() {
           await execute().then(t=>setValue(t?.message))
       })()
     },[])
-    if(loading){
-      return <div>loading...</div>
-    }
+     if(loading){
+      return <Loading/>
+     }
   return (
     <div>
       {!value?.length && (
