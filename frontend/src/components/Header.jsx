@@ -18,24 +18,25 @@ export default function Header() {
   } 
 
   const { data, reexecute } = useAuth();
-  const { userVerified, uid, company_id } = data ?? {};
-  console.log(profile)
+  const { userVerified, uid, company_id, role } = data ?? {};
 
   const allUserLinks = data ? (
     uid ? [
       {value: 'Visit Your Profile', link:`users/${uid}/profile`},
       {value: 'All Jobs', link:`/jobs`},
       {value: 'All Bookmarks', link:`/jobs/bookmarks`}
-    ] : company_id ? [
+    ] : role=='admin' ? [
+      {value: 'Dashboard', link:`companies/dashboard`}, 
+      {value: 'Assign User To Companies', link:`admin/users/assign`}, 
+    ] : role=='recruiter'?[
       {value: 'Dashboard', link:`companies/dashboard`},
       {value: 'Create New Job', link:`jobs/new`},
-    ] : [
+    ] :[
       {value: 'Login', link:`/auth/login`},
       {value: 'Signup', link:`/auth/signup`}
     ]
   ) : [];
 
-  console.log('all user links', allUserLinks)
   const userProfile=<>{
     uid && <div className='relative'>
               <FontAwesomeIcon icon={faUser}  onClick={() => setProfile(!profile)} size='2x' className='bg-slate-900 h-32 w-32 rounded-full cursor-pointer flex justify-center items-center'/>
@@ -63,7 +64,7 @@ export default function Header() {
     </>
 
   const allNavLinks= <div className=' hidden md:flex lg:flex gap-7 ml-auto items-center'>
-          {userVerified &&
+          {role=='guest' &&
             <>
               <Linkcomps to={'/jobs'} content='Jobs'/>
               <Linkcomps to={'/jobs/bookmarks'} content='Bookmarks'/>
@@ -72,10 +73,17 @@ export default function Header() {
           {userProfile}
         </div>
 
-    const allCompanyLinks= company_id && 
+    const allCompanyLinks= 
           <nav className='hidden md:flex lg:flex gap-7 ml-auto items-center'>
+            {role=='admin'? 
+              <>
+            <Linkcomps to='companies/dashboard' content={'Dashboard'}/>
+            <Linkcomps to='admin/users/assign' content={'Asssign User To Companies'}/>
+              </>:
+              <>
               <Linkcomps to='companies/dashboard' content={'Dashboard'}/>
               <Linkcomps to='jobs/new' content={'Create New Job'}/>
+              </>}
               {userProfile}
         </nav>
         
@@ -103,7 +111,7 @@ export default function Header() {
             </div>
            }
         </div>
-        {company_id ? allCompanyLinks:allNavLinks}
+        {role=='recruiter' || role=='admin'? allCompanyLinks:allNavLinks}
         </header>
       </div>
     )

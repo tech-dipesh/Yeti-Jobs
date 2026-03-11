@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Outlet } from 'react-router';
 import useFetchData from '../../hooks/useFetchData';
 import { isUserOwnedRoute } from '../../api/auth.job';
+import Loading from '../Loading';
 
 export default function IsownerUser() {
   const { id } = useParams();
@@ -16,7 +17,7 @@ export default function IsownerUser() {
     })();
   }, [id]); 
 
-  if (!isVerify) return <p>Checking whether you owned or not.</p>; 
+  if (!isVerify) return <Loading/>; 
   return <Outlet />;
 };
 
