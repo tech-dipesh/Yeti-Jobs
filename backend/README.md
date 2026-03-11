@@ -8,7 +8,7 @@
 - companies: `/, id/dashbaord, id/employees, id/jobs, id/applications, id: get company all, id: post new company, / delete company, /id put new company`
 - jobs: `saved_jobs/list, id/bookmark_job, id/remove_from_bookmar, /: all listing, /search, id/ particular listing jobs, id: new jobs, id/ deelete, /id update`
 - users: `/logout, /login, /signup, /: all user, /:id individual user details, /skills add the user skills, /id, delete a user, /put, update user, /patch, update particular list, /forget-password, /forget-password-verify, /email-verify, /email-verify/resend, /upload-resume, /upload-profile-picture`
-
+- admin: `/verify-admin, /users/search, /company/search`
 
 ## Project Timeline:
 - Basic Routing Setup
