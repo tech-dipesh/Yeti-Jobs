@@ -83,8 +83,12 @@ export const verifyForgetPassword=async (req,res)=>{
     return res.status(400).json({message: "Please Enter Your Code For Verification also a new passwoord and email"})
   }
   try {
-    const {rows: rowList, rowCount}=await connect.query("select e.is_verified, e.expired_at from users u inner join email_verified e on e.user_id=u.uid where u.email=$1 and e.verified_code=$2 order by e.expired_at desc limit 1;", [email, code])
-    ('rowslist', rowList, rowCount)
+    const {rows:isEmail}=await connect.query("select exists(select 1 from users where email=$1)", [email]);
+    if(!isEmail[0].exists){
+      return res.status(422).json({message: "Invalid Email Please First Logged in."})
+    }
+    const {rows: rowList, rowCount}=await connect.query("select e.is_verified, e.expired_at, u.uid from users u inner join email_verified e on e.user_id=u.uid where u.email=$1 and e.verified_code=$2 order by e.expired_at desc limit 1;", [email, code])
+    const {uid}=rowList[0]
     if(rowCount==0){
       return res.status(400).json({message: "Please Enter Correct Code."})
     }
@@ -100,7 +104,6 @@ export const verifyForgetPassword=async (req,res)=>{
     await connect.query("update email_verified set is_verified=true where uid=$1 and verified_code=$2 and verified_type='forget_password'", [uid, code])
     return res.status(201).json({message: `You: ${rows[0].fname}, ${rows[0].lname} Password have been updated`})
   } catch (error) {
-    (error)
     return res.status(500).json({message: error.message})
   }
   }

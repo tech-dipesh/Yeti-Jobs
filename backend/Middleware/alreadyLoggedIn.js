@@ -6,7 +6,6 @@ const alreadyLoggedIn = async(req, res, next) => {
   if(token){
     const decode=jwt.verify(token, process.env.JSON_SECRET_KEY);
     if(decode){
-      console.log('hello inside decode')
       return res.status(203).json({message: "user Is Already Logged In."})
     }
   }

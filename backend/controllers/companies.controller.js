@@ -36,7 +36,6 @@ export const postCompanyController=async (req, res) => {
   }
   try {
     const {rows:isExist}=await connect.query("select exists(select 1 from companies where name = lower($1)) from companies limit 1;", [name]);
-    console.log('is', isExist)
     if(isExist[0].exists){
       return res.status(401).json({message: "Company is Already Registed"});
     }
@@ -135,7 +134,7 @@ export const getAllJobsList=async (req, res)=>{
 export const getallApplicationsList=async (req, res)=>{
   const {id}=req.params;
   try {
-    const {rows}=await connect.query("select a.uid as application_id,  a.status, u.resume_url, j.title as job_title, j.total_job_views, u.uid as applicant_id from applications a join users u on a.user_id = u.uid join jobs j on a.job_id = j.uid where j.company_id=$1", [id])
+    const {rows}=await connect.query("select a.uid as application_id,  a.status, u.resume_url, j.title as job_title, j.total_job_views, u.uid as applicant_id, j.uid as job_id from applications a join users u on a.user_id = u.uid join jobs j on a.job_id = j.uid where j.company_id=$1", [id])
    return res.status(200).json({message: rows})
   } catch (error) {
     res.status(500).json({message: error.message})
@@ -145,7 +144,6 @@ export const getallApplicationsList=async (req, res)=>{
 
 export const companyDashBoard=async (req, res)=>{
   const {company_id}=req.user;
-  console.log('company', req.user)
   try {
     const {rows}=await connect.query( `select count(distinct j.uid) as total_jobs, count(distinct a.uid) as total_applications, count(distinct case when j.is_job_open ='active'then j.uid end) as open_jobs, count(distinct u.uid) as total_employees from jobs j left join applications a on j.uid = a.job_id left join users u on u.company_id = j.company_id where j.company_id = $1;`,
       [company_id])

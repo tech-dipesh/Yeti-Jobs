@@ -399,6 +399,12 @@ for allow all teh credentiants now work.
 - now for uploading a feature of teh companies logo i've to change a lot but i will change it.
 - 
 - i've make the company dashboard to show a company all employees, total jobs like this.
+- add the htree emore routes on the admin for assign any user to the companies.
+-with proper data validation 
+- i make sure to verify a code only logged in email shoulbe be the valid one.
+
+>:warning: today i only know that on the bruno i can make the baseurl with: `{{base-url}}`.
+- i've face one problem of zod validation as status comes on teh normal case but i want the lower case which i've to use teh preprocesser.
 
 
 - for assing a any users to the cmopanies i've setup by 2 backend routes frirst search all the companies and then assing that companies to the any user that exist.

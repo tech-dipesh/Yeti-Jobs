@@ -13,10 +13,11 @@ import isUnverifiedUser from "../Middleware/isAuthButUnverified .js";
 import isOwnerMiddleware from "../Middleware/isOwner.js"
 import validateCorrectUid from '../Middleware/validateCorrectUid.js'
 import upload from "../services/Multer.js"
+import { error } from "console";
 const limitUser=rateLimit({
   windowMs: 1000*60,
   limit: 2,
-  message: {error:"You only can send resend request once per minute"}
+  message: {message:"You only can send resend request once per minute"}
 })
 
 const router = express.Router();
