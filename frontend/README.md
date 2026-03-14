@@ -160,6 +160,8 @@ with i make sure that if the role is recutier it must have company_id then is no
 - with following three step process: `return createPortal(<div/>, document.getelementById("portal"))` 
   - ```html <div id='portal'/>```
 
+## More Features:
+- with on the profiel picture option i've also make sure to add the previosu page of the previous page with the: `URL.revokeObjectURL` REmove Old and add new object with: `URL.createObjectURL`
 
   ## Libraries Used:
   1. axios: for data fetching:

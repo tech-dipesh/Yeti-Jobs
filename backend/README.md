@@ -417,6 +417,10 @@ for allow all teh credentiants now work.
 - i've finally implement the load more features with the page limit and the offeset.
 - with experience_year is not have on the put i've added that.
 
+
+## Lot Features:
+- with the database constraint if teh user have company_id that only must be the recruiter not a admin and not also the guest.
+  
 # The Backend Project is finished on: 2026/02/26
 
 

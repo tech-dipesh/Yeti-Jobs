@@ -56,7 +56,6 @@ return (
     <h2>Upload Your Resume</h2>
     <Errorloading data={{error}}/>
     <Errorloading data={{error: errState, loading}}/>
-    <Successcomps data={data?.message}/>
     <form encType="multipart/form-data" method="post" onChange={handleUpload}>
     <div className='border-2 border-dashed rounded-lg p-6 text-center hover:border-blue-500 cursor-pointer'>
     <Inputcomps type='file' name='resume' className='hidden' />

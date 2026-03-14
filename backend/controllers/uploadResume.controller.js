@@ -63,9 +63,12 @@ const uploadProfilePicture=async (req, res)=>{
    if(errorOutputUrl){
       return res.json(401).json({message: errorOutputUrl.message})
    }
-  await connect.query("update  users set profile_pic_url=$1 where uid=$2 returning *", [getOutputUrl.publicUrl, uid])
+   console.log('uid', uid)
+  const {rows:check}=await connect.query("update  users set profile_pic_url=$1 where uid=$2 returning *", [getOutputUrl.publicUrl, uid])
+  console.log('che', check)
     return res.status(201).json({message: 'Profile Picture Uploadd Successfully'})
   } catch (error) {
+    console.log(error)
     return res.status(500).json({message: error.message})
   }
 }

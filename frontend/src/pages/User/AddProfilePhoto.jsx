@@ -1,80 +1,118 @@
-import React, { useState } from 'react'
-import Inputcomps from "../../components/common/Input"
+import { useRef, useState } from 'react'
 import UseFetchData from '../../hooks/useFetchData'
 import Buttoncomps from "../../components/common/Button"
 import { getIndividualUser, uploadProfilePicture } from "../../api/auth.user"
 import validateFileUpload from "../../auth/User/validateFileUpload"
 import Errorloading from '../../components/common/Errorloading'
 import Successcomps from '../../components/common/Success'
-import { Link, useLocation, useNavigate, useParams } from 'react-router'
+import { Link, useNavigate, useParams } from 'react-router'
 import useFetchData from '../../hooks/useFetchData'
 import { useEffect } from 'react'
+import Linkcomps from "../../components/common/Linkcomps"
+import Textcomps from "../../components/common/Textcomps"
+import Loading from '../../components/Loading'
+import defaultImage from "../../assets/default-image.webp"
+import getOriginalFileName from '../../services/getOriginalFileName'
+import { faFileArrowUp } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 export default function ProfilePhoto() {
-  const {id}=useParams();
-  const navigate=useNavigate()
-  const [file, setFile] = useState({ name: '', type: '', size: '' })
+  const { id } = useParams();
+  const navigate = useNavigate()
+  const [file, setFile] = useState(null)
   const [content, setContent] = useState()
   const [error, setError] = useState()
-
-  const {data:oldData, execute:oldExec}=useFetchData(getIndividualUser)
-  useEffect(()=>{
-    (async()=>{
-      await oldExec(id)
-    })()
+  const [preview, setPreview] = useState("")
+  const { data: oldData, execute: oldExec } = useFetchData(getIndividualUser)
+  const { data, error: errState, loading, execute } = UseFetchData(uploadProfilePicture)
+  const refInput = useRef()
+  useEffect(() => {
+    oldExec(id)
   }, [id])
+
   const handleUpload = (e) => {
     setError()
     if (e.target.files.length > 0) {
       const file = e.target?.files[0];
+      if (preview) URL.revokeObjectURL(preview)
+      setPreview(URL.createObjectURL(file));
       setContent(file)
       const name = file.name
-      const type=file.type.split("/")[0]
+      const type = file.type.split("/")[0]
       const splitFileName = file.name.split(".")[1];
       const totalSize = (file.size) / 1000;
       setFile({ name, type, size: totalSize })
     }
+
   }
-  const {data,  error:errState, loading, execute } = UseFetchData(uploadProfilePicture)
 
   const fileUpload = async () => {
-    const err=validateFileUpload(file, 'image')
-    if(err){
+    const err = validateFileUpload(file, 'image')
+    if (err) {
       setError(err)
       return
     }
     const formData = new FormData();
-  formData.append('profile', content);
-    const res=await execute(formData)
-    if(res){
+    formData.append('profile', content);
+    const res = await execute(formData)
+    if (res) {
       navigate(0)
     }
-}
+  }
 
-const {profile_pic_url}=oldData || {}
-return (
-  <div>
-    <h2>Add Your Profile Photo</h2>
-    <Errorloading data={{error}}/>
-    <Errorloading data={{error: errState, loading}}/>
-    <Successcomps data={data?.message}/>
-    <form encType="multipart/form-data" method="post" onChange={handleUpload}>
-        <div className='border-2 border-dashed rounded-lg p-6 text-center hover:border-blue-500 cursor-pointer'>
-      <Inputcomps type='file' name='resume' className='hidden'/>
-        <p>Click Here or drag A Profile Picture(Only image type allowed)</p>
+  const { profile_pic_url } = oldData || {}
+  if (loading) {
+    return <Loading />
+  }
+  const originalName = getOriginalFileName(profile_pic_url)
+  return (
+    <div className='flex flex-col max-w-2xl mx-auto'>
+      <Link to='../'><Buttoncomps values='Go Back To Profile Page' /></Link>
+      <Errorloading data={{ error: error || errState }} />
+      <Successcomps data={data?.message} />
+      <h3 className='text-gray-100 font-medium  hover:text-white transition-colors flex justify-center my-8'>Upload Your Profile Picture</h3>
+      <div className='flex items-center gap-3 my-4'>
+        <div className='flex-1 border-t border-dashed border-gray-600' />
+      </div>
+      <div className=' p-4 flex items-center gap-5'>
+        <Textcomps content={'Current Profile Picture'} />
+      </div>
+      {profile_pic_url ?
+        <div className='flex flex-col items-center gap-4 my-4'>
+          <img src={profile_pic_url} alt='Profile Pic' className='h-48 w-48 rounded-full object-cover' />
+          <h3 className='text-sm text-neutral-400'>File Name: {originalName}</h3>
+          <p className='text-sm'>Profile Pic Url: <Linkcomps to={profile_pic_url} content={'Visit'} /></p>
         </div>
-    </form>
-  <div onClick={fileUpload}>
-    <Buttoncomps values='submit' />
-  </div>
+        :
+        <div className='flex justify-center my-5'>
+          <img src={defaultImage} alt="Default Image" className='w-48 h-48 rounded-full object-cover' />
+          {/* <h3 className='text-sm'>No Any Image Uploaded yet</h3> */}
+        </div>
+      }
 
-  <div>
-    <h2>your Old Profile Picture.</h2>
-    {!profile_pic_url && <div>You've not upadted Profile Picture. as of now.</div>}
-    {profile_pic_url && <>
-      <img src={profile_pic_url} alt="Resume" className='h-2/4 w-2/4 cover'/>
-      <Link to={`https://${profile_pic_url}`} className='text-blue-500 underline'>Link to Profile Pic</Link>
-    </>}
-  </div>
-  </div>
-)
+      <form encType="multipart/form-data" method="post" className='flex justify-center'>
+        <label htmlFor="profileInput" className='border-2 border-dashed rounded-lg p-6 w-2/4 mx-auto justify-items-center text-center cursor-pointer'>
+          <input ref={refInput} id='profileInput' type='file' name='profile' className='hidden' onChange={handleUpload} />
+          <FontAwesomeIcon icon={faFileArrowUp} />
+          <p className='text-sm text-gray-400'>Supported formats: <span className='text-gray-200 font-medium'>JPG, PNG</span></p>
+          <p className='text-xs text-gray-500 mt-1'>Maximum size: 2 MB</p>
+        </label>
+      </form>
+      {preview &&
+      <div>
+        <h3 className='text-xs'>Preview Image:</h3>
+       <img src={preview} alt={defaultImage} className='h-32 w-32 rounded-full object-cover grid justify-items-center'/>
+      </div>
+       }
+      <div className='flex gap-4 justify-end w-2/4 mx-auto my-2'>
+        <div
+          onClick={() => {
+            setPreview(null)
+            setFile({})
+            if(refInput.current) refInput.current.value=""
+          }
+          }><Buttoncomps values={'Clear'} /></div>
+        <button disabled={!file?.name || loading} onClick={fileUpload} className={`p-4  rounded-xl font-semibold transition-colors bg-slate-700 w-auto border-none ${file}? 'cursor-pointer': 'cursor-not-allowed'`}>Submit</button>
+      </div>
+    </div>
+  )
 }
