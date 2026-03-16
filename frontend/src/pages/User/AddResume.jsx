@@ -14,6 +14,7 @@ import Loading from '../../components/Loading'
 import getOriginalFileName from '../../services/getOriginalFileName'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Linkcomps from '../../components/common/Linkcomps'
+import Goback from '../../components/common/Goback'
 
 export default function Addresume() {
   const { id } = useParams()
@@ -65,7 +66,7 @@ export default function Addresume() {
   const originalName = getOriginalFileName(resume_url)
   return (
     <div className='flex flex-col max-w-2xl mx-auto'>
-      <Link to='../profile'><Buttoncomps values='Go Back To Profile Page' /></Link>
+      <Goback to='../profile'/>
       <Errorloading data={{ error: error || geterrr || errState }} />
       <h3 className='text-gray-100 font-medium  hover:text-white transition-colors flex justify-center my-8'>Upload Your Resume</h3>
       <div className='flex items-center gap-3 my-4'>

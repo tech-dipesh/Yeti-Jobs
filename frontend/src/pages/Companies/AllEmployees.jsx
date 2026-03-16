@@ -6,6 +6,7 @@ import Employecomps from '../../components/common/employees/Employecomps';
 import Errorloading from '../../components/common/Errorloading';
 import Emptycomps from '../../components/Emptycomps';
 import Buttoncomps from "../../components/common/Button"
+import Goback from '../../components/common/Goback';
 export default function AllEmployees() {
   const {data, error, loading, execute}=useFetchData(getCompanyEmployee);
   const {id}=useParams()
@@ -15,7 +16,7 @@ export default function AllEmployees() {
   return (
     <div className='my-8'>
       <Errorloading data={{error, loading}}/>
-      <Link to='../../dashboard'><Buttoncomps values='Go Back'/></Link>
+      <Goback to={'../../dashboard'}/>
       <Emptycomps data={data?.message} type={'Employees'}/>
       <div className='grid grid-cols-1 justify-items-center lg:grid-cols-4 gap-6'>
       {data?.message && data?.message.map(({uid, full_name, email, experience, education, role, resume_url, profile_pic_url})=>(

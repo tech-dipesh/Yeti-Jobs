@@ -13,6 +13,7 @@ import Buttoncomps from '../../components/common/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import Textcomps from '../../components/common/Textcomps'
+import Goback from '../../components/common/Goback'
 export default function EditJob() {
   const [value, setValue] = useState({
     title: "",
@@ -57,7 +58,7 @@ export default function EditJob() {
     <div className='min-h-screen bg-slate-900 py-8 px-5'>
       <div className='max-w-2xl mx-auto'>
         <div className='mb-7 flex items-center gap-4'>
-          <Link to='/companies/dashboard'><FontAwesomeIcon icon={faArrowLeft} /><Buttoncomps values='Go Back to Dashboard' /></Link>
+          <Goback to='/companies/dashboard'/>
           <Textcomps content='Post a New Job' style={'text-2xl mx-auto text-center w-full'}/>
         </div>
           <p className=' text-slate-400 text-sm my-2'>

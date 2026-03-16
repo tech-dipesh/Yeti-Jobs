@@ -15,6 +15,8 @@ import defaultImage from "../../assets/default-image.webp"
 import getOriginalFileName from '../../services/getOriginalFileName'
 import { faFileArrowUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Errorpopup from '../../components/Error/Errorpopup'
+import Goback from '../../components/common/Goback'
 export default function ProfilePhoto() {
   const { id } = useParams();
   const navigate = useNavigate()
@@ -22,7 +24,7 @@ export default function ProfilePhoto() {
   const [content, setContent] = useState()
   const [error, setError] = useState()
   const [preview, setPreview] = useState("")
-  const { data: oldData, execute: oldExec } = useFetchData(getIndividualUser)
+  const { data: oldData, error:oldErr, execute: oldExec } = useFetchData(getIndividualUser)
   const { data, error: errState, loading, execute } = UseFetchData(uploadProfilePicture)
   const refInput = useRef()
   useEffect(() => {
@@ -66,9 +68,10 @@ export default function ProfilePhoto() {
   const originalName = getOriginalFileName(profile_pic_url)
   return (
     <div className='flex flex-col max-w-2xl mx-auto'>
-      <Link to='../profile'><Buttoncomps values='Go Back To Profile Page' /></Link>
-      <Errorloading data={{ error: error || errState }} />
-      <Successcomps data={data?.message} />
+      <Errorpopup error={oldErr || errState}/>
+      <Goback to='../profile'/>
+      <Errorloading data={{ error }} />
+      <Successcomps data={data} />
       <h3 className='text-gray-100 font-medium  hover:text-white transition-colors flex justify-center my-8'>Upload Your Profile Picture</h3>
       <div className='flex items-center gap-3 my-4'>
         <div className='flex-1 border-t border-dashed border-gray-600' />
@@ -110,7 +113,9 @@ export default function ProfilePhoto() {
             setFile({})
             if(refInput.current) refInput.current.value=""
           }
-          }><Buttoncomps values={'Clear'} /></div>
+          }>
+            <Buttoncomps values={'Clear'} />
+        </div>
         <button disabled={!file?.name || loading} onClick={fileUpload} className={`p-4  rounded-xl font-semibold transition-colors bg-slate-700 w-auto border-none ${file}? 'cursor-pointer': 'cursor-not-allowed'`}>Submit</button>
       </div>
     </div>

@@ -92,7 +92,7 @@ export default function Applyjob({ data: children, execute: reexecute }) {
                 <ButtonComps values='Delete' color='bg-red-600' />
               </span>
             </div> :
-            <span onClick={is_applied ? removeJob : Applyjob} className='absolute left-1/2 -translate-x-1/2 my-10 text-nowrap text-2xl'>
+            <span onClick={is_applied ? removeJob : Applyjob} className='absolute left-1/2 -translate-x-1/2 lg:my-10 text-nowrap text-2xl my-6'>
               <ButtonComps values={is_applied ? 'Withdraw Apply' : "Apply Job"} color={is_applied ? 'bg-yellow-500' : 'bg-green-500'} />
             </span>
           }
@@ -100,7 +100,11 @@ export default function Applyjob({ data: children, execute: reexecute }) {
         <div className='flex grid-cols-2 space-x-8'>
           {is_owner && <p className='text-sm text-slate-400 ml-auto'>Total Job View: {total_job_views}</p>}
           {(!is_owner && role == 'guest') &&
-            <span onClick={is_saved ? RemoveSavedJobs : saveJob} className='flex justify-end'><ButtonComps values={valueButton} /></span>}
+            // <span onClick={is_saved ? RemoveSavedJobs : saveJob} className='flex justify-end'><ButtonComps values={valueButton} /></span>}
+            <span className='flex justify-end'>
+              <ButtonComps values={valueButton} onClick={is_saved ? RemoveSavedJobs : saveJob} />
+            </span>
+          }
         </div>
       </div>
     </Fragment>

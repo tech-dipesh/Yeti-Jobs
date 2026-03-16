@@ -10,6 +10,10 @@ import { ApplystatusOption } from '../../Data/OptionList';
 import Linkcomps from '../../components/common/Linkcomps';
 import SingleApplicationsCompanycomps from '../../components/common/company/SingleApplicationsCompanycomps';
 import Buttoncomps from '../../components/common/Button';
+import Emptycomps from '../../components/Emptycomps';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import Goback from '../../components/common/Goback';
 export default function Allapplications() {
   const {id}=useParams()
   const {data, error, loading, execute}=useFetchData(getCompanyApplications);
@@ -18,7 +22,7 @@ export default function Allapplications() {
   console.log('user', message)
   return (
     <div className='bg-neutral-700 min-h-screen p-8'>
-      <Link to='../../dashboard'><Buttoncomps values='Go Back'/></Link>
+      <Goback to={`../`}/>
       <Errorloading data={{error, loading}}/>
       <Emptycomps data={data?.message} type={'Applications'}/>
     <div className='flex gap-6 mb-6 text-white'>

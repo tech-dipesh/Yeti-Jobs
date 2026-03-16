@@ -35,6 +35,7 @@ export default function Login() {
   if (result) {
     await reexecute();
     navigate(state?.from || "/");  
+    Successcomps(data)
   } 
   setError(apierror)
   };

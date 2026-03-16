@@ -8,14 +8,13 @@ import useFetchData from '../../../hooks/useFetchData'
 import { deleteCompany } from '../../../api/auth.companies'
 import Buttoncomps from '../Button'
 import Popup from '../../Popup'
-import { faCalendarPlus, faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import { faCalendarPlus, faLocationDot, faWebAwesome } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSistrix } from '@fortawesome/free-brands-svg-icons'
+import { CgWebsite } from "react-icons/cg";
+
 export default function Companycomps({ uid, name, description, website, created_at, founded_year, location }) {
   const { data } = useAuth();
-  const [open, setOpen] = useState(false)
-  const [value, setValue] = useState("")
-  const [error, setError] = useState("")
-  const navigate = useNavigate()
   const { role } = data || {}
 
 
@@ -28,15 +27,15 @@ export default function Companycomps({ uid, name, description, website, created_
       <div className='flex flex-wrap gap04 text-xs text-gray-400 gap-6'>
         <span> <FontAwesomeIcon icon={faCalendarPlus} />{new Date(created_at).toLocaleDateString()}</span>
         <div>Est: {founded_year}</div>
-        <div>Location: {location}</div>
+        <div><FontAwesomeIcon icon={faLocationDot}/> {location}</div>
       </div>
       <hr className='border-gray-600' />
       <div className='grid justify-items-center lg:flex lg:items-center lg:justify-between'>
         <Linkcomps
           content={
-            <>
-              Visit Website: <FontAwesomeIcon icon={faLocationDot} />
-            </>
+            <span className='flex gap-1'>
+              Visit Website:  <CgWebsite className='mt-1'/>
+            </span>
           }
           to={`https://${website}`}
         />

@@ -46,8 +46,8 @@ export default function Assignusertocompanies() {
       <h1 className='text-center text-2xl font-bold text-slate-100 mb-8 tracking-wide'>Assign User To Company</h1>
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
           <div className='bg-slate-800 border border-slate-600 rounded-2xl p-6 flex flex-col  gap-4'>
-            <div className='grid grid-cols-2 lg:grid-cols-3 gap-4 lg:flex lg:items-center lg:justify-between'>
-              <h2 className='text-slate-100 max-h-8  align-middle flex font-semibold text-lg border border-slate-500 rounded-lg px-4 py-1.5 w-fit'>Users</h2>
+              <div className='flex items-center justify-between flex-wrap gap-2'>
+              <h2 className='text-slate-100  font-semibold text-lg border border-slate-500 rounded-lg px-4 py-1.5 w-fit'>Users</h2>
               <span className='p-2' onClick={() => { setUsersSearch(''); userdata.message = []; setValue(prev => ({ ...prev, uid: null })) }}><ButtonComps values='Clear' /></span>
               {/* <button onClick={() => className='text-sm bg-slate-700 hover:bg-slate-600 text-slate-300 border border-slate-500 px-3 py-1 rounded-lg transition-colors' */}
               {/* > Clear</button> */}
@@ -90,7 +90,7 @@ export default function Assignusertocompanies() {
             </div>
           </div>
           <div className='bg-slate-800 border border-slate-600 rounded-2xl p-6 flex flex-col gap-4'>
-            <div className='flex items-center justify-between'>
+              <div className='flex items-center justify-between flex-wrap gap-2'>
               <h2 className='text-slate-100 font-semibold text-lg border border-slate-500 rounded-lg px-4 py-1.5 w-fit'>Companies</h2>
               <span className='p-2'
                 onClick={() => { setCompanySearch(''); compdata.message = []; setValue((prev) => ({ ...prev, company_id: null })) }}

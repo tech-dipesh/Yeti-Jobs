@@ -14,6 +14,7 @@ import { ApplyLowerCasestatusOption, sortByFilter } from '../../Data/OptionList'
 import Selectcomps from "../../components/common/Selectcomps"
 import Buttoncomps from '../../components/common/Button'
 import Linkcomps from '../../components/common/Linkcomps'
+import Goback from '../../components/common/Goback'
 export default function Searchjobs() {
   const [search, setSearch] = useState("")
   const [sortby, setSortBy] = useState("created_at")
@@ -37,11 +38,12 @@ export default function Searchjobs() {
     <div className='bg-neutral-800 min-h-screen max-w-5/6 py-4 mx-auto p-6'>
       <div className='flex flex-col min-h-screen'>
         <div className='mb-6'>
-          <Linkcomps content={'Go Back To all Jobs'} to={`../`} />
+          <Goback to='/jobs'/>
         </div>
         <div className='flex flex-col items-center'>
           <span className='grid justify-items-center'>
-            <InputComps placeholder='Your Search Term' type='text' click={setSearch} value={search} className='text-center text-gray-600 mt-2' />
+            {/* <InputComps placeholder='' type='text' click={setSearch} value={search} className='text-center text-gray-600 mt-2' /> */}
+            <input type="text" autoFocus className={`bg-transparent h-11 w-full rounded-lg text-white placeholder-gray-400 ring px-2  ring-white focus:ring-sky-500 focus:outline-none`} placeholder="Your Search Term" value={search} onChange={(e)=>setSearch(e.target.value)}/>
           </span>
           <div className='grid justify-items-center gap-3 my-3'>
             <h2>Sort By:</h2>

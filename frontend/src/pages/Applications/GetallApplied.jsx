@@ -39,7 +39,7 @@ export default function GetallApplied() {
        )}
        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4'>
       {data && filter.map(({title, description, uid, experience_years, job_type, status, applied_at})=>(
-       <Jobcomps title={title} description={description} uid={uid} experience_years={experience_years} job_type={job_type} status={status} applied_at={applied_at}/>
+       <Jobcomps key={uid} title={title} description={description} uid={uid} experience_years={experience_years} job_type={job_type} status={status} applied_at={applied_at}/>
       ))}
       </div>
     </div>

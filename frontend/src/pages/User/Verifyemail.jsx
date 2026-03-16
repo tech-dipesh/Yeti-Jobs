@@ -12,6 +12,7 @@ import Successcomps from '../../components/common/Success';
 import { useEffect } from 'react';
 import Loading from '../../components/Loading';
 import Buttoncomps from '../../components/common/Button';
+import Goback from '../../components/common/Goback';
 
 export default function VerifyEmail() {
   const [value, setValue] = useState();
@@ -59,7 +60,7 @@ console.log('is user', isUser, autherr)
   }
   return (
     <div className='flex flex-col items-center justify-center min-h-screen'>
-    <Link to='../login'><Buttoncomps values='Go Back To Login' /></Link>
+      <Goback to='../login' content='Go Back To Login'/>
       <div className='bg-neutral-800 rounded-2xl p-10 w-full max-w-lg flex flex-col items-center gap-8'>
       <Successcomps data={resenddata || data} />
       <div className='text-center'>

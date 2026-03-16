@@ -8,6 +8,7 @@ import ButtonComps from '../../components/common/Button';
 import Errorloading from '../../components/common/Errorloading';
 import Buttoncomps from '../../components/common/Button';
 import Linkcomps from "../../components/common/Linkcomps"
+import Goback from '../../components/common/Goback';
 export default function Editcompany() {
   const { id } = useParams();
   const navigate = useNavigate()
@@ -42,7 +43,7 @@ export default function Editcompany() {
   return (
     <div className='bg-slate-700 min-h-screen'>
       <div className='max-w-6xl mx-auto px-4 py-8 space-y-8'>
-        <Linkcomps to={'../'} content={<Buttoncomps values={"Go Back To Company"} color={'bg-neutral-700'}/>}/>
+        <Goback to={"../"}/>
         <div className='mb-6 border-b border-neutral-200 pb-4'>
           <h1 className='text-3xl font-bold text-gray-900 dark:text-white'>Edit Company</h1>
           <p className='text-sm text-neutral-500 mt-1'>Update your company details below</p>

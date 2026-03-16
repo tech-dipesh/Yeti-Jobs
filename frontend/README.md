@@ -178,6 +178,26 @@ with i make sure that if the role is recutier it must have company_id then is no
 - minor change ont eh seach jobs which have grid 3 property.
 - theres' the naming which i'm giving: `exists but on code it's is_verified` which makes a conflict lukily i fixed that.
 - which edit user is now fix with the good ui level
+- add the empy comps of all the applicant which also add on the company jobs all .
+- all employees make hte center of the paeg.
+- fix when user is not logged in show appropirate header and for not verify user and verify user.
+- add one more routes for separate a admin page.
+- and also i valid on teh isemployee only recireter can visite the page.
+- new company entire is changed to make a repsonseive also teh upload resum make the better with the center a content.
+- the edit company, is also make the flex with also the header is more improved version.
+- with on the all companies that i've the confirm button which i will be wrap to the popup system.
+- improve a lot on the single company and the company comps which are mix and also add the popup box on there for delete a action.
+- with add the popup bar and children move any content that are replacable.
+- now i'm also adding whether that user is verified or not on the header bar.
+- add the verified or nto verired on the user header bar.
+- with also fetch a company_name for any job .
+- the company comps i've fix all the sytlihg on teh company comps.
+- make the better version of all jobs which now looks clean and readable format.
+- set the toast message for th eevery error.re
+- which is the success and error message will be both.
+- enw companies have hte repsonive design.
+- which now skills are not going outside of teh box on teh all user page which is issue on the registered users page.
+- add the go back new component page.
 
 
 ## Portal:

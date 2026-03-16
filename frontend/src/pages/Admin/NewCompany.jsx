@@ -12,16 +12,20 @@ import { faFileArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export default function NewCompany() {
   const refInput = useRef(null)
-  const [value, setValue] = useState({ name: 'Usa', description: 'unisted states of america', website: 'https://usa.com', founded_year: '2000', location: 'usa', company_logo: {} })
+  const [value, setValue] = useState({ name: '', description: '', website: '', founded_year: '', location: '', company_logo: {} })
   const [Error, setError] = useState("")
   const { data, error, loading, execute } = useFetchData(postNewCompany);
   const navigate = useNavigate()
   const submitForm = async (e) => {
     e.preventDefault()
     const fileInput = e.target.elements.company_logo;
-    const file = fileInput.files[0];
-
+    const file = fileInput?.file[0];
+    if(file){
+      setError("Please Enter a Company.")
+      return;
+    }
     const err = validateCompany(value)
+    console.log('err is', err)
     if (err) {
       setError(err)
       return;
@@ -47,7 +51,6 @@ export default function NewCompany() {
   const uploadCompanyLogo = (e) => {
     const file = e.target.files[0];
     const allContent = { name: file.name, type: file.type.split("/")[0], size: (file.size) / 1000 }
-    console.log('allcontent', allContent)
     setValue((prev) => ({ ...prev, company_logo: allContent }))
   }
 
@@ -66,7 +69,6 @@ export default function NewCompany() {
               <p className='text-xs text-gray-500 mt-1'>Maximum size: 2 MB</p>
             </label>
           </div>
-          
           <label>Description</label>
           <Inputcomps placeholder='Description' name='description' type='text' value={value.description} click={setValue} error={setError} />
           <label>Website</label>
@@ -81,7 +83,7 @@ export default function NewCompany() {
           </span>
         </form>
         <Errorloading data={{ error, loading }} />
-        <Errorloading data={{ error: Error }} />
+        <Errorloading data={{ error: Error || error}} />
       </div>
     </div>
   )
