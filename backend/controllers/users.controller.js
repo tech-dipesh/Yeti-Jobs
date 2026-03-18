@@ -36,6 +36,7 @@ export const getloginUserController= async (req, res) => {
     const {uid, role, company_id=null}=rows[0];
     if(!role)role='guest'
     const userVerified=await isUserVerifiedEmail(uid)
+    console.log('is user verified', userVerified)
    const content={uid, role, company_id, userVerified};
    VerifyJwt(res, content)
     return res.status(200).json(rows[0]);
@@ -177,6 +178,20 @@ export const patchUserController= async(req, res)=>{
   } catch (error) {
     console.log(error)
     return res.status(502).json({message: error.message})
+  }
+}
+
+
+export const litOfAllFollowingCompanies=async(req, res)=>{
+  const {uid}=req?.user;
+  try {
+    const {rows, rowCount}=await connect.query("select c.* from companies c left join user_companies_follows u on u.company_id=c.uid where u.user_id=$1", [uid])
+    if(rowCount==0){
+      return res.status(204).json({message: "YOu've Not Following Any Company As Of Now"})
+    }
+    return res.status(200).json({message: rows})
+  } catch (error) {
+    return res.status(500).json({message: error.message})
   }
 }
 

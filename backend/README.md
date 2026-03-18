@@ -8,7 +8,7 @@
 - companies: `/, id/dashbaord, id/employees, id/jobs, id/applications, id: get company all, id: post new company, / delete company, /id put new company`
 - jobs: `saved_jobs/list, id/bookmark_job, id/remove_from_bookmar, /: all listing, /search, id/ particular listing jobs, id: new jobs, id/ deelete, /id update`
 - users: `/logout, /login, /signup, /: all user, /:id individual user details, /skills add the user skills, /id, delete a user, /put, update user, /patch, update particular list, /forget-password, /forget-password-verify, /email-verify, /email-verify/resend, /upload-resume, /upload-profile-picture`
-- admin: `/verify-admin, /users/search, /company/search`
+- admin: `/verify-admin, /users/search, /company/search, /admin/dashboard`
 
 ## Project Timeline:
 - Basic Routing Setup
@@ -420,9 +420,27 @@ for allow all teh credentiants now work.
 
 ## Lot Features:
 - with the database constraint if teh user have company_id that only must be the recruiter not a admin and not also the guest.
-  
+- with add the new routes of: `admin/dashboard` of the entire admin setup.
+
+- change the my app password so it can set a new value.
+- set the type to appropirate to the both email veriification and the reset password on the send email.
+- on the application table i've add a new table column of: `cover_letter, notice_period, expected_salary, why_hire`
+- with i set to the database validation which with expected_salary must be above 5000 and why hire must be the at least 10 letter word on the database validation.
+-addd hte new shortlisted value for the appliocation.
+- which one things one i set tot he expected salary must not be the not null and the notice_period can be not null 
+- i set the optional to the three things on here.
+- with only once user can send apply to the any role.
+- 
+
+
 # The Backend Project is finished on: 2026/02/26
 
 
 
 
+
+## Followeres System:
+- with i've creaet a followers system where user can follow a any company.
+- with: `uid, user_id, compny_id, created_at` table where it's having a unique of user_id and company_id which only once user can follow a company.
+- with foreign key referecens.
+- where both follow/unfollow company backend logic is written now i've to write logic for my client side code.

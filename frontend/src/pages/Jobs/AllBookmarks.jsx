@@ -23,8 +23,8 @@ export default function AllBookmarks() {
         <Emptycomps data={data?.message} type='Bookmarks' />
         
         <div className='grid  lg:grid-cols-4 gap-10 '>
-          {data && data?.message?.map(({ uid, title, description, job_type, is_job_open, salary }) => (
-            <Jobcomps uid={uid} title={title} description={description} job_type={job_type} is_job_open={is_job_open} salary={salary} />
+          {data && data?.message?.map(({ uid, title, description, job_type, is_job_open, salary, expired_at }) => (
+            <Jobcomps uid={uid} title={title} description={description} job_type={job_type} is_job_open={is_job_open} salary={salary} expired_at={expired_at}/>
           ))}
         </div>
         <Errorloading data={{ error, loading }} />

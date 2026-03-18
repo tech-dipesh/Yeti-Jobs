@@ -63,3 +63,14 @@ export const searchUsers=async(req, res)=>{
     return res.status(500).json({message: error.message})    
   }
 }
+
+
+
+export const adminDashBoard=async (req, res)=>{
+  try {
+  const {rows}=await connect.query("select (select count(*) from users ) as users_count, (select count(*) from jobs ) as jobs_count, ( select count(*) from companies ) as companies_count, (select count(*) from applications) as applications_count, (select count(*) from saved_jobs) as saved_jobs_count, (select count(*) from email_verified) as email_verified_count;")
+    return res.status(201).json({message: rows[0]})
+  } catch (error) {
+    return res.status(201).json({message: error.message})
+  }
+}

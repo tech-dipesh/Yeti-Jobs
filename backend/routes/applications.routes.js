@@ -12,11 +12,11 @@ const router = express.Router();
 import isOwnerMiddleware from "../Middleware/isOwner.js"
 
   
-  router.get("/applylist", isLoggedInMiddleware, allAppliedJobs)
+router.get("/applylist", isLoggedInMiddleware, allAppliedJobs)
   
-  router.get("/:id/applist", validateCorrectUid, isOwnerMiddleware, isCompanyEmployee, particularJobsListController)
-  router.post("/:id/apply", validateCorrectUid, isLoggedInMiddleware, isJobSeeker, applyJobApplicationController)
-  router.post("/:id/status", validateCorrectUid, isLoggedInMiddleware, changeApplicationStatus)
+router.get("/:id/applist", validateCorrectUid, isOwnerMiddleware, isCompanyEmployee, particularJobsListController)
+router.post("/:id/apply", validateCorrectUid, isLoggedInMiddleware, isJobSeeker, applyJobApplicationController)
+router.post("/:id/status", validateCorrectUid, isLoggedInMiddleware, isCompanyEmployee, changeApplicationStatus)
   
 router.delete("/:id/withdraw", validateCorrectUid, isLoggedInMiddleware, withdrawJobApplicationController, )
 

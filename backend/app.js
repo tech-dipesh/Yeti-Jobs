@@ -1,5 +1,4 @@
 import express from "express";
-import {Client} from "pg"
 import helmet from "helmet";
 import jobListingRouter from "./routes/jobs.routes.js"
 import usersListingRouter from "./routes/users.routes.js"
@@ -12,18 +11,13 @@ import "./services/cron-task.js"
 
 import cookieParser from "cookie-parser";
 import authUserMiddleware from "./Middleware/isLoggedIn.js";
-import dns from "dns/promises"
 import rateLimit from "express-rate-limit";
 import cors from "cors";
 import "./services/email-verification.js"
-import generateRandomNumber from "./utils/generateRandom6DigitNumber.js";
-import { userLoggedOutcontroller } from "./controllers/users.controller.js";
-import validateCorrectUid from "./Middleware/validateCorrectUid.js";
-import {verifyAdminController} from "./controllers/admin.controllers.js";
 import isAdminMIddleware from "./Middleware/isAdmin.js";
 import adminRoutes from "./routes/admin.routes.js";
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 
 
@@ -56,12 +50,10 @@ app.use((req, res)=>{
 })
 
 app.use((err, req, res, next)=>{
-  (err)
   if(err.message=='Unexpected field'){
     return res.status(401).json({message: "Please Enter Correct file name for upload"})
   }
   if(err){
-    (err)
     return res.status(500).json({message:err.message})
   }
 });

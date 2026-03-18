@@ -1,13 +1,12 @@
 import express from "express"
 import connect from "../db.js"
-import applicationSchema from "../Models/applications.models.js";
+import applicationSchema, { validateAllInputApplicationStatus } from "../Models/applications.models.js";
 import validateFunUid from "../utils/ValidateFunUid.js";
-
 
 export const allAppliedJobs=async (req, res)=>{
   const {uid}=req.user;
   try {
-    const {rows}=await connect.query("select j.title, j.description, j.job_type, a.applied_at, j.experience_years, a.status, a.uid from jobs j inner join applications a on a.job_id=j.uid where user_id=$1", [uid]);
+    const {rows}=await connect.query("select j.title, j.description, j.job_type, a.applied_at, a.cover_letter, a.notice_period, a.expected_salary, a.why_hire, j.experience_years, a.status, j.uid from jobs j inner join applications a on a.job_id=j.uid where user_id=$1", [uid]);
     return res.status(201).json({message: rows})
   } catch (error) {
     return res.status(201).json({message: error.message})
@@ -24,15 +23,20 @@ export const particularJobsListController=async(req, res)=>{
   }
 }
 export const applyJobApplicationController=async (req, res)=>{
-  const {uid}=req.user;
+  const {uid}=req?.user;
   const {id: job_id}=req.params;
-
+  const {cover_letter, notice_period, expected_salary, why_hire}=req.body;
   try {
-    const {rowCount, rows: appliedList}=await connect.query("select job_id, status from applications where user_id=$1 and job_id=$2", [uid, job_id])
-    if(rowCount>0 && appliedList[0].status=='applied'){
+    const validateListing=applicationSchema.safeParse(req.body);
+  if(!validateListing.success){
+      const message=validateListing.error.issues.map(m=>m.message);
+      return res.status(404).json({message: message[0]})
+    }
+    const {rowCount, rows: appliedList}=await connect.query("select exists(select 1 from applications where user_id=$1 and job_id=$2);", [uid, job_id])
+    if(appliedList[0].exists){
       return res.status(401).json({message: "You've Already Applied"})
     }
-    await connect.query("insert into applications (user_id, job_id, status) values ($1, $2, 'applied')", [uid, job_id])
+    await connect.query("insert into applications (user_id, job_id, cover_letter, notice_period, expected_salary, why_hire) values ($1, $2, $3, $4, $5, $6)", [uid, job_id, cover_letter, notice_period, expected_salary, why_hire])
     return res.status(201).json({message: "You've Successfully applied to the role."})
   } catch (error) {
     return res.status(500).json({message: error.message})
@@ -58,19 +62,18 @@ export const withdrawJobApplicationController= async (req, res)=>{
 
 
 
-// export const changeApplicationStatus
 export const changeApplicationStatus=async (req, res)=>{
   const {id:job_id}=req.params;
-  let {status, user_id}=req.body;
+  let {status, user_id}=req?.body;
   const err=validateFunUid(user_id);
   if(err){
     return res.status(422).json({message: err})
   }
   try {
-    const validateApplication=applicationSchema.safeParse({status});
+    const validateApplication=validateAllInputApplicationStatus.safeParse({status});
     if(!validateApplication.success){
       const message=validateApplication.error.issues.map(m=>m.message);
-      return res.status(422).json({message})
+      return res.status(422).json({message: message[0]})
     }
     const {rowCount, rows}=await connect.query("select job_id, status from applications where user_id=$1 and job_id=$2", [user_id, job_id])
     if(rows.length==0){

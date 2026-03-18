@@ -13,7 +13,7 @@ export const getAllListingController=async (req, res) => {
       return res.status(401).json({message: "Please Add Only Avaible column list"});
     }
     const {rows: countTotal}=await client.query("select count(*) as count from jobs");
-    const {rows}=await client.query(`select * from jobs where is_job_open<>'closed' order by ${sortby} desc limit $1 offset $2`, [limit, offset])
+    const {rows}=await client.query(`select j.*, c.name as company_name from jobs j left join companies c on c.uid=j.company_id  order by ${sortby} desc limit $1 offset $2`, [limit, offset])
     return res.status(200).json({message: rows, limit, page, total: countTotal[0].count})
   } catch (error) {
     console.log(error)
@@ -22,19 +22,17 @@ export const getAllListingController=async (req, res) => {
 };  
 
 export const searchJobsListing=async (req, res) => {
-  const {title}=req.query;
+  const {sortby='created_at', title}=req.query;
   if(!title){
     const message='Please Enter Search Term'
     return res.status(204).json({message: message});
   }
   try {
-    const {rows, rowCount}=await client.query("select * from jobs where search_title @@ to_tsquery($1)", [`${title}:*`]);
-    if(rowCount==0){
-      return res.status(204).json({message: "No Content Found"})
-    }
+    const {rows, rowCount}=await client.query(`select j.*, c.name as company_name from jobs j left join companies c on c.uid=j.company_id where search_title @@ to_tsquery($1) order by ${sortby} desc`, [title]);
     return  res.status(200).json({message: rows})
   } catch (error) {
-    return res.status(204).json({message: "No Content Found"});
+    console.log(error)
+    return res.status(500).json({message: error.message});
   }
 };
 
@@ -43,14 +41,14 @@ export const getListingController= async (req, res) => {
   const {id}=req.params;
   const {uid, company_id}=req?.user;
   try {
-    const {rows}=await client.query("select j.*, j.company_id = $3 as is_owner, s.job_id is not null as is_saved, a.user_id is not null as is_applied from jobs j left join saved_jobs s ON j.uid = s.job_id and s.users_id = $1 left join applications a ON j.uid = a.job_id and a.user_id = $1 WHERE j.uid = $2 limit 1;;", [uid, id, company_id]) 
+    const {rows}=await client.query("select j.*, c.name as company_name, c.logo_url, j.company_id = $3 as is_owner, s.job_id is not null as is_saved, a.user_id is not null as is_applied from jobs j left join companies c on c.uid=j.company_id left join saved_jobs s ON j.uid = s.job_id and s.users_id = $1 left join applications a ON j.uid = a.job_id and a.user_id = $1 WHERE j.uid = $2 limit 1;", [uid, id, company_id]) 
     if(rows.length===0){
       return res.status(404).json({message: "Id Doesn't exist that you're looking for"})
     }
     await client.query("update jobs set total_job_views=(total_job_views+1) where uid=$1", [id]);
     return res.status(200).json(rows[0])
   } catch (error) {
-    (error)
+    console.log(error)
     return res.status(400).json({message: error.message})
   }
 };

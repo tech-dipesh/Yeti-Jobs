@@ -211,6 +211,14 @@ with i make sure that if the role is recutier it must have company_id then is no
 - with assign user to companies minro brake on the mobiel fix that.
 - add new go back component page.
 
+- add everywere the expired_at to the client side..
+- just need the and condition for check whether a isEmployee or not.
+- the following only can shows on the users  not the company.
+- make the hard refrsh on teh all application status.
+- with dollar sign real add.
+- with only rexecute data is valid. which causing the errror.
+- one things that i add is the modal for apply a jobs.
+
 
 
 

@@ -5,7 +5,7 @@ const client = new Client({
   user: process.env.USER,
   password: process.env.PASSWORD,
   host: process.env.HOST,
-  port: process.env.PORT,
+  port: process.env.DATABASE_PORT,
   database: process.env.DATABASE
 })
 
@@ -13,7 +13,6 @@ await client.connect().then(t=>{
   console.log('connected to database');
 })
 .catch((err)=>{
-  (err)
   console.log('unable to connect')
 })
 export { client as connect };

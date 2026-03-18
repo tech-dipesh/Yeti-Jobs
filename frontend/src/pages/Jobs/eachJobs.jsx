@@ -29,37 +29,40 @@ export default function EachJob() {
 
   const [action, setAction]=useState(null)
   const [copy, setCopy]=useState(false)
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate()
-  const { data: applydata, loading: applyload, error: apiapplyerror, execute: applyexeecute } = useFetchData(applyToParticularJob)
   const { data: output, loading: loader, error: withdrawerror, execute: withd } = useFetchData(withdrawToParticularJob)
   const { data: bookmarkdata, error: errabookmark, loading: loadabookmark, execute: bookmark } = useFetchData(bookMarkJob)
   const { data: removebookdata, error: removeerrbookmark, loading: loadremovebookmark, execute: removeBook } = useFetchData(removeBookmark)
   const { data: datadelete, error: errdelete, loading: loaddelete, execute: deletes } = useFetchData(deleteExistingJobs)
   const { data: initalValue = {}, reexecute } = useAuth()
   const { role } = initalValue;
-
+  
   const confirmAnyActionPerform = async () => {
     if (action === 'delete') {
-      await deletes(id)
-      await reexecute(id)
-      if (datadelete) setTimeout(() => navigate('..'), 250)
-    } else if (action === 'apply') {
-      await applyexeecute({ id })
-      await reexecute(id)
-      if (applydata) navigate(0)
+      const res=await deletes(id)
+      if (res){
+        await reexecute(id)
+       window.location.reload()
+      }
     } else if (action === 'withdraw') {
-      await withd(id)
-      await reexecute(id)
-      if (output) navigate(0)
+    const res=  await withd(id)
+      if (res) {
+        await reexecute(id)
+     window.location.reload()
+    }
     } else if (action === 'bookmark') {
-      await bookmark(id)
-      await reexecute(id)
-      if (bookmarkdata) navigate(0)
+     const res= await bookmark(id)
+      if (res) {
+       window.location.reload()
+        await reexecute(id)
+      }
     } else if (action === 'withdrawbookmark') {
-      await removeBook(id)
-      await reexecute(id)
-      if (removebookdata) navigate(0)
+      const res=await removeBook(id)
+      if (res) {
+        await reexecute(id)
+       window.location.reload()
+      }
     }
     setAction(null)
   }
@@ -73,13 +76,13 @@ export default function EachJob() {
       setCopy(!copy)
   }
 
-  if (loading || loadabookmark || loadremovebookmark || loaddelete || loader || applyload) {
+  if (loading || loadabookmark || loadremovebookmark || loaddelete || loader) {
     return <Loading />
   }
   return (
     <article className='min-w-screen min-h-screen px-6 py-8'>
       <Goback />
-      <Errorpopup error={errabookmark || apiapplyerror || removeerrbookmark || errdelete || withdrawerror} />
+      <Errorpopup error={ removeerrbookmark || errdelete || withdrawerror || errabookmark} />
       {data &&
         <div className='bg-slate-800 p-8 max-w-5xl min-h-[90vh] mx-auto  rounded-2xl space-y-5'>
           <span className='text-slate-400 text-xs text-center opacity-90'>Job Id: {data.uid}</span>
@@ -93,17 +96,7 @@ export default function EachJob() {
             </div>
             <div className='grid lg:flex items-center gap-2'>
               {open ?
-                <div onClick={() => setOpen(!open)}>
-                  < Buttoncomps values={
-                    < div className='flex items-center gap-2 p-2.5 rounded-lg border hover:bg-slate-700' >
-                      <span>Share</span>
-                      <FontAwesomeIcon icon={faShareNodes}/>
-                    </div >
-                  }
-                  />
-                </div >
-                :
-                <Popup setOpen={setOpen} type={'Share'} header={<Textcomps content={`Share Your Job:`} open={open} />
+                <Popup setOpen={setOpen} header={<Textcomps open={open} />
                 }>
                   <>
                     <span onClick={clickCopy} className="justify-center flex">
@@ -114,6 +107,16 @@ export default function EachJob() {
                       className='text-slate-400' />
                   </>
                 </Popup>
+                :
+                <div onClick={() => setOpen(!open)}>
+                  < Buttoncomps values={
+                    < div className='flex items-center gap-2 p-2.5 rounded-lg border hover:bg-slate-700' >
+                      <span>Share</span>
+                      <FontAwesomeIcon icon={faShareNodes}/>
+                    </div >
+                  }
+                  />
+                </div >
               }
               {(!is_owner && role == 'guest') &&
                 <div className='flex items-center gap-2 p-2 rounded-lg border-slate-600 text-sm cursor-pointer'  onClick={() =>

@@ -66,8 +66,8 @@ export default function Searchjobs() {
           </div>
         }
         <div className='grid container mx-auto space-y-2 grid-cols-1 lg:grid-cols-2 gap-6 p-4'>
-          {data?.message?.length ? data?.message.map(({ uid, title, description, salary, job_type }) => (
-            <Jobcomps key={uid} uid={uid} title={title} description={description} salary={salary} job_type={job_type} />
+          {data?.message?.length ? data?.message.map(({ uid, title, description, salary, job_type, expired_at }) => (
+            <Jobcomps key={uid} uid={uid} title={title} description={description} salary={salary} job_type={job_type} expired_at={expired_at}/>
           ))
             :
             <div className='flex items-center justify-center text-gray-400 text-lg'>

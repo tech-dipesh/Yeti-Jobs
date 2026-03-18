@@ -19,6 +19,7 @@ import getOriginalFileName from '../../services/getOriginalFileName';
 import Followinglist from '../../components/common/User/Followinglist';
 export default function Individualuser() {
   const [open, setOpen] = useState(false);
+  const {data:globalContext}=useAuth()
   const navigate = useNavigate();
   const { id } = useParams();
   const { data: user } = useAuth()
@@ -49,6 +50,7 @@ export default function Individualuser() {
   }
   const { profile_pic_url, fname, lname, email, education, experience_years, resume_url, skills } = data || {}
   const originalName = getOriginalFileName(profile_pic_url)
+  const {role}=globalContext ?? {};
   if(loader || loading){
     return <Loading/>
   }
@@ -69,7 +71,9 @@ export default function Individualuser() {
             <Textcomps content={`Education: ${education}`} />
             <Textcomps content={`Experience: ${experience_years ?? '0'} years`} />
             <span className='my-4 justify-center grid cursor-pointer'> <Linkcomps to={'edit'} content={<ButtonComps values='Edit Profille' />}></Linkcomps></span>
+            {role=='guest' && 
             <span className='my-4 justify-center grid cursor-pointer' onClick={()=>setIsFollowing(!isFollowing)}><ButtonComps values='Following List' /></span>
+            }
             {isFollowing && <Followinglist setIsFollowing={setIsFollowing} isFollowing={isFollowing}/>}
           </div>
           <div className='grid justify-items-center'>
@@ -83,7 +87,7 @@ export default function Individualuser() {
                 <Buttoncomps values={'Add Skills'} />
               </span>
               :
-              <Popup setOpen={setOpen} value={value} setValue={setValue} submitFunction={submitSkill} error={error} setError={setError} fetchError={skilllerr} type={'Skills'} header={<Textcomps content={`Enter a Skills:`} />}>
+              <Popup setOpen={setOpen} open={open} value={value} setValue={setValue} submitFunction={submitSkill} error={error} setError={setError} fetchError={skilllerr} type={'Skills'} header={<Textcomps content={`Enter a Skills:`} />}>
                 <>
                 <Inputcomps click={setValue} value={value} type="text" error={setError} />
                 <span onClick={submitSkill} className="justify-center flex">

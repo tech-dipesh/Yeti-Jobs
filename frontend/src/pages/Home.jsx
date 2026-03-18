@@ -46,8 +46,7 @@ export default function Home() {
   return (
     <div className='bg-slate-700 min-h-screen'>
   <div className='max-w-6xl mx-auto px-4 py-8 space-y-8'>
-      <Errorloading data={{ error: state }} />
-      <Errorpopup error={err}/>
+      <Errorpopup error={err || err || isVerify}/>
       <Hero isVerify={isVerify} isLogin={isLogin} />
       <div className='grid grid-cols-2 md:grid-cols-4 gap-3'>
       {allLinks.map((item, i) => (
