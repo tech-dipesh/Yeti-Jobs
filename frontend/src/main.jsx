@@ -42,7 +42,7 @@ const Newjob = lazy(() => import('./pages/Jobs/Newjob'))
 const Searchjobs = lazy(() => import('./pages/Jobs/Searchjobs'))
 
 
-import Error404 from './pages/Error404'
+import Errorpage from './pages/Errorpage'
 import Loading from './components/Loading'
 import CompanyFollowers from './pages/Companies/CompanyFollowers'
 import Notfound from './pages/Notfound'
@@ -188,7 +188,7 @@ const router = createBrowserRouter([
       },
       {
         path: "test",
-        element: <Error404 />
+        element: <Errorpage />
       },
       {
         path: "*",

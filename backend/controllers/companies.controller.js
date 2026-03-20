@@ -5,10 +5,11 @@ import { supabase } from "../services/Supabase.js";
 
 export const getAllCompaniesList= async (req, res)=>{
   try {
-    const {rows}=await connect.query("select c.*, count(j.company_id) as count, j.expired_at from companies c left join jobs j on j.company_id=c.uid group by c.uid;")
+    const {rows}=await connect.query("select c.*, c.name, count(j.company_id) as job_count from companies c left join jobs j on j.company_id = c.uid group by c.uid, c.name;")
+    // SELECT c.uid, c.name, COUNT(j.company_id) as job_count FROM companies c LEFT JOIN jobs j ON j.company_id = c.uid GROUP BY c.uid, c.name;
    return res.status(200).json({message: rows})
   } catch (error) {
-    return res.status(500).json({message: error.detail})
+    return res.status(500).json({message: error.message})
   }
 }
 export const getCompanyController= async(req, res) => {

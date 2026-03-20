@@ -229,6 +229,15 @@ with i make sure that if the role is recutier it must have company_id then is no
 
 
 
+- change the email template logo to the new logo
+- give the name to: `yetijobs.com`
+- remove the inline search on homepage which don't have any representation.
+- change the version to: `0.0.1`
+- with not found page i make sure to add the appripate message and lot better ui.
+
+
+
+
 ## Portal:
 - as for the popup which is the major problem of the posotion indexing which is the better solution of the portal.
 - which portal will have the separate html index contnet we just wrap everything to that.

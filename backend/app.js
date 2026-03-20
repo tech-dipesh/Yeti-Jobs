@@ -32,16 +32,16 @@ app.use(limitUser);
 app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
-app.use("/jobs",  jobListingRouter)
+app.use("/api/v1/jobs",  jobListingRouter)
 // app.use("/jobs",  authUserMiddleware, jobListingRouter)
-app.use("/users", usersListingRouter)
+app.use("/api/v1/users", usersListingRouter)
 // app.use("/companies", authUserMiddleware, isAdminMIddleware,  companyRouter)
-app.use("/companies", authUserMiddleware,  companyRouter)
-app.use("/applications", authUserMiddleware,  applicationRouter)
-app.use("/admin", authUserMiddleware,  isAdminMIddleware, adminRoutes)
+app.use("/api/v1/companies", authUserMiddleware,  companyRouter)
+app.use("/api/v1/applications", authUserMiddleware,  applicationRouter)
+app.use("/api/v1/admin", authUserMiddleware,  isAdminMIddleware, adminRoutes)
 
 app.get("/", (req, res) => {
-  return res.status(201).redirect("jobs")
+  return res.status(201).redirect("/api/v1/jobs")
 });
 
 app.use((req, res)=>{
