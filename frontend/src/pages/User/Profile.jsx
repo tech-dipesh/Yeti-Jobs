@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { getIndividualUser, postUserSkills, uploadProfilePicture } from '../../api/auth.user';
-import { Link, useNavigate, useParams } from 'react-router';
+import { useEffect, useState } from 'react'
+import { getIndividualUser, postUserSkills } from '../../api/auth.user';
+import { useNavigate, useParams } from 'react-router';
 import authUid from "../../auth/authUid"
 import Inputcomps from "../../components/common/Input"
 import ButtonComps from '../../components/common/Button';
@@ -12,7 +12,6 @@ import Linkcomps from "../../components/common/Linkcomps"
 import Loading from '../../components/Loading';
 import Errorloading from "../../components/common/Errorloading"
 import Popup from '../../components/Popup';
-import PostSkills from '../../components/common/User/PostSkills';
 import Buttoncomps from '../../components/common/Button';
 import { useAuth } from "../../context/Authcontext"
 import getOriginalFileName from '../../services/getOriginalFileName';

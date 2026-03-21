@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function Buttoncomps({ values='Submit', color:colors, text: texts, onClick }) {
   const color=colors ? colors : 'bg-slate-700';
   const text=texts ? texts : '';

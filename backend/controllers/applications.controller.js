@@ -1,4 +1,3 @@
-import express from "express"
 import connect from "../db.js"
 import applicationSchema, { validateAllInputApplicationStatus } from "../Models/applications.models.js";
 import validateFunUid from "../utils/ValidateFunUid.js";

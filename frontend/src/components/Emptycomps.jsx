@@ -1,7 +1,5 @@
 import { faPeopleGroup } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
-
 export default function Emptycomps({ data, type }) {
   return (
     <main className='grid grid-cols-1 gap-6 lg:inline'>

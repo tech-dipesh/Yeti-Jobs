@@ -6,8 +6,6 @@ import companyRouter from "./routes/companies.routes.js"
 import applicationRouter from "./routes/applications.routes.js"
 import "dotenv/config"
 import "./services/cron-task.js"
-// import "./services/email-verification.js"
-
 
 import cookieParser from "cookie-parser";
 import authUserMiddleware from "./Middleware/isLoggedIn.js";
@@ -25,7 +23,7 @@ const port = process.env.PORT || 3000;
 app.use(cors({origin: process.env.CLIENT_BASE_URL,  credentials: true}));
 const limitUser=rateLimit({
   windowMs: 1000*60,
-  limit: 100000
+  limit: 200
 })
 
 app.use(limitUser);
@@ -33,9 +31,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api/v1/jobs",  jobListingRouter)
-// app.use("/jobs",  authUserMiddleware, jobListingRouter)
 app.use("/api/v1/users", usersListingRouter)
-// app.use("/companies", authUserMiddleware, isAdminMIddleware,  companyRouter)
 app.use("/api/v1/companies", authUserMiddleware,  companyRouter)
 app.use("/api/v1/applications", authUserMiddleware,  applicationRouter)
 app.use("/api/v1/admin", authUserMiddleware,  isAdminMIddleware, adminRoutes)

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import { getAllAppliedJobs } from '../../api/auth.applications'
 import Jobcomps from '../../components/common/Jobs/Jobcomps'
@@ -7,7 +7,6 @@ import { ApplystatusOption } from '../../Data/OptionList'
 import { Link } from 'react-router'
 import ButtonComps from '../../components/common/Button'
 import Loading from '../../components/Loading'
-import Textcomps from '../../components/common/Textcomps'
 import Errorloading from '../../components/common/Errorloading'
 import Emptycomps from '../../components/Emptycomps'
 

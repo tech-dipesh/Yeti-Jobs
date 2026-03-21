@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import Titlecomps from '../../components/common/Titlecomps'
+import { useEffect, useState } from 'react'
 import InputComps from '../../components/common/Input'
 import CustomDebounceHook from '../../hooks/useDebounce';
-import { searchJobs } from '../../api/auth.job';
 import useFetchData from '../../hooks/useFetchData';
 import { assignCompaniesToUsers, getSearchCompanies, getSearchUsers } from '../../api/auth.admin';
 import ButtonComps from '../../components/common/Button';
 import Loading from '../../components/Loading';
 import Errorloading from '../../components/common/Errorloading';
-import Emptycomps from '../../components/Emptycomps';
 import { useNavigate } from 'react-router';
 
 export default function Assignusertocompanies() {

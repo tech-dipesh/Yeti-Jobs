@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import {Link, useLocation, useNavigate} from "react-router"
+import { useEffect, useState } from 'react'
+import {useLocation, useNavigate} from "react-router"
 import validateLogin from "../../auth/User/Validateuser.js"
 import {loginUser} from "../../api/auth.user.js"
 import ButtonComps from '../../components/common/Button.jsx';
@@ -8,10 +8,7 @@ import { useAuth } from '../../context/Authcontext.jsx';
 import useFetchData from '../../hooks/useFetchData.js';
 import Successcomps from '../../components/common/Success.jsx';
 import Errorloading from '../../components/common/Errorloading.jsx';
-import reactIcons from "../../assets/react.svg"
 import Linkcomps from '../../components/common/Linkcomps.jsx';
-import Textcomps from '../../components/common/Textcomps.jsx';
-import Benifits from "../../Data/Benifits.js"
 import Registerleftcomps from '../../components/common/User/Registerleftcomps.jsx';
 
 export default function Login() {

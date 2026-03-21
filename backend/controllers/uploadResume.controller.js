@@ -1,4 +1,3 @@
-import {createClient} from "@supabase/supabase-js"
 import connect from "../db.js"
 import "dotenv/config"
 import { supabase } from "../services/Supabase.js";

@@ -1,22 +1,10 @@
-import React, { useState } from 'react'
-import Textcomps from '../Textcomps'
-import { Link, useNavigate } from 'react-router'
 import Linkcomps from "../Linkcomps"
-import { useAuth } from "../../../context/Authcontext"
-import Buttomcomps from "../Button"
-import useFetchData from '../../../hooks/useFetchData'
-import { deleteCompany } from '../../../api/auth.companies'
 import Buttoncomps from '../Button'
-import Popup from '../../Popup'
-import { faCalendarPlus, faLocationDot, faWebAwesome } from '@fortawesome/free-solid-svg-icons'
+import { faCalendarPlus, faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSistrix } from '@fortawesome/free-brands-svg-icons'
 import { CgWebsite } from "react-icons/cg";
 
 export default function Companycomps({ uid, name, description, website, created_at, founded_year, location }) {
-  const { data } = useAuth();
-  const { role } = data || {}
-
   return (
     <div className='bg-slate-800/60 border border-slate-700 rounded-2xl p-6 flex flex-col gap-5'>
       <div>

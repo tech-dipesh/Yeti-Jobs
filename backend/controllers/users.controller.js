@@ -1,11 +1,7 @@
-import express from "express";
-import bcrypt, { hash } from "bcryptjs";
+import bcrypt from "bcryptjs";
 import connect from "../db.js";
 import tableDataFetch from "../utils/tableDataFetch.js";
 import userSchema from "../Models/users.models.js";
-import jwt from "jsonwebtoken"
-import generateRandom6DigitNumber from "../utils/generateRandom6DigitNumber.js"
-import { AuthImplicitGrantRedirectError } from "@supabase/supabase-js";
 import sendMail from "../services/email-verification.js";
 import isUserVerifiedEmail from "../utils/isUserEmailVerified.js";
 import dns from "dns/promises"

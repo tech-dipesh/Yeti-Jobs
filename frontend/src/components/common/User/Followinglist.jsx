@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import useFetchData from '../../../hooks/useFetchData'
-import { useNavigate, useParams } from "react-router"
+import { useNavigate } from "react-router"
 import { unFollowCompany } from "../../../api/auth.companies"
 import { listAlluserFollowingCompanies } from '../../../api/auth.user'
 import Popup from '../../Popup'
@@ -9,14 +9,13 @@ import Linkcomps from '../Linkcomps'
 import Buttoncomps from '../Button'
 import Errorpopup from '../../Error/Errorpopup'
 export default function Followinglist({ setIsFollowing, isFollowing }) {
-  const { id } = useParams()
   const navigate=useNavigate()
   const { data, error, loading, execute } = useFetchData(listAlluserFollowingCompanies)
   const { execute: unFollowaction, error: unfollowerr, data: unfollowdata, loading: unfollowload } = useFetchData(unFollowCompany)
   useEffect(() => {
     execute()
   }, [])
-  if (loading) {
+  if (loading || unfollowload) {
     return <loading />
   }
   const unFollowCompanyAction = async (uid) => {

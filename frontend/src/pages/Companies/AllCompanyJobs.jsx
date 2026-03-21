@@ -1,12 +1,9 @@
-import React from 'react'
 import useFetchData from '../../hooks/useFetchData';
 import { getCompanyJobs } from '../../api/auth.companies';
 import Errorloading from '../../components/common/Errorloading';
 import { useEffect } from 'react';
-import { Link, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import Jobcomps from "../../components/common/Jobs/Jobcomps"
-import Titlecomps from '../../components/common/Titlecomps';
-import ButtonComps from '../../components/common/Button';
 import Emptycomps from "../../components/Emptycomps"
 import Goback from '../../components/common/Goback';
 export default function AllCompanyJobs() {

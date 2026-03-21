@@ -6,7 +6,6 @@ import ButtonComps from "../../components/common/Button"
 import validateCompany from '../../auth/ValidateCompany';
 import { useNavigate } from 'react-router';
 import Errorloading from '../../components/common/Errorloading';
-import { all } from 'axios';
 import Textcomps from '../../components/common/Textcomps';
 import { faFileArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -25,7 +24,6 @@ export default function NewCompany() {
       return;
     }
     const err = validateCompany(value)
-    console.log('err is', err)
     if (err) {
       setError(err)
       return;

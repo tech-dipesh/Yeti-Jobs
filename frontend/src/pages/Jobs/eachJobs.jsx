@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import Loading from '../../components/Loading';
-import Errorloading from '../../components/common/Errorloading';
 
 import Buttoncomps from '../../components/common/Button';
 import useFetchData from '../../hooks/useFetchData';
@@ -11,11 +10,9 @@ import Goback from '../../components/common/Goback';
 import defaultImage from "../../assets/default-image.webp"
 import Linkcomps from "../../components/common/Linkcomps"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faBookmark as solid, faClipboard, faCopy, faShareFromSquare, faShareNodes, faClipboardCheck } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faBookmark as solid, faShareNodes, faClipboardCheck } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as regular } from '@fortawesome/free-regular-svg-icons';
-import Popup from '../../components/Popup';
-import Textcomps from '../../components/common/Textcomps';
-import { applyToParticularJob, withdrawToParticularJob } from '../../api/auth.applications';
+import { withdrawToParticularJob } from '../../api/auth.applications';
 import { useAuth } from '../../context/Authcontext';
 import Errorpopup from '../../components/Error/Errorpopup';
 import EachJobAction from '../../components/common/Jobs/EachJobAction';
@@ -31,10 +28,10 @@ export default function EachJob() {
   const [copy, setCopy]=useState(false)
   const [open, setOpen] = useState(false);
   const navigate = useNavigate()
-  const { data: output, loading: loader, error: withdrawerror, execute: withd } = useFetchData(withdrawToParticularJob)
-  const { data: bookmarkdata, error: errabookmark, loading: loadabookmark, execute: bookmark } = useFetchData(bookMarkJob)
-  const { data: removebookdata, error: removeerrbookmark, loading: loadremovebookmark, execute: removeBook } = useFetchData(removeBookmark)
-  const { data: datadelete, error: errdelete, loading: loaddelete, execute: deletes } = useFetchData(deleteExistingJobs)
+  const { loading: loader, error: withdrawerror, execute: withd } = useFetchData(withdrawToParticularJob)
+  const { error: errabookmark, loading: loadabookmark, execute: bookmark } = useFetchData(bookMarkJob)
+  const { error: removeerrbookmark, loading: loadremovebookmark, execute: removeBook } = useFetchData(removeBookmark)
+  const { error: errdelete, loading: loaddelete, execute: deletes } = useFetchData(deleteExistingJobs)
   const { data: initalValue = {}, reexecute } = useAuth()
   const { role } = initalValue;
   

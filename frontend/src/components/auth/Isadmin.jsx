@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useAuth } from '../../context/Authcontext'
 import { Outlet, useNavigate } from 'react-router'
 import Loading from '../Loading'

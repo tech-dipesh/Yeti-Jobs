@@ -10,7 +10,6 @@ import Buttoncomps from '../../components/common/Button';
 import Errorloading from '../../components/common/Errorloading';
 
 export default function Jobs() {
-  
   const {data, error, loading, execute } = UseFetchData(allJobsList)
   let page=1, limit=10;
   useEffect(()=>{

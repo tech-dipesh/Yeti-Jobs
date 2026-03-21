@@ -14,7 +14,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// const content=`<div><h1>Dear ${firstName} ${lastName} Thanks for ${type=='verify'?'Signup': 'Forget'} on our platform</h1><h2>Below is your verification code!</h2><h3>${random6DigitNumber}</h3><p>Remember This Verification will be expired after 15 minutes</p>${type=='reset'?"<h1>If you've not try a forget password you can skip it</h1>":''}</div>`
 const sendMail=async(uid, firstName, lastName, userEmail, type)=>{
   const random6DigitNumber=generateRandomNumber();
   let readFile=readFileSync("services/template.html", "utf-8")
@@ -34,6 +33,7 @@ const sendMail=async(uid, firstName, lastName, userEmail, type)=>{
     await connect.query("insert into email_verified(user_id, verified_type, verified_code)  values($1, 'forget_password', $2)",[uid, random6DigitNumber])
   }
 } catch (error) {
+  console.log(error)
   return error;
 }
 }

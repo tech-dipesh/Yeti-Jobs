@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import { getCompanyDashboard } from '../../api/auth.companies'
-import { Link, useNavigate, useParams } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import Errorloading from '../../components/common/Errorloading';
 import { useAuth } from '../../context/Authcontext';
 import ButtonComps from '../../components/common/Button';
@@ -19,7 +19,7 @@ export default function Companydashboard() {
   if (error == "You're not a employee of the company") {
     return navigate("/")
   }
-  const { company_id, uid, role } = authdata ?? {};
+  const { company_id, role } = authdata ?? {};
   const { message } = data || {}
   const allRecruiterLink = [
     { to: `/companies/${company_id}/jobs`, value: 'All Owned Jobs' },

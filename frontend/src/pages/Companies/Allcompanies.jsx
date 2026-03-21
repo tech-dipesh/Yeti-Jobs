@@ -1,11 +1,7 @@
-import React from 'react'
 import { useEffect } from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import { getAllCompanies } from '../../api/auth.companies'
-import { Link } from 'react-router'
 import Companycomps from '../../components/common/company/Companycomps'
-import ButtonComps from '../../components/common/Button'
-import Titlecomps from '../../components/common/Titlecomps'
 import Errorloading from "../../components/common/Errorloading"
 import Emptycomps from '../../components/Emptycomps'
 export default function Allcompanies() {

@@ -1,5 +1,4 @@
 import { Bounce, ToastContainer } from "react-toastify";
-
 export default function ToastConataine() {
   return (
     <ToastContainer

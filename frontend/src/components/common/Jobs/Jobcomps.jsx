@@ -1,7 +1,4 @@
-import React from 'react'
-import { Link } from 'react-router'
 import Linkcomps from '../Linkcomps'
-import Textcomps from '../Textcomps'
 import { useAuth } from '../../../context/Authcontext'
 import { faBuilding, faEye } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

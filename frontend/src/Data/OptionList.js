@@ -4,8 +4,6 @@ export const JobtypeOption=["Remote", "Onsite", "Hybrid"]
 
 export const ApplystatusOption=["Applied", "Shortlisted",  "Rejected", "Hired"]
 export const ApplyLowerCasestatusOption=["applied", "shortlisted", "rejected", "hired"]
-
-// title, description. salary, job_type, skills, experience_years, created_at, location, total_job_views.
 export const sortByFilter=[
   {backend: 'title', frontend: 'Title'},
   {backend: 'description', frontend: 'Description'},

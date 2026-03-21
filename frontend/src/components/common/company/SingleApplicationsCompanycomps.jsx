@@ -3,7 +3,6 @@ import { ApplyLowerCasestatusOption } from '../../../Data/OptionList';
 import Linkcomps from '../Linkcomps';
 import useFetchData from '../../../hooks/useFetchData';
 import Loading from '../../Loading';
-import Errorloading from '../Errorloading';
 import Successcomps from '../Success';
 import { changeApplicationStatus } from '../../../api/auth.applications';
 import Errorpopup from '../../Error/Errorpopup';

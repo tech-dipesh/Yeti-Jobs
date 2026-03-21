@@ -1,9 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router'
-
 import Buttoncomps from '../Button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import Popup from '../../Popup';
 import InputComps from '../Input';
 import ValidateApplication from '../../../auth/Application/ValidateApplications';
@@ -23,7 +20,7 @@ export default function EachJobAction({ setAction, data, }) {
   const [apply, setApply] = useState(false)
   const [value, setValue] = useState({ cover_letter: '', expected_salary: '', notice_period: '', why_hire: '' })
   const [error, setError] = useState(null)
-  const { data:applydata, loading, error: apiapplyerror, execute } = useFetchData(applyToParticularJob)
+  const { loading, error: apiapplyerror, execute } = useFetchData(applyToParticularJob)
   const allDivOptions = [
     { label: 'Cover Letter:', name: 'cover_letter', type: 'text' },
     { label: 'Expected Salary:', name: 'expected_salary', type: 'number', required: true },

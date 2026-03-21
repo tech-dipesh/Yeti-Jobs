@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Loading from '../Loading';
-import { toast } from 'react-toastify';
-
 export default function Errorloading({data}) {
   let {error, loading}=data;
 

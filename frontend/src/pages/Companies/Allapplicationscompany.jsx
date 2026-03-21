@@ -1,20 +1,11 @@
-  import React, { useState } from 'react'
-import useFetchData from '../../hooks/useFetchData';
-import { getCompanyApplications, getCompanyJobs } from '../../api/auth.companies';
+  import useFetchData from '../../hooks/useFetchData';
+import { getCompanyApplications } from '../../api/auth.companies';
 import Errorloading from '../../components/common/Errorloading';
 import { useEffect } from 'react';
-import { Link, Links, useParams } from 'react-router';
-import Applicationscomps from '../../components/common/applications/applicationscomps';
-import Selectcomps from "../../components/common/Selectcomps"
-import { ApplystatusOption } from '../../Data/OptionList';
-import Linkcomps from '../../components/common/Linkcomps';
+import { useParams } from 'react-router';
 import SingleApplicationsCompanycomps from '../../components/common/company/SingleApplicationsCompanycomps';
-import Buttoncomps from '../../components/common/Button';
 import Emptycomps from '../../components/Emptycomps';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Goback from '../../components/common/Goback';
-import Successcomps from '../../components/common/Success';
 export default function Allapplications() {
   const {id}=useParams()
   const {data, error, loading, execute}=useFetchData(getCompanyApplications);

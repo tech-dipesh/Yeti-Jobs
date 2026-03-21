@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken"
 import "dotenv/config"
-import connect from "../db.js"
 
 const isUnverifiedUser = async(req, res, next) => {
   const { token } = req.cookies;

@@ -1,10 +1,9 @@
-import {  useEffec, useEffect } from 'react';
-import { useParams, useNavigate, Outlet } from 'react-router';
+import {  useEffect } from 'react';
+import { useNavigate, Outlet } from 'react-router';
 import { useAuth } from '../../context/Authcontext';
 import { useLocation } from 'react-router';
 
 export default function IsloggedinUser() {
-  const { id } = useParams();
   const location=useLocation()
   const navigate=useNavigate()
   const {data, error, loading}=useAuth()

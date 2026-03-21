@@ -1,5 +1,4 @@
 import express from "express"
-import isAdminMIddleware  from "../Middleware/isAdmin.js";
 
 import { deleteListingController, getAllListingController, getListingController, postListingController, putListingController, searchJobsListing, verifyOwnerController } from "../controllers/jobs.controller.js";
 import isOwnwerMiddleware from "../Middleware/isLoggedIn.js";

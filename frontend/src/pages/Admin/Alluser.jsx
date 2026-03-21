@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { getAllUser } from '../../api/auth.user';
 import Usercomps from '../../components/common/User/Usercomps';
 import useFetchData from '../../hooks/useFetchData';

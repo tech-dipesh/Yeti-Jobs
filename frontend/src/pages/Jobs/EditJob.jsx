@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import { individualJobs, updateExistingJobs } from '../../api/auth.job'
-import { Link, useLocation, useNavigate, useParams } from 'react-router'
+import { useLocation, useNavigate, useParams } from 'react-router'
 import InputComps from '../../components/common/Input'
 import ButtonComps from '../../components/common/Button'
 import Selectcomps from "../../components/common/Selectcomps"
@@ -9,9 +9,6 @@ import validateJobs from '../../auth/validateJobs'
 import { JobtypeOption } from '../../Data/OptionList'
 import Loading from '../../components/Loading'
 import Errorloading from '../../components/common/Errorloading'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import Buttoncomps from '../../components/common/Button'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Textcomps from '../../components/common/Textcomps'
 import Goback from '../../components/common/Goback'
 
@@ -20,7 +17,6 @@ export default function EditJob() {
   const { state } = useLocation();
   const [data, setData] = useState();
   const isState=state && state.title!=undefined;
-  console.log('location', state)
   const [value, setValue] = useState(isState ? state: {})
   const [error, setError] = useState()
 
@@ -53,7 +49,6 @@ export default function EditJob() {
     setValue((prev) => ({ ...prev, skills: skill }))
 
     const res = await sendData({ id, value });
-    console.log('res', res)
     if (res) {
       navigate("../")
     }

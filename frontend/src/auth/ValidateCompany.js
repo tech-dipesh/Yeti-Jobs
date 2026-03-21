@@ -4,7 +4,7 @@ const isValidWebsite=(val)=>{
   try {
     new URL(val)
     return true;
-  } catch (error) {
+  } catch {
     return false;
   }
 }

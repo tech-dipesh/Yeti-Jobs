@@ -6,7 +6,7 @@ import Footer from './components/Footer';
 import Loading from './components/Loading';
 import ToastConataine from './components/Toast';
 import { ToastContainer } from 'react-toastify';
-
+import {Analytics} from "@vercel/analytics/next"
 function App() {
   const { data, loading } = useAuth()
   if (loading) {
@@ -15,6 +15,7 @@ function App() {
   return (
     <div className='w-full min-h-screen flex flex-col overflow-x-hidden'>
       <Header data={data} />
+      <Analytics/>
       <main className='flex-1'>
         <Outlet />
         <ToastConataine />

@@ -1,14 +1,12 @@
-import React, { useRef, useState } from 'react'
-import Inputcomps from "../../components/common/Input"
+import { useRef, useState } from 'react'
 import UseFetchData from '../../hooks/useFetchData'
 import Buttoncomps from "../../components/common/Button"
 import { getIndividualUser, uploadResume } from "../../api/auth.user"
 import validateFileUpload from "../../auth/User/validateFileUpload"
 import { useEffect } from 'react'
 import useFetchData from '../../hooks/useFetchData'
-import { Link, useNavigate, useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import Errorloading from '../../components/common/Errorloading'
-import Successcomps from '../../components/common/Success'
 import { faFileArrowUp } from '@fortawesome/free-solid-svg-icons'
 import Loading from '../../components/Loading'
 import getOriginalFileName from '../../services/getOriginalFileName'

@@ -1,5 +1,4 @@
 import connect from "../db.js"
-import tableDataFetch from "../utils/tableDataFetch.js"
 
 const getallSaveJob=async(req, res)=>{
   const {uid}=req.user;

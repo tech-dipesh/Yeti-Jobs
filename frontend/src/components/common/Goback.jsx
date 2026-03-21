@@ -1,5 +1,4 @@
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import React, { Fragment } from 'react'
 import { Link } from 'react-router'
 import Buttoncomps from './Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

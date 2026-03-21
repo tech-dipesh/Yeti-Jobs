@@ -1,13 +1,9 @@
-import React from 'react'
-import Toast from '../components/Toast'
-import { toast } from 'react-toastify'
 import { useLocation } from 'react-router'
 import { faFaceSadCry, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Buttoncomps from '../components/common/Button';
 import Linkcomps from '../components/common/Linkcomps';
 import LogoRounded from "../assets/logo-rounded.png"
-import Goback from '../components/common/Goback';
 import Errorpopup from "../components/Error/Errorpopup"
 export default function Notfound() {
   const {pathname} = useLocation();

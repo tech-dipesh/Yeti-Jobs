@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams, useSearchParams } from 'react-router'
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router'
 import useFetchData from '../../hooks/useFetchData';
 import { getSingleCompany, updateCompany } from '../../api/auth.companies';
 import validateCompany from '../../auth/ValidateCompany';
 import InputComps from '../../components/common/Input';
 import ButtonComps from '../../components/common/Button';
 import Errorloading from '../../components/common/Errorloading';
-import Buttoncomps from '../../components/common/Button';
-import Linkcomps from "../../components/common/Linkcomps"
 import Goback from '../../components/common/Goback';
 export default function Editcompany() {
   const { id } = useParams();

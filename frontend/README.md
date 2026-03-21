@@ -253,7 +253,8 @@ with i make sure that if the role is recutier it must have company_id then is no
   - ```html <div id='portal'/>```
 
 ## More Features:
-- with on the profiel picture option i've also make sure to add the previosu page of the previous page with the: `URL.revokeObjectURL` REmove Old and add new object with: `URL.createObjectURL`
+- with on the profiel picture option i've also make sure to add the previous page of the previous page with the: `URL.revokeObjectURL` REmove Old and add new object with: `URL.createObjectURL`
+- add the vercel analytics for the frontend stats about the project.
 
 
 
@@ -277,6 +278,5 @@ with i make sure that if the role is recutier it must have company_id then is no
   5. react icons adding some not have font aweome icon.
   6. react-toastify: for adding the alert message for the better user interaction.
   7. date-fns: for perfomr a some acion on the date-fns. remove later.
-  
-  
+  8. @vercel/analytics for get the analytics and stats about the react project with the visitor count.
   

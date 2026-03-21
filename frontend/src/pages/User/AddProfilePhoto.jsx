@@ -5,7 +5,7 @@ import { getIndividualUser, uploadProfilePicture } from "../../api/auth.user"
 import validateFileUpload from "../../auth/User/validateFileUpload"
 import Errorloading from '../../components/common/Errorloading'
 import Successcomps from '../../components/common/Success'
-import { Link, useNavigate, useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import useFetchData from '../../hooks/useFetchData'
 import { useEffect } from 'react'
 import Linkcomps from "../../components/common/Linkcomps"

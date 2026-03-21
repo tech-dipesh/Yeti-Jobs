@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 export default function Employeecomps({ uid, full_name, email, experience, education, role, resume_url, profile_pic_url, applied_at, skills }) {
   return (
     <div key={uid} className='bg-neutral-600  rounded-xl shadow-lg transition-shadow flex justify-between items-start flex-col gap-3 border border-gray-200 p-8 w-80 '>

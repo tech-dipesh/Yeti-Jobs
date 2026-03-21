@@ -1,20 +1,16 @@
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router'
 import { useAuth } from '../context/Authcontext';
-import Errorloading from '../components/common/Errorloading';
 import Hero from '../components/Hero';
 import { majorFeatures } from '../Data/Benifits';
 import useFetchData from '../hooks/useFetchData';
 import { allJobsList } from '../api/auth.job';
 import Textcomps from '../components/common/Textcomps';
-import Jobcomps from '../components/common/Jobs/Jobcomps';
 import Linkcomps from '../components/common/Linkcomps';
 import Loading from '../components/Loading';
 import Errorpopup from '../components/Error/Errorpopup';
 
 export default function Home() {
   const { data, error, loading } = useAuth();
-  const { state } = useLocation();
   const [isVerify, setIsVerify] = useState(false)
   const [isLogin, setIsLogin] = useState(false)
   const { data: jobs, error: err, loading: loader, execute } = useFetchData(allJobsList)

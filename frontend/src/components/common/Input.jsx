@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function InputComps({placeholder, type='text', value, click, error, name, height}) {
   if(error==undefined) error=function(){}
   if(click==undefined) click=function(){}

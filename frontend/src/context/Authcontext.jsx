@@ -1,6 +1,4 @@
-import React from 'react'
 import { createContext } from 'react'
-import { useState } from 'react'
 import { isUserLoggedIn } from '../api/auth.user'
 import useFetchData from '../hooks/useFetchData'
 import { useEffect } from 'react'

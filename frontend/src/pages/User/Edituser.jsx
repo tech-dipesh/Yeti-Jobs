@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import InputComps from '../../components/common/Input'
 import ButtonComps from "../../components/common/Button"
 import {validateEditUser} from '../../auth/User/Validateuser'
 import {getIndividualUser, patchIndivualUser} from "../../api/auth.user"
 import {  useNavigate, useParams } from 'react-router'
-import UseFetchData from '../../hooks/useFetchData'
 import useFetchData from '../../hooks/useFetchData'
 import Selectcomps from '../../components/common/Selectcomps'
 import { EducationOption } from '../../Data/OptionList'

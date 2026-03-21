@@ -1,7 +1,7 @@
 import connect from "../db.js";
 async function isUserVerifiedEmail(uid) {
   try {
-    const { rows, rowCount} = await connect.query(
+    const { rows} = await connect.query(
       "select exists (select from email_verified where user_id=$1 order by expired_at desc);",
       [uid],
     );

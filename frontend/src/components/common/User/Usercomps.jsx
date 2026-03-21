@@ -1,7 +1,6 @@
-import React from 'react'
 import { Link } from 'react-router'
 
-export default function Usercomps({ fullname, education, email, role, resume_url, profile_pic_url, skills, experience_years }) {
+export default function Usercomps({ education, email, role, resume_url, profile_pic_url, skills, experience_years }) {
   return (
     <div className='bg-slate-800/60 border border-slate-700 rounded-2xl p-6 flex flex-col gap-5'>
       <div className='flex items-center gap-2 lg:gap-4'>

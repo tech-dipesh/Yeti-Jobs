@@ -1,5 +1,3 @@
-import React from 'react'
-
 import reactIcons from "../../../assets/react.svg"
 import Benifits from '../../../Data/Benifits';
 import Textcomps from '../Textcomps';

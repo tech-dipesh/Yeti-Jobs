@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import validateVerifyMail from '../../auth/User/Validatecodeemail';
 import ButtonComps from "../../components/common/Button"
 import InputComps from '../../components/common/Input';
 import { verifyUser, resendVerificationCode } from '../../api/auth.user';
 
-import {Link, useLocation, useNavigate } from "react-router"
+import {useLocation, useNavigate } from "react-router"
 import {useAuth} from "../../context/Authcontext"
 import useFetchData from '../../hooks/useFetchData';
 import Errorloading from '../../components/common/Errorloading';
 import Successcomps from '../../components/common/Success';
 import { useEffect } from 'react';
 import Loading from '../../components/Loading';
-import Buttoncomps from '../../components/common/Button';
 import Goback from '../../components/common/Goback';
+import Errorpopup from '../../components/Error/Errorpopup';
 
 export default function VerifyEmail() {
   const [value, setValue] = useState();
@@ -60,6 +60,7 @@ export default function VerifyEmail() {
     <div className='flex flex-col items-center justify-center min-h-screen'>
       <Goback to='../login' content='Go Back To Login'/>
       <div className='bg-neutral-800 rounded-2xl p-10 w-full max-w-lg flex flex-col items-center gap-8'>
+      <Errorpopup error={autherr}/>
       <Successcomps data={resenddata || data} />
       <div className='text-center'>
         <h1 className='text-xl font-bold '>Verify Your Mail</h1>

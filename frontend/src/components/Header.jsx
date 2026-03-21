@@ -19,7 +19,7 @@ export default function Header() {
   }
 
   const { data, error, reexecute } = useAuth();
-  const { userVerified, uid, company_id, role } = data ?? {};
+  const { userVerified, uid, role } = data ?? {};
   const allUserLinks = data ? (role == 'guest' ?
     [
       { value: 'Visit Your Profile', link: `users/${uid}/profile` },

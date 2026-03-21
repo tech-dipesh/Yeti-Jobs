@@ -6,17 +6,18 @@ import { useNavigate, useParams } from 'react-router';
 import Errorloading from '../Errorloading';
 import InputComps from '../Input';
 import Buttoncomps from '../Button';
+import Loading from '../../Loading';
 
 export default function PostSkills() {
   const navigate=useNavigate()
   const {id}=useParams();
   const [isSkillsOpen, setIsSkillOpen] = useState(false)
   const [skill, setSkills] = useState()
-  const { data: profileData, error: skilllerr, execute: addprofile } = useFetchData(postUserSkills)
+  const { error: skilllerr, execute: addprofile, loading } = useFetchData(postUserSkills)
+  const [error, setError] = useState("")
   const submitSkill = async (e) => {
     e.preventDefault()
     const err = validateText(skill);
-    console.log('err', err)
     if (err) {
       return setError(err)
     }
@@ -32,7 +33,9 @@ export default function PostSkills() {
       setError(skilllerr)
     }
   }
-  const [error, setError] = useState("")
+ if(loading){
+  return <Loading/>
+ }
   return (
     <>
       <Errorloading data={{ error: error }} />

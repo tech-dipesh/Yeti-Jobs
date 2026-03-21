@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams, useNavigate, Outlet, useLocation } from 'react-router';
 import useFetchData from '../../hooks/useFetchData';
 import { isUserOwnedRoute } from '../../api/auth.admin';

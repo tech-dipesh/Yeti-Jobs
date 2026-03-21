@@ -1,11 +1,8 @@
-import Buttoncomps from "./common/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import Inputcomps from "./common/Input"
-import Textcomps from "./common/Textcomps"
 import { createPortal } from "react-dom";
 import Errorloading from "./common/Errorloading";
-export default function Popup({ setOpen, open, error, fetchError, children, header, height='h-64', width='w-96' }) {
+export default function Popup({ setOpen, error, fetchError, children, header, height='h-64', width='w-96' }) {
   return createPortal(
     <div className="fixed inset-0 flex justify-center items-center z-50">
       <div className="fixed inset-0 flex justify-center items-center bg-black/60 backdrop-blur-sm">

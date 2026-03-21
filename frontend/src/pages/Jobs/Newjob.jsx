@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import { postNewJobs } from '../../api/auth.job'
-import { Link, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 import InputComps from '../../components/common/Input'
 import ButtonComps from '../../components/common/Button'
 import validateJobs from '../../auth/validateJobs'
@@ -9,9 +9,6 @@ import Selectcomps from '../../components/common/Selectcomps'
 import { JobtypeOption } from '../../Data/OptionList'
 import Errorloading from "../../components/common/Errorloading"
 import Loading from '../../components/Loading'
-import Buttoncomps from '../../components/common/Button'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import Textcomps from '../../components/common/Textcomps'
 import Goback from '../../components/common/Goback'
 export default function EditJob() {

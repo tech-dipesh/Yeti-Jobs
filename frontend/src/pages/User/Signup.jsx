@@ -6,10 +6,6 @@ import InputComps from '../../components/common/Input';
 import ButtonComps from '../../components/common/Button';
 import Errorloading from '../../components/common/Errorloading';
 import {validateEditUser} from '../../auth/User/Validateuser';
-import TextComps from '../../components/common/Textcomps';
-import reactIcons from "../../assets/react.svg"
-import Linkcomps from '../../components/common/Linkcomps';
-import Benifits from '../../Data/Benifits';
 import Selectcomps from '../../components/common/Selectcomps';
 import { EducationOption } from '../../Data/OptionList';
 import Successcomps from '../../components/common/Success';
