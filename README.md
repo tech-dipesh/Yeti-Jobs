@@ -93,3 +93,104 @@ Docker
   --- lib
   --- pages
   --- services
+
+
+
+## Environement Variables:
+### Backend:
+  - Postgres:
+    - USER
+    - PASSWORD
+    - HOST
+    - DATABASE_PORT
+    - DATABASE
+  - SUPABASE:
+    - URL_SUPABASE_CONNECT
+    - ANON_KEY_SUPABASE
+  - NODEMAILER:
+    - NODEMAILER_MY_EMAIL  
+    - NODEMAILER_MY_PASSWORD  
+  - JWT:
+   - JWT_SECRET_KEY:
+  - COMMON:
+    - CLIENT_BASE_URL
+    - PORT
+    - MAXAGE
+
+### Frontend:
+  - VITE_SERVER_URL
+
+
+## Instalation & Setup:
+- As It's based on the PERN Stack we've, required above all things to run our server.
+- Requirements: `Nodejs, Postgres Server, Supabase Keys, Nodemailer Keys`
+### Backend Configuration:
+  -
+  ``` bash 
+      cd backend
+  ```
+  ``` bash
+    touch .env 
+  ```
+  ``` bash 
+    vim .env (Insert all the env keys on here)
+  ```
+
+  ``` bash
+    npm i
+  ```
+
+  ``` bash
+    npm start/node app.js
+  ```
+- now the server will run on the defined port of: `.env`
+
+### Frontend:
+  ``` bash
+    cd frontend
+  ```
+  ``` bash
+    touch .env
+  ```
+  ``` bash
+    vim .env
+  ```
+  ``` vim
+    VITE_SERVER_URL=ADD_HERE
+  ```
+  ``` bash
+    npm i
+  ```
+  ``` bash
+    npm start/run dev
+  ```
+- your client will run on the http://localhost:5173
+
+
+
+## Docker Setup:
+- Dockerbase have only one single container of the nodejs configuration.
+- 
+
+
+## Api Documentation:
+
+
+## Database Design:
+- For the Database Design, i make sure have the separation of concern with only single tables do the single task not multiple.
+ - which help us to get a wanted data on the correct tables.
+### Database Tables:
+- applications
+- companies
+- email_verified
+- jobs
+- saved_jobs
+- user_companies_follows
+- users
+
+### Application Table:
+- The Table  is mainly for track al the appplied jobs tracking which have mostly user id and job id as a forigen key and other relevent information for applying a job.
+
+
+### Companies Table:
+- all the list of the companies which exist on the platform with their relvent other information.
