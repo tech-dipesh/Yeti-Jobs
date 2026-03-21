@@ -18,7 +18,6 @@ const Allcompanies = lazy(() => import('./pages/Companies/Allcompanies'))
 const NewCompany = lazy(() => import('./pages/Admin/NewCompany'))
 const Singlecompany = lazy(() => import('./pages/Companies/Singlecompany'))
 const Companydashboard = lazy(() => import('./pages/Companies/Companydashboard'))
-const Stats = lazy(() => import('./pages/Companies/Stats'))
 const AllCompanyJobs = lazy(() => import('./pages/Companies/AllCompanyJobs'))
 const Allapplications = lazy(() => import('./pages/Companies/Allapplicationscompany'))
 const Resetpassword = lazy(() => import('./pages/User/Resetpassword'))
@@ -150,10 +149,6 @@ const router = createBrowserRouter([
               {
                 path: "edit",
                 element: <Editcompany />
-              },
-              {
-                path: "analytics",
-                element: <Stats />
               },
               {
                 path: "applications",

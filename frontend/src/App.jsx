@@ -5,8 +5,7 @@ import { useAuth } from './context/Authcontext';
 import Footer from './components/Footer';
 import Loading from './components/Loading';
 import ToastConataine from './components/Toast';
-import { ToastContainer } from 'react-toastify';
-import {Analytics} from "@vercel/analytics/next"
+import { Analytics } from '@vercel/analytics/react';
 function App() {
   const { data, loading } = useAuth()
   if (loading) {

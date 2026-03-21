@@ -1,17 +1,23 @@
 # Yeti Jobs:
-- Full stack Job Portal Connectina  job sekker to the recruiter with the smart search with build with pern stack sclable job posting resume analysis, real time application managment.
-
+Full stack Job Portal **Connecting** job **seekers** to recruiters with smart search, built with PERN stack, scalable job posting, resume analysis, real-time application management.
 
 
 ## Overview:
-- The Project is a job Portal Platform With All of the Features that needs to build the job portal platofnr, such as all the crud operation, roll back access controll, jobs, companies, apply, withdraw create job, create a new company, admin controler and a cron queue.
-- The Project can be build as a production level project with some minor things to do.
+The Project is a Job Portal Platform **with** all the features needed to build a job portal platform, such as CRUD operations, **role-based** access control, jobs, companies, apply, withdraw, create a job, create a new company, admin controller, and a cron queue.
+- The Project can be **built** as a production level project with some minor things to do.
+## Screenshots:
+<div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
+    <img src="frontend/public/Documents/homepage.png" style="border-radius: 20px;" alt="Homepage" width="200" height="150">
+    <img src="frontend/public/Documents/dashboard-employee.png" style="border-radius: 20px;" alt="Dashboard" width="200" height="150">
+    <img src="frontend/public/Documents/jobs-ui.png" style="border-radius: 20px;" alt="All Jobs" width="200" height="150">
+    <img src="frontend/public/Documents/profile-ui.png" style="border-radius: 20px;" alt="Profile UI" width="200" height="150">
+    <img src="frontend/public/Documents/each-jobs-mobile.png" style="border-radius: 20px;" alt="Each jobs" width="200" height="450">
+    <img src="frontend/public/Documents/repsonsive-ui-profile.png" style="border-radius: 20px;" alt="Responsive UI" width="200" height="450">
+</div>
 
-
-
-## DEmo Url:
-https://vercel.com
-https://render.com/project/api/v1
+## Demo Url:
+- Frontend: https://yeti-jobs.vercel.app
+- Backend: https://yeti-jobs-server.vercel.app/api/v1
 
 
 ## Features:
@@ -32,10 +38,9 @@ https://render.com/project/api/v1
   - See All employees
   - See Profile
   - Create/Delete/Edit a Job
-  - Change a Applicant STatus
   - Update Company
-  - All followrrs Company
-  -
+  - Change Applicant **Status**" 
+  - Get All **Followers** Company
 
 3. Admin:
    - Assign User to companies.
@@ -49,123 +54,121 @@ https://render.com/project/api/v1
   - Reset Password
 5. Authenticatoin:
   - JWT
-  - Roll Back Access Control
+  - **Role-Based** Access Control
 
 
 ## Tech Stack:
-Frontend:
-React
-TailwindCSS
-
-Backend:
-Node.js/Express
-
-Database:
-PostgresSQL
-
-Devops:
-Docker
+- Frontend:
+  - React
+  - TailwindCSS
+- Backend:
+  - Node.js
+  - Express
+- Database:
+  - PostgreSQL
+- Devops:
+  - Docker
 
 
 ## Architecture Overview:
-- The Project is buld on the top of the PERN-stack based with teh layered architececturedw where i've used a reacct for the ui staate and Node/Express for backend (API, auth Logic), PostgreSQL (data logic)
-- with Rest api connect layers, jwt for the auth and modular services fo the handler jobs, applicatoins, companies, resume parsing, profile picture uploadtion.
-- with the total more than thte 40 api endpoints with the every endpoints correct validation, and everytying to teh both client and the server validation.
+- The Project is built on top of the PERN stack with a layered architecture where I've used React for the UI state and Node/Express for backend (API, auth logic), PostgreSQL (data logic).
+- with REST API **layers**, JWT for auth, and modular services for handling jobs, applications, companies, resume parsing, profile picture upload.
+- With total more than **40** API endpoints with **proper** validation on both client and server side
+- i've to make sure to addd the diagram of the  architecture.
+ with also teh how frontend backend and db is interact
 
 
-## Folder STructure
+## Folder Structure
+
 ### Backend:
-  -- app.js
-  ---  controllers
-  ---  Middlewars
-  ---  Models
-  ---  routes
-  ---  services
-  ---  utils
+- app.js: Main file Which Runs Our Server
+- controllers: All our business Logic
+- Middleware: custom Middleware between two middleware for security.
+- Models: Data Validation
+- routes: All Routes
+- services: External Business Logic
+- utils: Reusable Function
 ### Frontend:
-  -- app.jsx
-  --- api
-  --- assets
-  --- auth
-  --- components
-  --- context
-  --- Data
-  --- hooks
-  --- lib
-  --- pages
-  --- services
+- api: All the Api calling to the server request
+- assets: Images to used on the project
+- auth: Validate Data
+- components: Reusuable components
+- context: UseContext central state mangment
+- Data: Form of array static data which used multiple places
+- hooks: Custom hooks such as fetching a data.
+- lib: Axios Default Api
+- pages: Final Output pages that client will see:
+- services: Reusuable Function.
 
 
 
 ## Environement Variables:
 ### Backend:
-  - Postgres:
+  - Postgres: Relational Database
     - USER
     - PASSWORD
     - HOST
     - DATABASE_PORT
     - DATABASE
-  - SUPABASE:
+  - SUPABASE: Used to Host our Files
     - URL_SUPABASE_CONNECT
     - ANON_KEY_SUPABASE
-  - NODEMAILER:
+  - NODEMAILER: Send Mail To Customer
     - NODEMAILER_MY_EMAIL  
     - NODEMAILER_MY_PASSWORD  
-  - JWT:
+  - JWT: JSON Web Token (JWT) for securely signed tamper proof information
    - JWT_SECRET_KEY:
-  - COMMON:
+  - COMMON:  Client URL to server that only **requests** port and also **how long** our cache should **be** stored"
     - CLIENT_BASE_URL
     - PORT
     - MAXAGE
 
 ### Frontend:
-  - VITE_SERVER_URL
+  - VITE_SERVER_URL: Server url which we'll send a request
+
+## Libraries Used:
+- `react`: `19.2.0`
+- `fontawesomeicon`: `7.2.0`
+- `axios`: `1.13.5`
+- `react-icons`: `5.6.0`
+- `react-router`: `7.13.1`
+- `react-spinners`: `0.17.0`
+- `react-toastify`: `11.0.5`
+- `tailwindcss`: `4.2.1`
+- `@supabase/supabase-js`: `^2.97.0`
+- `bcryptjs`: `^3.0.3`
+- `cookie-parser`: `^1.4.7`
+- `cors`: `^2.8.6`
+- `dotenv`: `^17.3.1`
+- `express`: `^5.2.1`
+- `express-rate-limit`: `^8.2.1`
+- `helmet`: `^8.1.0`
+- `jsonwebtoken`: `^9.0.3`
+- `multer`: `^2.0.2`
+- `node-cron`: `^4.2.1`
+- `nodemailer`: `^8.0.1`
+- `pg`: `^8.18.0`
+- `zod`: `^4.3.6`
 
 
 ## Instalation & Setup:
 - As It's based on the PERN Stack we've, required above all things to run our server.
-- Requirements: `Nodejs, Postgres Server, Supabase Keys, Nodemailer Keys`
+- Requirements: **Node.js**, Postgres Server, Supabase Keys, Nodemailer Keys"
+
 ### Backend Configuration:
-  -
-  ``` bash 
-      cd backend
-  ```
-  ``` bash
-    touch .env 
-  ```
-  ``` bash 
-    vim .env (Insert all the env keys on here)
-  ```
-
-  ``` bash
-    npm i
-  ```
-
-  ``` bash
-    npm start/node app.js
-  ```
-- now the server will run on the defined port of: `.env`
+``` cd backend ```
+``` touch .env  ```: create a environment variables.
+``` vim .env ``` (Insert all the env keys on here) 
+```npm i``` Install all our node libraries
+- ```node app.js```: Run our nodesj server
 
 ### Frontend:
-  ``` bash
-    cd frontend
-  ```
-  ``` bash
-    touch .env
-  ```
-  ``` bash
-    vim .env
-  ```
-  ``` vim
-    VITE_SERVER_URL=ADD_HERE
-  ```
-  ``` bash
-    npm i
-  ```
-  ``` bash
-    npm start/run dev
-  ```
-- your client will run on the http://localhost:5173
+``` cd frontend ```
+``` touch .env```: create a env variables.
+``` vim .env ```: Insert a server url path
+``` npm i```: Install all our node libraires
+``` npm run dev ```: load our react page to browser
+>:white_check_mark: your client page will run on the http://localhost:5173
 
 
 
@@ -175,11 +178,11 @@ Docker
 
 
 ## Api Documentation:
+- example with: post/api/v1/auth/login
 
 
 ## Database Design:
-- For the Database Design, i make sure have the separation of concern with only single tables do the single task not multiple.
- - which help us to get a wanted data on the correct tables.
+- For the Database Design, I made sure to have separation of concerns with only single tables doing a single task, not multiple.
 ### Database Tables:
 - applications
 - companies
@@ -191,10 +194,8 @@ Docker
 
 
 ### Application Table:
-- The Table  is mainly for track al the appplied jobs tracking which have mostly user id and job id as a forigen key and other relevent information for applying a job.
-- with toe ther information such as: `cover letter, notice period, expected slary, why we should hire you`
- - whic two: `letter, period` are mandatory rest two are the optional.
-
+- The Table is mainly for **tracking** all **applied** jobs which have mostly user id and job id as a **foreign** key.
+- with other relevant information such as: cover letter, notice period, expected salary, why we should hire you. **Two are mandatory** (cover letter, notice period) and the other two are optional
 
 ### Companies Table:
 - all the list of the companies which exist on the platform with their relvent other information.
@@ -220,35 +221,33 @@ Docker
 - education skills and the company id which only be valid for the enum recruiter.
 - and lot of other information.
 ### Extra
-- have a trigger and also teh index operation on the database
+- have a trigger and also the index operation on the database
 - with the enum for the education, role and other information.
-- iwth lof of database validation with the check and the constraint.
-- with also i use the `on delete cascase or on delete restrict` on the foreign relation if the foregin relation data is delete dshould we allow that linked data to be deleted or what.
+- Have the Muliple level of constraint/check to validate a inserted data with the data integrity.
+- with also i use the `on delete cascase or on delete restrict` on the foreign relation if the foreign relation data is delete dshould we allow that linked data to be deleted or what.
 
 
 ## Cron Task:
 - The cron task mean it'll run on that particular time which we've specified.
-- i've used on only one operation but wee can use for the many operation.
-- the opratoin that i've using a  cron is on the jobs which have the expirary time of the 30 days which checks on every night 12 noon a cron runs that time, 
+the operation that I'm using cron for is on jobs which have an **expiry** time of 30 days, which checks every night at **midnight**.
 - on the every noon cron node check whterh the jobs time have expired or not if expired change the that job set to teh closeed of is_job_active
 
 
 
 ## Testing:
-- as of now i've not the testing.
-- which i'm plan to add the integration testing with teh jest and the supertest.
-- if not possible only main routes such as: `login, signup, jobs, new jobs` will have the testing but it might take time as i'm currently learning a testing so.
+- As of now I **have** no testing. I plan to add integration testing with Jest and Supertest.
+- if it's become a time constraint for me only main routes such as: `login, signup, jobs, new jobs` will have the testing but it might take time as i'm currently learning a Testing Fundmental.
 
 ## Deployment:
 - for the deployment i'm plan to use the `vercel` for the both frontend and the backend project.
-- which vercel nowdays support also the backedn also have the backeup option of the render but that is too slow.
+- which vercel nowdays support also the backend also have the backeup option of the render but that is too slow.
 - for the database i'm planning to use: `supabase/neon` let's see which one i will choose for my postgres db.
-- for the frontne no doubt i'll be usiing the vercel.
+- for the frontend no doubt i'll be usiing the vercel.
 
 ## Security:
-- it's the one of the secured platform with teh lot of the validation and the middlewares.
+- use **Helmet** for the response purpose which removes **X-Powered-By** so the client will not know which framework we've built with.
 ### validatin Security:
-- Every Major table hav ethe validation from the zod which check validate the integratiy of our data.
+- Every major table will have validation from Zod which **checks** the integrity of our data.
 - beside teh client side validat, server side validation, i aloso make suer to add the database validatino,
 - even if user bypass a both client and server validation it can't insert due to teh database validation.
 - with checking a pattern, blank, min length max length which are common i've implemented.
@@ -258,7 +257,7 @@ Docker
 ### System Security:
 - The Most important thigns that i added here is the rate limiting.
 - which hacker even cant' try to do the brute force with the strict method.
-  - for any request, on the backedn only can send the request of the 200 per minutes, which i feel it still high, but considerign we've to request on the development mode lot of time i plan to make the 100 request per minute.
+  - for any request, on the backend only can send the request of the 200 per minutes, which i feel it still high, but considerign we've to request on the development mode lot of time i plan to make the 100 request per minute.
 - also add the rate limiting for the reset password and the forget password only can send the request twice per minute which enforce tha lot of times that user can't send the request.
 - use the helemtn for the reponse purpose which remove teh x powered by that the client will nto knwo which frameworkd we've build without this it'll show it build from the express.
  - and also haev one more feature ao it alls the 12 more repsonse header, for better secuirty epurpsoe of prevent from teh xss attack.
@@ -291,10 +290,10 @@ Docker
 
 
 ## Sclabality Considration:
-- for the scalabity considertation it's a very scalabel system.
+- For scalability consideration, it's a very scalable system. Done proper API versioning and follow the MVC pattern for building a REST architecture.
 - with done the proper api versisong and teh follow the mvc (mrc) pattern for buildign a rest architecture.
 - With have the global error handling on the both client and server error event if it's error occured it'll catch and dont' crash a system on teh both side.
-- Use the postgres full text search which which use the gin index for search any jobs, which bypass a prefix searhc from teh: `ilike` dbms
+- Use PostgreSQL full text search with GIN index for searching jobs, which bypasses prefix search from ILIKE
 -  on the every request it's sending a correct message as well with also the correct status code which range from 200, 400, 500.
 - check teh multiple command such as join, group by, nested query witht eh : `explain analyze` for the perofmance analysis which can have the faster query.
 - 
@@ -302,8 +301,8 @@ Docker
 ## Known Issue:
 - The Major Issue i've only faced on only on teh ui design.
 - with only the minor patch issue face on the backend.
-- while on teh frontend specially a tailwindcss have lot of known issue of  specifically a : `position, display`.
-- as i've not idea about that sometimes postgresql: `$1` doesn't understand which at that time we've to use the template literal, but also ahve cons  of the sql injection attack that i also prevent from using the whetehr the given user input allowed or not.
+- while on the frontend especially Tailwind CSS has known issues specifically with position and display.
+- Sometimes PostgreSQL `$1` placeholder doesn't work as expected, requiring template literals, but this has SQL injection risks which I prevent by validating user input.
 - during a building a email template for the backend i've also face a lot of issue on there.
 - One Issue that i sitll have is, for sending a mail, iv'et eh synchrounous, mean i'm not waiting for that request, as but when the email is invalid it's tryign to send a mail that still a issue.
  - i can use the `promise.all` which i'm plan to use for the better perofmace 
@@ -316,7 +315,7 @@ Docker
 - as i'm using a everywher the free tier for database/MAU at one time, which is efficient for the smaller student level projects.
 -
 
-## Someting Go Beyong Featuers:
+## Someting Go Beyond Featuers:
 - i've make sure to dockerize my sytem with also ignore some files that dont' needed.
 - as of now i only dockerize to teh nodejs, coming days might be also teh dbms let's see.
 - also have the controller and also the abot feature if the request takes longer time dont' wat for more than  a 10 sec.
@@ -327,12 +326,12 @@ Docker
 
 
 ## Future Improvemnts:
-- add the feature of the getting a notification or the email when that company post a new job.
-- also have the real time chat notification with the employers and the job seeker.
-- Have teh midn to move from teh useContext to Redux, i'm flexible to work on teh redux but tis' due to the time constraint.
-- Adding the log report to the system, with teh logs/monitororing/observablty.
+- Add notification/email when a company posts a new job. Real-time chat between recruiters and applicants.
+-  Move from useContext to Redux. 
+- Add logging/monitoring/observability. 
+Socket.io for real-time features.
 - socker io feature for the real tiem whic i also plan
-- Trying to make the ats socing for the any user profiel with their background jobs.
+ATS scoring for any user profile with their background jobs" and "interview scheduling system with automated email reminders and video call link generation from Google Calendar API.
 - user can add a their employment_history and shows that employment history to the user page, which is feasalbe now and also can add the new table of the education 
 - inteview shechduling system with auomated email remainder and video call link generation from google clander api.
 - resume parsing analysisx with exrrac skills education, ats.
@@ -343,4 +342,11 @@ Docker
 - with for better optimizatino for te mainly edit option if user don't change anything from the input and just try to submit don't allow them as it's just wastinr a resoruces only allow after somthings chnage else cancel the action.
 
 
-## Contributing:
+# Thanks 
+
+
+## Add this:
+- postman collection link of the api endpoints documentatino link.
+- testing even it's nto complete with mentodion my plan and coverae and frameword.
+- with on the deployment of detilas production vs development setup, also 
+  -- include the database migration steps.
