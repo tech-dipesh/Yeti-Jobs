@@ -1,0 +1,897 @@
+openapi: 3.0.0
+info:
+  title: swagger
+  version: 1.0.0
+paths:
+  /admin/dashboard:
+    get:
+      summary: Admin Dashboard
+      operationId: c_users_dipesh_bruno_job_portal_admin_admin_dashboard_bru
+      description: ''
+      tags:
+        - Admin
+      responses:
+        '200':
+          description: ''
+  /admin/assign-user:
+    post:
+      summary: Assign Company User
+      operationId: c_users_dipesh_bruno_job_portal_admin_assign_company_user_bru
+      description: ''
+      tags:
+        - Admin
+      responses:
+        '200':
+          description: ''
+      requestBody:
+        $ref: '#/components/requestBodies/assign_company_user'
+  /companies/e0ff1a5f-6920-4f75-bf47-bb110f3a8769:
+    delete:
+      summary: Delete Companies
+      operationId: c_users_dipesh_bruno_job_portal_admin_delete_companies_bru
+      description: ''
+      tags:
+        - Admin
+      responses:
+        '200':
+          description: ''
+  /admin/search/users?q=g:
+    get:
+      summary: Search Users
+      operationId: c_users_dipesh_bruno_job_portal_admin_search_users_bru
+      description: ''
+      tags:
+        - Admin
+      responses:
+        '200':
+          description: ''
+      parameters:
+        - name: q
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: string
+          example: g
+      requestBody:
+        $ref: '#/components/requestBodies/search_users'
+  /admin/verify:
+    get:
+      summary: Verify Admin
+      operationId: c_users_dipesh_bruno_job_portal_admin_verify_admin_bru
+      description: ''
+      tags:
+        - Admin
+      responses:
+        '200':
+          description: ''
+  /companies/new:
+    post:
+      summary: Add New Company
+      operationId: c_users_dipesh_bruno_job_portal_companies_add_new_company_bru
+      description: ''
+      tags:
+        - Companies
+      responses:
+        '200':
+          description: ''
+      requestBody:
+        $ref: '#/components/requestBodies/add_new_company'
+  /companies/ab0c12c7-62c8-4748-8d53-04c429bbf90d:
+    put:
+      summary: Update company list
+      operationId: c_users_dipesh_bruno_job_portal_companies_update_company_list_bru
+      description: ''
+      tags:
+        - Companies
+      responses:
+        '200':
+          description: ''
+      requestBody:
+        $ref: '#/components/requestBodies/update_company_list'
+  /companies/followers:
+    get:
+      summary: All Followers
+      operationId: >-
+        c_users_dipesh_bruno_job_portal_companies_individual_companies_all_followers_bru
+      description: ''
+      tags:
+        - Companies
+      responses:
+        '200':
+          description: ''
+  /companies/735b5472-07a9-4759-ad45-548aef42d11b/employees:
+    get:
+      summary: All Employees
+      operationId: >-
+        c_users_dipesh_bruno_job_portal_companies_individual_companies_all_employees_bru
+      description: ''
+      tags:
+        - Companies
+      responses:
+        '200':
+          description: ''
+  /companies/735b5472-07a9-4759-ad45-548aef42d11b/jobs:
+    get:
+      summary: All Jobs
+      operationId: >-
+        c_users_dipesh_bruno_job_portal_companies_individual_companies_all_jobs_bru
+      description: ''
+      tags:
+        - Companies
+      responses:
+        '200':
+          description: ''
+  /companies/dashboard:
+    get:
+      summary: Dashboard company
+      operationId: >-
+        c_users_dipesh_bruno_job_portal_companies_individual_companies_dashboard_company_bru
+      description: ''
+      tags:
+        - Companies
+      responses:
+        '200':
+          description: ''
+  /companies/735b5472-07a9-4759-ad45-548aef42d11b/applications:
+    get:
+      summary: Job Applications
+      operationId: >-
+        c_users_dipesh_bruno_job_portal_companies_individual_companies_job_applications_bru
+      description: ''
+      tags:
+        - Companies
+      responses:
+        '200':
+          description: ''
+  /companies/all:
+    get:
+      summary: Get All Companies
+      operationId: c_users_dipesh_bruno_job_portal_companies_get_all_companies_bru
+      description: ''
+      tags:
+        - Companies
+      responses:
+        '200':
+          description: ''
+  /applications/89e3d733-bfdc-4ea3-a0a6-7dc3bd09e755/apply:
+    post:
+      summary: Apply to the job
+      operationId: c_users_dipesh_bruno_job_portal_applications_apply_to_the_job_bru
+      description: ''
+      tags:
+        - Applications
+      responses:
+        '200':
+          description: ''
+      requestBody:
+        $ref: '#/components/requestBodies/apply_to_the_job'
+  /applications/89e3d733-bfdc-4ea3-a0a6-7dc3bd09e755/status:
+    post:
+      summary: Change Applicant Status
+      operationId: c_users_dipesh_bruno_job_portal_applications_change_applicant_status_bru
+      description: ''
+      tags:
+        - Applications
+      responses:
+        '200':
+          description: ''
+      requestBody:
+        $ref: '#/components/requestBodies/change_applicant_status'
+  /applications/lists:
+    get:
+      summary: Get All Applications
+      operationId: c_users_dipesh_bruno_job_portal_applications_get_all_applications_bru
+      description: ''
+      tags:
+        - Applications
+      responses:
+        '200':
+          description: ''
+  /applications/251e0eaf-8f56-4f11-a7f0-fd0cb835d9b2/applist:
+    get:
+      summary: Single Job All the applicant
+      operationId: >-
+        c_users_dipesh_bruno_job_portal_applications_single_job_all_the_applicant_bru
+      description: ''
+      tags:
+        - Applications
+      responses:
+        '200':
+          description: ''
+  /applications/2f2f65c2-e8b8-4264-badd-63930832a3fb/withdraw:
+    delete:
+      summary: Withdraw application
+      operationId: c_users_dipesh_bruno_job_portal_applications_withdraw_application_bru
+      description: ''
+      tags:
+        - Applications
+      responses:
+        '200':
+          description: ''
+  /jobs/saved_jobs/list:
+    get:
+      summary: All Bookmarks
+      operationId: c_users_dipesh_bruno_job_portal_jobs_bookmarks_all_bookmarks_bru
+      description: ''
+      tags:
+        - Jobs
+      responses:
+        '200':
+          description: ''
+  /jobs/3a2c3343-76c7-43f9-921f-c345075c453c/bookmark_job:
+    post:
+      summary: Bookmark Job
+      operationId: c_users_dipesh_bruno_job_portal_saved_jobs_bookmark_job_bru
+      description: ''
+      tags:
+        - Saved Jobs
+      responses:
+        '200':
+          description: ''
+  /jobs/3a2c3343-76c7-43f9-921f-c345075c453c/remove_from_bookmark:
+    delete:
+      summary: Remove Bookmark
+      operationId: c_users_dipesh_bruno_job_portal_jobs_bookmarks_remove_bookmark_bru
+      description: ''
+      tags:
+        - Jobs
+      responses:
+        '200':
+          description: ''
+  /jobs?limit=10&page=1&sortby=job_type:
+    get:
+      summary: All Jobs
+      operationId: c_users_dipesh_bruno_job_portal_jobs_all_jobs_bru
+      description: ''
+      tags:
+        - Jobs
+      responses:
+        '200':
+          description: ''
+      parameters:
+        - name: limit
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: '10'
+        - name: page
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: '1'
+        - name: sortby
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: string
+          example: job_type
+  /jobs/new:
+    post:
+      summary: Create New Job
+      operationId: c_users_dipesh_bruno_job_portal_jobs_create_new_job_bru
+      description: ''
+      tags:
+        - Jobs
+      responses:
+        '200':
+          description: ''
+      requestBody:
+        $ref: '#/components/requestBodies/create_new_job'
+  /jobs/6c9d7d54-7f44-42f3-83fe-b5607f465d8d/delete:
+    delete:
+      summary: Delete Each Job
+      operationId: c_users_dipesh_bruno_job_portal_jobs_delete_each_job_bru
+      description: ''
+      tags:
+        - Jobs
+      responses:
+        '200':
+          description: ''
+  /jobs/b8cc0732-2360-4837-9ea3-aadad7c35dce:
+    get:
+      summary: Individual Job
+      operationId: c_users_dipesh_bruno_job_portal_jobs_individual_job_bru
+      description: ''
+      tags:
+        - Jobs
+      responses:
+        '200':
+          description: ''
+  /jobs/search?title=data:
+    get:
+      summary: Search Job
+      operationId: c_users_dipesh_bruno_job_portal_jobs_search_job_bru
+      description: ''
+      tags:
+        - Jobs
+      responses:
+        '200':
+          description: ''
+      parameters:
+        - name: title
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: string
+          example: data
+  /jobs/0ddbea15-d866-45a5-8fad-a843faeea4e8/edit:
+    put:
+      summary: Update Existing Jobs
+      operationId: c_users_dipesh_bruno_job_portal_jobs_update_existing_jobs_bru
+      description: ''
+      tags:
+        - Jobs
+      responses:
+        '200':
+          description: ''
+      requestBody:
+        $ref: '#/components/requestBodies/update_existing_jobs'
+  /jobs/5082aaad-0b35-4fc9-aaca-f5d63d1e8a03/verify-owner:
+    get:
+      summary: Verify User Routes
+      operationId: c_users_dipesh_bruno_job_portal_jobs_verify_user_routes_bru
+      description: ''
+      tags:
+        - Jobs
+      responses:
+        '200':
+          description: ''
+  /jobs/9355c944-b11b-482d-92b1-20eaf2eaaba3/bookmark_job:
+    post:
+      summary: Bookmark Job
+      operationId: c_users_dipesh_bruno_job_portal_jobs_bookmarks_bookmark_job_bru
+      description: ''
+      tags:
+        - Jobs
+      responses:
+        '200':
+          description: ''
+  /users/all:
+    get:
+      summary: All Users
+      operationId: c_users_dipesh_bruno_job_portal_users_all_users_bru
+      description: ''
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+  /users/79617393-7998-4870-b659-60320b3f8ae5:
+    patch:
+      summary: Edit User Info
+      operationId: c_users_dipesh_bruno_job_portal_users_edit_user_info_bru
+      description: ''
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+      requestBody:
+        $ref: '#/components/requestBodies/edit_user_info'
+  /companies/9feaedfc-3fdf-48c0-b605-b4644d6841a1/follow:
+    post:
+      summary: Follow Company
+      operationId: c_users_dipesh_bruno_job_portal_users_follow_company_bru
+      description: ''
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+    delete:
+      summary: Unfollow Company
+      operationId: c_users_dipesh_bruno_job_portal_users_unfollow_company_bru
+      description: ''
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+  /users/following:
+    get:
+      summary: Following
+      operationId: c_users_dipesh_bruno_job_portal_users_following_bru
+      description: ''
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+  /users/login:
+    post:
+      summary: Login
+      operationId: c_users_dipesh_bruno_job_portal_users_login_bru
+      description: ''
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+      requestBody:
+        $ref: '#/components/requestBodies/login'
+  /users/logout:
+    get:
+      summary: LogOut
+      operationId: c_users_dipesh_bruno_job_portal_users_logout_bru
+      description: ''
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+      parameters:
+        - name: Authorization
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI0Yzg2ZjNjMy1hZTcwLTQwM2QtYjgyMC0wNjFlYmQ0NTZmODEiLCJyb2xlIjoiZ3Vlc3QiLCJpYXQiOjE3NzE1NzI1NDEsImV4cCI6MTc3MTY1ODk0MX0.ccZj6uSATz3RPAl2FZyO2VhpdjGxaAz5g1zIIwuzgs4
+  /users/5082aaad-0b35-4fc9-aaca-f5d63d1e8a03:
+    get:
+      summary: Profiles
+      operationId: c_users_dipesh_bruno_job_portal_users_profiles_bru
+      description: ''
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+      parameters:
+        - name: Authorization
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI0Yzg2ZjNjMy1hZTcwLTQwM2QtYjgyMC0wNjFlYmQ0NTZmODEiLCJyb2xlIjoiZ3Vlc3QiLCJpYXQiOjE3NzE1NzI1NDEsImV4cCI6MTc3MTY1ODk0MX0.ccZj6uSATz3RPAl2FZyO2VhpdjGxaAz5g1zIIwuzgs4
+    put:
+      summary: Update user
+      operationId: c_users_dipesh_bruno_job_portal_users_update_user_bru
+      description: ''
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+      requestBody:
+        $ref: '#/components/requestBodies/update_user'
+  /users/forget-password:
+    post:
+      summary: Request Forget Password
+      operationId: c_users_dipesh_bruno_job_portal_users_request_forget_password_bru
+      description: ''
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+      requestBody:
+        $ref: '#/components/requestBodies/request_forget_password'
+  /users/verify/resend:
+    post:
+      summary: Resend
+      operationId: c_users_dipesh_bruno_job_portal_users_resend_bru
+      description: ''
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+  /users/signup:
+    post:
+      summary: Signup
+      operationId: c_users_dipesh_bruno_job_portal_users_signup_bru
+      description: ''
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+      parameters:
+        - name: Authorization
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+          example: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI0Yzg2ZjNjMy1hZTcwLTQwM2QtYjgyMC0wNjFlYmQ0NTZmODEiLCJyb2xlIjoiZ3Vlc3QiLCJpYXQiOjE3NzE1NzI1NDEsImV4cCI6MTc3MTY1ODk0MX0.ccZj6uSATz3RPAl2FZyO2VhpdjGxaAz5g1zIIwuzgs4
+      requestBody:
+        $ref: '#/components/requestBodies/signup'
+  /users/0abca7c0-ea2a-4dab-b903-95dd362a30df/skills:
+    post:
+      summary: Skills Add
+      operationId: c_users_dipesh_bruno_job_portal_users_skills_add_bru
+      description: ''
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+      requestBody:
+        $ref: '#/components/requestBodies/skills_add'
+  /users/verify:
+    post:
+      summary: Verify code
+      operationId: c_users_dipesh_bruno_job_portal_users_verify_code_bru
+      description: ''
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+      requestBody:
+        $ref: '#/components/requestBodies/verify_code'
+  /users/forget-password/verify:
+    post:
+      summary: Verify Forget Password
+      operationId: c_users_dipesh_bruno_job_portal_users_verify_forget_password_bru
+      description: ''
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+      requestBody:
+        $ref: '#/components/requestBodies/verify_forget_password'
+  /users/login-status:
+    get:
+      summary: Verify User Logged Status
+      operationId: c_users_dipesh_bruno_job_portal_users_verify_user_logged_status_bru
+      description: ''
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+  /users/profile-picture:
+    post:
+      summary: Profile Picture
+      operationId: c_users_dipesh_bruno_job_portal_users_file_upload_profile_picture_bru
+      description: ''
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+      requestBody:
+        $ref: '#/components/requestBodies/profile_picture'
+  /users/resume:
+    post:
+      summary: Upload Resume
+      operationId: c_users_dipesh_bruno_job_portal_users_file_upload_upload_resume_bru
+      description: ''
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+      requestBody:
+        $ref: '#/components/requestBodies/upload_resume'
+servers: []
+components:
+  schemas:
+    assign_company_user:
+      type: object
+      properties:
+        company_id:
+          type: string
+        uid:
+          type: string
+    search_users:
+      type: object
+      properties:
+        company_id:
+          type: string
+        uid:
+          type: string
+    add_new_company:
+      type: object
+      properties:
+        name:
+          type: string
+        descriptions:
+          type: string
+        company_logo:
+          type: array
+          items:
+            type: string
+          properties:
+            '0':
+              type: string
+        website:
+          type: string
+        location:
+          type: string
+        founded_year:
+          type: string
+    update_company_list:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        website:
+          type: string
+        location:
+          type: string
+        founded_year:
+          type: number
+    apply_to_the_job:
+      type: object
+      properties:
+        cover_letter:
+          type: string
+        notice_period:
+          type: number
+        why_hire:
+          type: string
+        expected_salary:
+          type: number
+    change_applicant_status:
+      type: object
+      properties:
+        status:
+          type: string
+        user_id:
+          type: string
+    create_new_job:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        job_type:
+          type: string
+        salary:
+          type: number
+        skills:
+          type: array
+          items:
+            type: string
+          properties:
+            '0':
+              type: string
+            '1':
+              type: string
+    update_existing_jobs:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        job_type:
+          type: string
+        salary:
+          type: number
+        company_name:
+          type: string
+        experience_years:
+          type: number
+        skills:
+          type: string
+    edit_user_info:
+      type: object
+      properties:
+        fname:
+          type: string
+        lname:
+          type: string
+        education:
+          type: string
+        email:
+          type: string
+    login:
+      type: object
+      properties: {}
+    request_forget_password:
+      type: object
+      properties:
+        email:
+          type: string
+    signup:
+      type: object
+      properties:
+        fname:
+          type: string
+        lname:
+          type: string
+        password:
+          type: string
+        education:
+          type: string
+        email:
+          type: string
+    skills_add:
+      type: object
+      properties:
+        skills:
+          type: string
+    update_user:
+      type: object
+      properties:
+        fname:
+          type: string
+        lname:
+          type: string
+        education:
+          type: string
+        email:
+          type: string
+    verify_code:
+      type: object
+      properties:
+        code:
+          type: number
+    verify_forget_password:
+      type: object
+      properties:
+        code:
+          type: number
+        email:
+          type: string
+        newpassword:
+          type: string
+    profile_picture:
+      type: object
+      properties:
+        profile:
+          type: array
+          items:
+            type: string
+          properties:
+            '0':
+              type: string
+    upload_resume:
+      type: object
+      properties:
+        resume:
+          type: array
+          items:
+            type: string
+          properties:
+            '0':
+              type: string
+  requestBodies:
+    assign_company_user:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/assign_company_user'
+      description: ''
+      required: true
+    search_users:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/search_users'
+      description: ''
+      required: true
+    add_new_company:
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/add_new_company'
+      description: ''
+      required: true
+    update_company_list:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/update_company_list'
+      description: ''
+      required: true
+    apply_to_the_job:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/apply_to_the_job'
+      description: ''
+      required: true
+    change_applicant_status:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/change_applicant_status'
+      description: ''
+      required: true
+    create_new_job:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/create_new_job'
+      description: ''
+      required: true
+    update_existing_jobs:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/update_existing_jobs'
+      description: ''
+      required: true
+    edit_user_info:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/edit_user_info'
+      description: ''
+      required: true
+    login:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/login'
+      description: ''
+      required: true
+    request_forget_password:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/request_forget_password'
+      description: ''
+      required: true
+    signup:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/signup'
+      description: ''
+      required: true
+    skills_add:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/skills_add'
+      description: ''
+      required: true
+    update_user:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/update_user'
+      description: ''
+      required: true
+    verify_code:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/verify_code'
+      description: ''
+      required: true
+    verify_forget_password:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/verify_forget_password'
+      description: ''
+      required: true
+    profile_picture:
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/profile_picture'
+      description: ''
+      required: true
+    upload_resume:
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/upload_resume'
+      description: ''
+      required: true
+  securitySchemes: {}
