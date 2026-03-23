@@ -1,5 +1,5 @@
 # Yeti Jobs:
-A Sclaabel job portal built with the **PERN stack** that connects job seekers and recruiters with advanced search, application tracking, and role based access control.
+A Scalable job portal built with the **PERN stack** that connects job seekers and recruiters with advanced search, application tracking, and role based access control.
 Full stack Job Portal **Connecting** job **seekers** to recruiters with smart search, built with PERN stack, scalable job posting, resume analysis, real-time application management.
 
 <p align="center">
@@ -51,8 +51,8 @@ The Project is a Job Portal Platform **with** all the features needed to build a
 
 ## Demo Url:
 - Frontend: https://yeti-jobs.vercel.app
-- Backend: https://yeti-jobs-server.vercel.app/api/v1
-- Backend Api Demo: https://yeti-jobs-server.vercel.app/api/v1/swagger
+- Backend: https://yeti-jobs.onrender.com/api/v1/
+- Backend Api Demo: https://yeti-jobs.onrender.com/api/v1/swagger
 
 
 ## Features:
@@ -85,7 +85,7 @@ The Project is a Job Portal Platform **with** all the features needed to build a
   
 ### Common:
 - Authentication (JWT)
-- Email Verification & password reste
+- Email Verification & password reset
 - Role based access control.
 
 
@@ -168,7 +168,7 @@ The Project is a Job Portal Platform **with** all the features needed to build a
   - VITE_SERVER_URL: Server url which we'll send a request
     ```diff
     + VITE_SERVER_URL=http://localhost:3000/api/v1
-    - VITE_SERVER_URL=https://yeti-jobs.vercel.app/api/v1
+    - VITE_SERVER_URL=https://yeti-jobs.onrender.com/api/v1/
     ```
 ## 📦Libraries Used
 
@@ -249,7 +249,8 @@ vim .env
 
 
 ## Api Documentation:
-- Swagger UI: `https://yeti-jobs.render.com/api/v1/swagger`
+- Swagger UI: `https://yeti-jobs.onrender.com/api/v1/swagger`
+
 
 
 ## Database Design:
@@ -353,21 +354,21 @@ vim .env
 >> Rate limiting: 200 req/min globally
 >>> Reset password: 2 req/min strictly
 - use the helmet  for the reponse purpose which remove the `X-Powered` by that the client will not konw which framework we've build without this it'll show it build from the express.
-  - Also have  one more feature  it's add 12 more repsonse header, for better secuirty purpose of prevent from the `xss attack`.
+  - Also have  one more feature  it's add 12 more responsive header, for better secuirty purpose of prevent from the `xss attack`.
 - Use the `cors` library for only allow my client url dont' allow any external api endpoints which also have a better security feature for avoid a cross side attack.
 
 
 
 ### Middlewares:
 - i make sure to validate every incomoning  request to the both cilent side and the server side have the middleware.
-#### Client Valdiation:
-- on the client valdiation guest can't visit the page of the admin dashboard and the other admin restricted page and also the employee restricted page.
+#### Client Validation:
+- on the client validation guest can't visit the page of the admin dashboard and the other admin restricted page and also the employee restricted page.
 - while the employees only restrict to perform a employee can't apply to the jobs or can't perform and also neither a guest or the admin action.
 - admin which have little bit of the freedom but also enforce data on control integrity can't visit the page of the guest or the employee action.
 #### Server MIddleware:-
 - More than: 9+ middleware for server validation of custom middleware.
 - With make the controller user action to the only isJobSekkker, companies contoller to the isEmployee and the admin contoller to the isAdmin.
-- with i also valdiation whether the use is logged in or not, and also whether the user logged in but not verified, whether the user is owner of that routes or not, whether the user given a correct `uuid` which i also validaion that also save some time for invalid ui to check from the database.
+- with i also validation whether the use is logged in or not, and also whether the user logged in but not verified, whether the user is owner of that routes or not, whether the user given a correct `uuid` which i also validaion that also save some time for invalid ui to check from the database.
 
 
 ## >:white_check_mark: Performance Optimization
@@ -403,7 +404,7 @@ vim .env
 - with only the minor patch issue face on the backend.
 - while on the frontend especially Tailwind CSS has known issues specifically with position and display.
 - Sometimes PostgreSQL `$1` placeholder doesn't work as expected, requiring template literals, but this has SQL injection risks which I prevent by validating user input.
- - i can use the `promise.all` which i'm plan to use for the better perofmace 
+ - i can use the `promise.all` which i'm plan to use for the better performance 
 - With i make sure to send the: `withCredntiatils` from the frontend on the every request which i use the axios create function for sending at oncee.
 - For sending a file earlier it's sending from the state later, send a file to the: `formData`.
 
