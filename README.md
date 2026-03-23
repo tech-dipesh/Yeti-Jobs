@@ -1,4 +1,5 @@
 # Yeti Jobs:
+A Sclaabel job portal built with the **PERN stack** that connects job seekers and recruiters with advanced search, application tracking, and role based access control.
 Full stack Job Portal **Connecting** job **seekers** to recruiters with smart search, built with PERN stack, scalable job posting, resume analysis, real-time application management.
 
 <p align="center">
@@ -9,6 +10,31 @@ Full stack Job Portal **Connecting** job **seekers** to recruiters with smart se
 <p align="center">
   <strong>Climb your career like a Yeti climbs a mountain.</strong>
 </p>
+
+## Table of Contents:
+1. [Overview](#overview)
+2. [Screenshots](#screenshots)
+3. [Demo URL](#demo-url)
+4. [Tech Stack](#tech-stack)
+5. [Architecture Overview](#architecture-overview)
+6. [Folder Structure](#folder-structure)
+7. [Environment Variables](#environment-variables)
+8. [📦 Libraries Used](#libraries-used)
+9. [Installation & Setup](#installation--setup)
+10. [Docker Setup](#docker-setup)
+11. [API Documentation](#api-documentation)
+12. [Database Design](#database-design)
+13. [Cron Task](#cron-task)
+14. [Testing](#testing)
+15. [Deployment](#deployment)
+16. [Security](#security)
+17. [Performance Optimization](#performance-optimization)
+18. [Scalability Consideration](#scalability-consideration)
+19. [Known Issue](#known-issue)
+20. [Limitation](#limitation)
+21. [Something Go Beyond Features](#something-go-beyond-features)
+22. [Future Improvements](#future-improvements)
+
 
 ## Overview:
 The Project is a Job Portal Platform **with** all the features needed to build a job portal platform, such as CRUD operations, **role-based** access control, jobs, companies, apply, withdraw, create a job, create a new company, admin controller, and a cron queue.
@@ -26,43 +52,40 @@ The Project is a Job Portal Platform **with** all the features needed to build a
 ## Demo Url:
 - Frontend: https://yeti-jobs.vercel.app
 - Backend: https://yeti-jobs-server.vercel.app/api/v1
+- Backend Api Demo: https://yeti-jobs-server.vercel.app/api/v1/swagger
 
 
 ## Features:
-1. Users:
-  - Apply/Withdraw Job, Add/Bookmark
-  - Search Jobs
-  - Edit Profile And Other Credentials
-  - Add a Resume, Profile Picture
-  - See All Applied jobs
-  - All Companies List
-  - Individual Company jobs and Description About Company
-  - view Job
+### Job Seekers:
+- Apply/Withdraw Job, Add/Bookmark
+- Search Jobs
+- Edit Profile And Other Credentials
+- Add a Resume, Profile Picture
+- See All Applied jobs
+- All Companies List
+- Individual Company jobs and Description About Company
+- view Job
 
-2. Employees:
-  - Company Dashboard
-  - All Applicants
-  - See All Jobs
-  - See All employees
-  - See Profile
-  - Create/Delete/Edit a Job
-  - Update Company
-  - Change Applicant **Status**" 
-  - Get All **Followers** Company
+### Recruiters (Employees):
+- Company Dashboard
+- All Applicants
+- See All Jobs
+- See All employees
+- See Profile
+- Create/Delete/Edit a Job
+- Update Company
+- Change Applicant **Status**" 
+- Get All **Followers** Company
 
-3. Admin:
-  - Assign User to companies.
-  - edit/delete/create/update Company
-  - Company Entire Overview dashboard
+### Admin:
+- Assign User to companies.
+- edit/delete/create/update Company
+- Company Entire Overview dashboard
   
-4. Common:
-  - Login
-  - Signup
-  - Verify Email
-  - Reset Password
-5. Authenticatoin:
-  - JWT
-  - **Role-Based** Access Control
+### Common:
+- Authentication (JWT)
+- Email Verification & password reste
+- Role based access control.
 
 
 ## Tech Stack:
@@ -79,6 +102,12 @@ The Project is a Job Portal Platform **with** all the features needed to build a
 
 
 ## Architecture Overview:
+<p align="center">
+  <picture>
+      <img src="backend/assets/supabase-schema.png" alt="Database Schema" width="250" height='250'>
+  </picture>
+</p>
+
 - The Project is built on top of the PERN stack with a layered architecture where I've used React for the UI state and Node/Express for backend (API, auth logic), PostgreSQL (data logic).
 - with REST API **layers**, JWT for auth, and modular services for handling jobs, applications, companies, resume parsing, profile picture upload.
 - With total more than **40** API endpoints with **proper** validation on both client and server side
@@ -125,18 +154,22 @@ The Project is a Job Portal Platform **with** all the features needed to build a
     - NODEMAILER_MY_EMAIL  
     - NODEMAILER_MY_PASSWORD  
   - JWT: JSON Web Token (JWT) for securely signed tamper proof information
-   - JWT_SECRET_KEY:
+    - JWT_SECRET_KEY:
   - COMMON:  Client URL to server that only **requests** port and also **how long** our cache should **be** stored"
     ```diff
-    + CLIENT_BASE_URL=http://localhost:5173
-    - CLIENT_BASE_URL=https://vercel.app
+    + CLIENT_BASE_URL=http://localhost:5173/
+    - CLIENT_BASE_URL=https://yeti-jobs.vercel.app/
     ```
     - PORT
     - MAXAGE
 
 ### Frontend:
   - VITE_SERVER_URL: Server url which we'll send a request
-## 📦 Libraries Used
+    ```diff
+    + VITE_SERVER_URL=http://localhost:3000/api/v1
+    - VITE_SERVER_URL=https://yeti-jobs.vercel.app/api/v1
+    ```
+## 📦Libraries Used
 
 | Package | Version | Category |
 | ------- | ------- | -------- |
@@ -202,6 +235,15 @@ vim .env
 - Dockerbase have only one single container of the nodejs configuration.
 - With Use the Image of the `node` image 
 - in the coming time i'm plan to migrate my database to the dockrize.
+- first Build the Image of The Nodejs Application:
+  ``` bash
+  cd backend
+  docker build -t yeti-jobs-backend . # on current folder
+  ```
+- Now Run the Docker Container:
+  ``` bash
+  docker run -it 3000:3000 -d yeti-jobs-backend: # Run's on the backgound
+  ```
 
 
 
@@ -255,7 +297,6 @@ vim .env
 - with the enum for the education, role and other information.
 - Have the Muliple level of constraint/check to validate a inserted data with the data integrity.
 - with also i use the `on delete cascase or on delete restrict` on the foreign relation if the foreign relation data is delete dshould we allow that linked data to be deleted or what.
-
 </details>
 
 ## Cron Task:
@@ -265,17 +306,32 @@ vim .env
 
 
 ## Testing:
-- As of now I **have** no testing integrated to the system.
-- I plan to add integration testing with Jest and Supertest.
-- if it's become a time constraint for me to only main routes such as: `login, signup, jobs, new jobs` will have the testing but it might take time as i'm currently learning a Testing Fundmental.
-- Written All The Swagger Ui Testinf for the entire day,
+- Currently Not implemnted.
+
+### Planned:
+- Unit Testing
+- Integration testing(supertest)
+- Focus on critical routes (auth, jobs, companies)
 
 
 ## Deployment:
 - for the deployment i'm plan to use the `vercel` for the both frontend and the backend project.
-- which vercel nowdays support also the backend also have the backeup option of the render but that is too slow.
-- for the database i'm planning to use: `supabase/neon` let's see which one i will choose for my postgres db.
-- for the frontend no doubt i'll be usiing the vercel.
+### Database Migration:
+- For Migrating to the `localhost` to the `supabase` it's done with only two steps.
+- Where on the supabase we can get the: `DATABASE_URL` and where we can insert our project password on there.
+- rather then giving port, user we only need to add the: `connectionString`
+- And Also for unauthorized Access mean allow all our request we can allow to: `  ssl: {rejectUnauthorized: false}`
+- which also the file uploades already integrated to the supabase.
+
+### Backend:
+- which for the backend previously only run's on our local server.
+- Vercel also nowdays support the `express` framework with less steps and faster compare to the render.
+- We've to add the: `vercel.json` for integrating also the backend
+
+### Frontend:
+- For the Frontend i will also use the: `vercel`.
+- which doesn't have the complex structure easy to do it.
+
 
 ## Security:
 - use **Helmet** for the response purpose which removes **X-Powered-By** so the client will not know which framework we've built with.
@@ -310,19 +366,24 @@ vim .env
 - with i also valdiation whether the use is logged in or not, and also whether the user logged in but not verified, whether the user is owner of that routes or not, whether the user given a correct `uuid` which i also validaion that also save some time for invalid ui to check from the database.
 
 
-<div align="center">⚡ Performance Optimization</div>
-- for the performance i've make sure that
-- add the indexing purpose which use to query a any data with the faster time.
-- Add the lazy loading and also the suspense loading for only fetch data when needed don't request to server when don't need that.
-- use the useContext for centralize  for the check a whether a user is verifed, logged in and the user role.
-- Used the Pagination for the performance optimization for the jobs specifically.
-- i make sure indexing a search query that also do the faster operation.
-- i've ized my signup of the: `dns/promises` using a library of in build to verify a whether the given user email domain is valid or not before even try to send a mail.
-- with rather then checking a entire select statement i've used a: `select exists(select 1)` which can be used for condition match return true and don't fetch all else false which also imporove the perofmaance of the system.
+## >:white_check_mark: Performance Optimization
+
+### Database
+>:white_check_mark: Added **indexing** on frequently queried columns for faster data retrieval
+>:white_check_mark: Used `SELECT EXISTS(SELECT 1 ...)` instead of full `SELECT` statements for condition checks — returns `true/false` without fetching rows
+>:white_check_mark: Indexed search query fields to ensure faster full-text or filter operations
+
+### API & Server
+>:white_check_mark: Validated email domains via Node's built-in `dns/promises` module before attempting to send mail — prevents unnecessary SMTP calls
+>:white_check_mark: Implemented **pagination** for job listings to limit payload size per request
+
+### Frontend
+>:white_check_mark: Applied **lazy loading** with `React.lazy()` and `Suspense` — components and data are only fetched when needed
+>:white_check_mark: Centralized auth state (verified, logged-in status, user role) using `useContext` to avoid redundant checks and prop drilling
 
 
 
-## Sclabality Consideration:
+## Scalablity Consideration:
 - For scalability consideration, it's a very scalable system. - Done proper API versioning and follow the MVC pattern for building a REST architecture.
 - with done the proper api versisong and the follow the mvc (mrc) pattern for building a rest architecture.
 - With have the global error handling on the both client and server error event if it's error occured it'll catch and dont' crash a system on the both side.
@@ -343,20 +404,21 @@ vim .env
 - for sending a file i've to mandatory to send a file on the: `formData` which sometmes it becmoe a silent error.
 
 
-## LImitation:
+## Limitation:
 - as i'm using a everywher the free tier for database/MAU at one time, which is efficient for the smaller student level projects.
 - Other Limitation as of now that it can't connect to the job sekker and hr directly just have user informatino such as email, name but not direct connection which i will be adding to it.
 
 
 ## Someting Go Beyond Features:
 - i've make sure to dockerize my system with also ignore some files that dont' needed with: `.dockerignore`
-- as of now i only dockerize to the nodejs, coming days might be also the dbms let's see.
+- as of now i only dockerize to the nodejs, coming days dockerize a `postgres`
 - also have the controller and also the abort feature if the request takes longer time dont' wat for more than  a 10 sec.
 - now on the react 19 we dont' need: `auth.provider rather it also work a auth` 
 - use the portal system for the popup of the some features.
 - for previous a page on the profile picturee of the resume to change it i can use: `createObjectURL` to print show it.
 - add the vercel analytics for the get the stats about the frontend application.
 - With hr have the full control which use to reject which to move forward to the interview or the hired or rejected hr have full control.
+- Add the List of the bruno all api endpoints link to convert to the swagger ui and add the endpoints of: `api/v1/swagger`
 
 > [!NOTE]
 > ## Future Improvements:
@@ -376,9 +438,9 @@ vim .env
 > - On the edit content page if user try to submit a content without any change don't allow them which reduce a less backend request.
 > - Adding a phone number of the user that can send to hr when ur is accepted.
 > - testing even it's not complete only the important routes to test in the coming days.
-
-
-# Thanks 
+> - I've forget to implement the edit company with the strict all the validation which i will improve in the coming days.
+- with on the deployment of details production vs development setup, also 
+- have to add the 50 dummy dat for the each list
 
 
 <div align="center">
@@ -393,12 +455,6 @@ vim .env
 <a href="https://github.com/tech-dipesh/yeti-jobs/issues"><img alt="Request Issue on Github" src="frontend/public/Documents/readme-bar.png" height='50'></a>
 </div>
 
+## [Go Back To Top](#yeti-jobs)
 
-## Add this:
-- postman collection link of the api endpoints documentatino link.
-edit company have not implemented yet which i've to fix that..
-
-- testing even it's nto complete with mentodion my plan and coverae and frameword.
-- with on the deployment of details production vs development setup, also 
-  -- include the database migration steps.
-- i've nto written a manual swagger ui docs rather i've don the proper api fetching from: `bruno` and convert that burno postman like file to swagger from online converter tool.
+## 🙏 Thanks 

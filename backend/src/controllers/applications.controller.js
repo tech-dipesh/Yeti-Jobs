@@ -5,7 +5,7 @@ import validateFunUid from "../utils/ValidateFunUid.js";
 export const allAppliedJobs=async (req, res)=>{
   const {uid}=req.user;
   try {
-    const {rows}=await connect.query("select j.title, j.description, j.job_type, a.applied_at, a.cover_letter, a.notice_period, a.expected_salary, a.why_hire, j.experience_years, a.status, j.uid from jobs j inner join applications a on a.job_id=j.uid where user_id=$1", [uid]);
+    const {rows}=await connect.query("select j.title, j.description, j.job_type, a.applied_at, a.cover_letter, a.notice_period, a.expected_salary, a.why_hire, j.experience_years, j.expired_at, a.status, j.uid from jobs j inner join applications a on a.job_id=j.uid where user_id=$1", [uid]);
     return res.status(201).json({message: rows})
   } catch (error) {
     return res.status(201).json({message: error.message})

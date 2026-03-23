@@ -3,7 +3,7 @@ import connect from "../db.js"
 const getallSaveJob=async(req, res)=>{
   const {uid}=req.user;
   try {
-    const {rows}=await connect.query("select j.uid, j.title, j.description, j.salary, j.job_type, j.is_job_open, j.skills from jobs j inner join saved_jobs s on s.job_id=j.uid where s.users_id=$1;", [uid]);
+    const {rows}=await connect.query("select j.uid, j.title, j.description, j.salary, j.job_type, j.is_job_open, j.expired_at, j.skills from jobs j inner join saved_jobs s on s.job_id=j.uid where s.users_id=$1;", [uid]);
     return res.status(200).json({message: rows})
   } catch (error) {
     return res.status(500).json({message: error.message})

@@ -24,6 +24,7 @@ export default function Footer({ data }) {
         {company_id && <Linkcomps to='companies/dashboard' content={<ButtonComps values='Dashboard' />} />}
         <Linkcomps to={'/jobs/search'} content={<ButtonComps values='Search Jobs' />} />
         <Linkcomps to={'https://github.com/tech-dipesh/yeti-jobs/issues'} content={<ButtonComps values='Request Issue/Features?' />} />
+        <Linkcomps to={'https://yeti-jobs-server.vercel.app/api/v1/swagger'} content={<ButtonComps values='View API Docs' />} />
       </div>
       {/* </div> */}
       </div>

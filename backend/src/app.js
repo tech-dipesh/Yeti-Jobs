@@ -17,7 +17,6 @@ import { serve, setup } from "swagger-ui-express";
 import YAML from "yamljs";
 const swaggerInYAML=YAML.load("./swagger.yaml")
 const app = express();
-const port = process.env.PORT || 3000;
 
 
 
@@ -58,6 +57,4 @@ app.use((err, req, res, next)=>{
   }
 });
 
-app.listen(port, () => {
-  console.log(`App is listening on the http://localhost:${port}`);
-});
+export default app;

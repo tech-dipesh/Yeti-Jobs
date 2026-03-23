@@ -3,6 +3,12 @@
 
 ### Phase 1: Backend
 
+## Database Schema
+<p align="center">
+  <picture>
+      <img src="assets/supabase-schema.png" alt="Database Schema" width="250" height='250'>
+  </picture>
+</p>
 
 ## All API Endpoints (2026/Feb/26)
 
@@ -86,6 +92,7 @@
 - Fixed issue where status update created new record instead of updating
 - Separated controller code from router
 - Only owner can view/edit applications
+
 
 ## All The Updated Routes:
 /jobs:
@@ -329,7 +336,11 @@ FOR EACH ROW EXECUTE FUNCTION title_search_function_update();
 - The Bookmark action can't perform by the non job seeker role.
 - with change the login status routes of follow rest standard.
 - create the indexing on teh verified_code which we need the multiple times so.
+
 - update the profile reset password verify with the correct logic.
+- also create the index for the companies name which we need a frequently.
+- port our local database to the supabase database.
+- Move my system to the src folder structure.
 
 
 
