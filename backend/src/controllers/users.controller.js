@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import connect from "../db.js";
 import tableDataFetch from "../utils/tableDataFetch.js";
-import userSchema, { updateUserSchema } from "../Models/users.models.js";
+import userSchema, { loginUserSchema, updateUserSchema } from "../Models/users.models.js";
 import sendMail from "../services/email-verification.js";
 import isUserVerifiedEmail from "../utils/isUserEmailVerified.js";
 import dns from "dns/promises"
@@ -23,8 +23,10 @@ export const sendUserLoggedInStatus=async (req, res)=>{
 export const getloginUserController= async (req, res) => {
   const {email, password}=req?.body || {};
   try {
-    if(!email || !password){
-      return res.status(401).json({message: "Please Enter a Message and Password"})
+    const validateuser=loginUserSchema.safeParse(req?.body);
+    if(!validateuser.success){
+      const message=validateuser.error.issues.map(m=>m.message);
+      return res.status(422).json({message: message[0]})
     }
     const {rowCount, rows}= await connect.query("select * from users where email=$1", [email]);
     if(rowCount===0){

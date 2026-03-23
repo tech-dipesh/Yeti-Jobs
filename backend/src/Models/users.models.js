@@ -24,15 +24,22 @@ const userSchema=z.object({
     .regex(passRegex, "Please Match the Password Format")
 })
 
-
+export const loginUserSchema=z.object({
+    email:z
+    .string({required_error: "Please Enter a Email"})
+    .regex(z.regexes.email, "Please Match the Email Format Type"),
+  password:z
+    .string({required_error: "Please Enter a Password"})
+    .regex(passRegex, "Please Match the Password Format")
+})
 
 export const updateUserSchema=z.object({
   fname: z
-  .string({ error: "Name is required" })
+  .string({ required_error: "Name is required" })
   .min(2, { message: "Name must be at least 2 characters" })
   .optional(),
   lname:z
-  .string({ error: "Name is required" })
+  .string({ required_error: "Name is required" })
   .min(2, {message: "Last Name must be a 2 characters"})
   .optional(),
   education:z 
@@ -41,7 +48,7 @@ export const updateUserSchema=z.object({
     .enum(allAvaibleEducationtype, {error: "Please Only Enter a Avaible Option such as, Basic, Matrix, High School, Undergraduation, Postgraduation"})
     .optional(),
   email:z
-    .string({error: "Please Enter a Email"})
+    .string({required_error: "Please Enter a Email"})
     .regex(z.regexes.email, "Please Match the Email Format Type")
     .optional(),
 })

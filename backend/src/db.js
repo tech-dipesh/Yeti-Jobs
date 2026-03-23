@@ -9,7 +9,7 @@ try {
   await client.connect()
   console.log('connected to database');
 } catch (error) {
-    console.log('unable to connect', err)
+    console.log('unable to connect', error)
 }
 export { client as connect };
 export default client;

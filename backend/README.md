@@ -341,6 +341,7 @@ FOR EACH ROW EXECUTE FUNCTION title_search_function_update();
 - also create the index for the companies name which we need a frequently.
 - port our local database to the supabase database.
 - Move my system to the src folder structure.
+- One really weird bug during the email confirmation is current Date is freezing and sending a old time rather we should do: `new Date()`
 
 
 

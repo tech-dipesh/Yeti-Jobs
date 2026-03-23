@@ -2,6 +2,7 @@ import nodemailer from "nodemailer"
 import generateRandomNumber from "../utils/generateRandom6DigitNumber.js";
 import connect from "../db.js"
 import {readFileSync} from "fs"
+import { join } from "path";
 const email=process.env.NODEMAILER_MY_EMAIL;
 
 const transporter = nodemailer.createTransport({
@@ -16,7 +17,8 @@ const transporter = nodemailer.createTransport({
 
 const sendMail=async(uid, firstName, lastName, userEmail, type)=>{
   const random6DigitNumber=generateRandomNumber();
-  let readFile=readFileSync("services/template.html", "utf-8")
+  const templatePath=join(process.cwd(), 'src', 'services', 'template.html');
+  let readFile = readFileSync(templatePath, 'utf-8');
   readFile=readFile.replace("{{name}}", `${firstName}${lastName}`)
   readFile=readFile.replace("{{otp}}", random6DigitNumber)
   readFile=readFile.replaceAll("{{type}}", type=='verify'? "Email Verification":"Forget Password")
