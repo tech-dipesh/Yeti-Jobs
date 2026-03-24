@@ -27,20 +27,19 @@ export default function Signup() {
   const submitForm = async (e) => {
     e.preventDefault()
     const err=validateEditUser(value, 'signup')
-    console.log('err', err)
     if(err){
       setAPIError(err)
       return;
     }
     e.preventDefault();
-    await execute(value)
-    if(data){
+    const res=await execute(value)
+    if(data || res){
       navigate("../verify-email", {state: "Please Verify Your Mail"})
     }
   }
   return (
     <div className='grid md:grid-cols-2 grid-cols-1 items-center min-h-screen bg-slate-700 p-6'>
-          <Registerleftcomps type='Signup'/>
+      <Registerleftcomps type='Signup'/>
       <div className='bg-white/10 backdrop-blur m-8 rounded-2xl p-8 flex flex-col gap-4'>
       <form  onSubmit={submitForm} className='grid space-y-4'>
         <InputComps placeholder='First Name' type='text' name='fname' value={value.fname} click={setValue} error={setAPIError}/>

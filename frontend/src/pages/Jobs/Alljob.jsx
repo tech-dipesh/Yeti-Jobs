@@ -23,6 +23,7 @@ export default function Jobs() {
   }
   const loadMore = async () => {
     page++;
+    limit+=10;
     await execute({ page, limit });
   }
   return (

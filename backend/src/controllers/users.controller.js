@@ -10,7 +10,7 @@ import { promise } from "zod";
 export const getAllUserController= async (req, res)=>{
   try {
     const {rows}=await connect.query("select uid as userId, fname as firstName, lname as lastName, education, email, role, resume_url, profile_pic_url, skills, experience from users")
-    return res.status(200).json(rows)
+    return res.status(200).json({message: rows})
   } catch (error) {
     return res.status(201).json({message: error.message})
   }
@@ -52,10 +52,9 @@ export const getParticularUserController=  async (req, res) => {
   const {id, company_id}=req.params;
   try {
     const { rows } = await connect.query("SELECT uid, profile_pic_url, fname, education, email, experience, resume_url, skills, company_id IS NOT NULL AS is_employee, uid AS job_uid FROM users WHERE uid =$1", [id]);
-    if(!rows) return res.status(404).json({message: "Please Enter Correct Uid"})
+    if(rows.length==0) return res.status(404).json({message: "Please Enter Correct Uid"})
     return res.status(200).json({message: rows[0]});
   } catch (error) {
-    console.log(error)
     return res.status(500).json({message: error.message})
   }
 };
@@ -97,7 +96,6 @@ export const postSignupUserController= async (req, res) => {
     VerifyJwt(res, content)
     return res.status(201).json({message: "Succssfully Signed Up, Verification Code have been sent to your mail"})
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: error.message });
   }
 };
@@ -107,11 +105,10 @@ export const deleteUserController= async (req, res) => {
   const { id } = req.params;
   try {
     await connect.query("delete from users where uid=$1", [id]);
-    const data=await tableDataFetch('users')
-    return res.status(204).json(data);
+    const {rows}=await tableDataFetch('users')
+    return res.status(200).json({message: rows});
   } catch (error) {
-    (error);
-   return res.status(500).json(error);
+   return res.status(500).json({message: error.message});
   }
 };
 
@@ -152,8 +149,7 @@ export const putUserController= async(req, res) => {
     const {rows}=await connect.query("update users set fname=$1, lname=$2, education=$3, email=$4 where uid=$5 returning *", [fname, lname, education, email, id])
    return res.status(200).json({message: rows})
   } catch (error) {
-    console.log(error)
-    return res.status(500).json(error)
+    return res.status(500).json({message: error.message})
   }
 };
 
@@ -178,10 +174,8 @@ export const patchUserController= async(req, res)=>{
     const length=fields.length+1;
     await connect.query(`UPDATE users SET ${setClause} WHERE uid = $${length}`, [...values, id]);
     const {rows}=await connect.query(`select * from users WHERE uid=$1`, [id]);
-    console.log('rows is', rows)
-    return res.status(201).json(rows[0])
+    return res.status(201).json({message: rows[0]})
   } catch (error) {
-    console.log(error)
     return res.status(502).json({message: error.message})
   }
 }

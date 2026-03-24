@@ -36,7 +36,6 @@ export default function Assignusertocompanies() {
     }
   }
   if (loading) return <Loading />
-  console.log('value is', userdata?.message)
   return (
     <main className='min-h-screen p-8'>
       <Errorloading data={{ error: usererror || comperror || apierror || error }} />

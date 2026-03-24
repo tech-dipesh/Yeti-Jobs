@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import Loading from './components/Loading';
 import ToastConataine from './components/Toast';
 import { Analytics } from '@vercel/analytics/react';
+import api from './lib/axios';
 function App() {
   const { data, loading } = useAuth()
   if (loading) {

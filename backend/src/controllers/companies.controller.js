@@ -30,7 +30,6 @@ export const getCompanyController= async(req, res) => {
     }
     return res.status(200).json(rows)
   } catch (error) {
-    console.log(error)
     return res.status(500).json({message: error.message})
   }
 };
@@ -61,7 +60,6 @@ export const postCompanyController=async (req, res) => {
     const {rows}=await connect.query("insert into companies (name, description, website, location, founded_year, logo_url) values ($1, $2, $3, $4, $5, $6) returning *", [name, description, website, location, founded_year, getUrl.publicUrl])
     return res.status(201).json(rows[0]);
   } catch (error) {
-    console.log(error)
     return res.status(500).json({message: error.message});
   }
 }
@@ -184,7 +182,6 @@ export const followCompany=async(req, res)=>{
     await connect.query("insert into user_companies_follows (user_id, company_id) values ($1, $2)", [user_id, company_id])
     return res.status(201).json({message: "Succssfully Followed To Company"})
   } catch (error) {
-    console.log(error)
     return res.status(500).json({message: error.message})
   }
 }

@@ -2,6 +2,7 @@ import ButtonComps from './common/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCreativeCommons } from "@fortawesome/free-brands-svg-icons"
 import Linkcomps from './common/Linkcomps'
+import { Link } from 'react-router'
 export default function Footer({ data }) {
   const socials = [
     { name: 'Twitter', link: 'https://linkedin.com/in/tech-dipesh' },
@@ -20,11 +21,11 @@ export default function Footer({ data }) {
       {/* <div className='lg:grid lg:none'> */}
       <div className='flex flex-col items-start gap-2 lg:contents'>
       <p className='text-gray-500  font-sans'><FontAwesomeIcon icon={faCreativeCommons} />2026 Dipesh Sharma. All rights reserved.</p>
-      <div className='grid grid-cols-1 gap-2 w-full lg:flex lg:w-auto'>
+      <div className='grid grid-cols-1 gap-2 w-full text-nowrap lg:flex lg:w-auto'>
         {company_id && <Linkcomps to='companies/dashboard' content={<ButtonComps values='Dashboard' />} />}
         <Linkcomps to={'/jobs/search'} content={<ButtonComps values='Search Jobs' />} />
         <Linkcomps to={'https://github.com/tech-dipesh/yeti-jobs/issues'} content={<ButtonComps values='Request Issue/Features?' />} />
-        <Linkcomps to={'https://yeti-jobs-server.vercel.app/api/v1/swagger'} content={<ButtonComps values='View API Docs' />} />
+        <Link to={'https://yeti-jobs.onrender.com/api/v1/swagger'} target='_blank' className='text-xs text-white font-medium underline-offset-4 hover:underline hover:text-blue-400 transition-colors duration-200e w-fit'><ButtonComps values='View API Docs ↗' /></Link>
       </div>
       {/* </div> */}
       </div>

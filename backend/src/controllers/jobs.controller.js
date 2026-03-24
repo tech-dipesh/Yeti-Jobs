@@ -16,7 +16,6 @@ export const getAllListingController=async (req, res) => {
     const {rows}=await client.query(`select j.*, c.name as company_name from jobs j left join companies c on c.uid=j.company_id  order by ${sortby} desc limit $1 offset $2`, [limit, offset])
     return res.status(200).json({message: rows, limit, page, total: countTotal[0].count})
   } catch (error) {
-    console.log(error)
     return res.status(500).json({message: error.message})
   }
 };  
@@ -31,7 +30,6 @@ export const searchJobsListing=async (req, res) => {
     const {rows, rowCount}=await client.query(`select j.*, c.name as company_name from jobs j left join companies c on c.uid=j.company_id where search_title @@ to_tsquery($1) order by ${sortby} desc`, [title]);
     return  res.status(200).json({message: rows})
   } catch (error) {
-    console.log(error)
     return res.status(500).json({message: error.message});
   }
 };
@@ -48,7 +46,6 @@ export const getListingController= async (req, res) => {
     await client.query("update jobs set total_job_views=(total_job_views+1) where uid=$1", [id]);
     return res.status(200).json(rows[0])
   } catch (error) {
-    console.log(error)
     return res.status(400).json({message: error.message})
   }
 };

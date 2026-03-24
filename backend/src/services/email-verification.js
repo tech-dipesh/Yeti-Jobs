@@ -19,7 +19,7 @@ const sendMail=async(uid, firstName, lastName, userEmail, type)=>{
   const random6DigitNumber=generateRandomNumber();
   const templatePath=join(process.cwd(), 'src', 'services', 'template.html');
   let readFile = readFileSync(templatePath, 'utf-8');
-  readFile=readFile.replace("{{name}}", `${firstName}${lastName}`)
+  readFile=readFile.replace("{{name}}", `${firstName} ${lastName}`)
   readFile=readFile.replace("{{otp}}", random6DigitNumber)
   readFile=readFile.replaceAll("{{type}}", type=='verify'? "Email Verification":"Forget Password")
   readFile=readFile.replaceAll("{{belowmethod}}", type=='verify'? "Signup":"Reset Password")
@@ -28,7 +28,7 @@ const sendMail=async(uid, firstName, lastName, userEmail, type)=>{
     await transporter.sendMail({
     from: `${Title} <${email}>`,
     to: userEmail,
-    subject: `Please ${type} Your Email!}`,
+    subject: `Please ${type} Your Email!`,
     html: readFile,
   });
   {type=='verify'?

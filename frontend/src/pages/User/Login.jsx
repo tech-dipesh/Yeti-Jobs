@@ -19,7 +19,6 @@ export default function Login() {
   const navigate = useNavigate();
 
   const {data, loading, error:apierror, execute}=useFetchData(loginUser)
-  console.log('user location', state)
   useEffect(()=>{
     if(checkuser || data){
       navigate(state?.from || "/")
@@ -30,9 +29,12 @@ export default function Login() {
     e.preventDefault();
     const err = validateLogin(value);
     if (err) return setError(err);
-    await execute(value)
-    if(apierror) setError(apierror)
-    else await reexecute()
+   const res= await execute(value)
+  if(apierror) setError(apierror)
+  if(data || res){
+    navigate("/")
+    await reexecute()
+  }
   };
 
 

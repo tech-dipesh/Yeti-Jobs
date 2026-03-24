@@ -52,7 +52,6 @@ export const resendVerificationCode=async (req, res)=>{
      sendMail(uid, fname, lname, email, 'verify');
    return res.status(201).json({message: 'Resend Verification Code Have Been sent to your mail'})
   } catch (error) {
-    console.log(error)
   return  res.status(500).json({message: error.message})
   }
 }
@@ -72,7 +71,6 @@ export const forgetEmailPassword=async (req,res)=>{
     sendMail(uid, fname, lname, email, 'forget')
     return res.status(201).json({message: 'The password Have Beeen forget you can check your email for verify your code.'})
   } catch (error) {
-    (error)
     return res.status(401).json({message: error.message})
   }
 }

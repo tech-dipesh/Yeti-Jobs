@@ -30,7 +30,7 @@ export default function Edituser() {
     const err = validateEditUser(value, 'edit');
     if (err) return setError(err);
     await updateUser({ id, ...value });
-   if(data){
+   if(data?.message){
      setTimeout(() => {
        navigate(-1)
       }, 500);

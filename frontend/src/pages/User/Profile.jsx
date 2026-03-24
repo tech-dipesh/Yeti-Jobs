@@ -37,7 +37,6 @@ export default function Individualuser() {
 
   const submitSkill = async () => {
     const validateErr = validateText(value);
-    console.log('error is', validateErr)
     if (validateErr) {
       return setError(validateErr)
     }

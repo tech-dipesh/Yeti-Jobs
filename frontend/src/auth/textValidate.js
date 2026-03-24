@@ -7,8 +7,6 @@ const validateText= (value)=>{
     return `${value} must be 3 leter.`
   }
   if(value.length>25) return `${value} can't be more than 25 letter`
-  console.log(value)
-  console.log(regex.test(value))
   if(!regex.test(value)){
     return "Please Dont' Enter Any Number or Special Charachter."
   }

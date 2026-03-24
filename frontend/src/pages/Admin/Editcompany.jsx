@@ -17,7 +17,6 @@ export default function Editcompany() {
   useEffect(() => {
     (async () => {
       const res = await execute(id)
-      console.log('res', res)
       setValue({ name: res.name, description: res.description, website: res.website, founded_year: res.founded_year, location: res.location })
     })()
   }, [])
@@ -36,7 +35,6 @@ export default function Editcompany() {
         navigate("../../all")
       }, 200);
     }
-    console.log('output', res)
   }
   return (
     <div className='bg-slate-700 min-h-screen'>

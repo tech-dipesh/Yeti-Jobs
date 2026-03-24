@@ -23,7 +23,6 @@ export default function IsOwnerandloggedIn() {
 
 
   useEffect(()=>{
-    console.log('fetec', fetcherrData)
   if (fetcherrData === 'Please Verify Your verification code.') {
       //  navigate("/auth/verify-email", {   state: { from: location.pathname },  replace: true });
     return;

@@ -38,8 +38,8 @@ export default function VerifyEmail() {
       return;
     }
 
-    await execute(value)
-    if(data){
+    const res=await execute(value)
+    if(data || res){
       navigate("/")
     }
   }

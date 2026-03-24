@@ -21,7 +21,6 @@ export default function Admindashbaoard() {
   }
   const {role } = authdata ?? {};
   const { message } = data || {}
-  console.log('data is', message)
   return (
     <div>
       <div className='px-8 pt-8 pb-4 border-b border-neutral-700 mb-6'>
