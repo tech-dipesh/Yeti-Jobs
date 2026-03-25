@@ -31,14 +31,21 @@ export default function EditJob() {
   const submitForm = async (e) => {
     e.preventDefault()
     setError(null)
-    const err = validateJobs(value);
+     const trim = {
+      title: value.title.trim(),
+      description: value.description.trim(),
+      salary: value.salary.trim(),
+      skills: value.skills.trim(),
+      job_type: value.job_type.trim(),
+      location: value.location.trim()
+    }
+    const err = validateJobs(trim);
     if (err) {
       setError(err)
       return;
     }
     const skill = typeof value.skills == 'string' && value.skills.split(",");
-
-    setValue((prev) => ({ ...prev, skills: skill }))
+    trim.skills=skill
     const res = await execute(value);
     setError(errors)
     if (res) {

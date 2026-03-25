@@ -27,9 +27,10 @@ export default function Login() {
   
   const submitForm = async (e) => {
     e.preventDefault();
-    const err = validateLogin(value);
+    const trim={email: value.email.trim(), password: value.password.trim()}
+    const err = validateLogin(trim);
     if (err) return setError(err);
-   const res= await execute(value)
+   const res= await execute(trim)
   if(res){
     await reexecute()
     navigate(state?.from || "/")

@@ -24,12 +24,19 @@ export default function Editcompany() {
 
   const editForm = async (e) => {
     e.preventDefault();
-    const err = validateCompany(value);
+    const trim={
+      name: value.name.trim(),
+      description: value.description.trim(),
+      website: value.website.trim(),
+      founded_year: value.founded_year.trim(),
+      location: value.location.trim(),
+    }
+    const err = validateCompany(trim);
     if (err) {
       setError(err);
       return;
     }
-    const res = await editcompany({ id, value });
+    const res = await editcompany({ id, value:trim });
     if (res) {
       setTimeout(() => {
         navigate("../../all")

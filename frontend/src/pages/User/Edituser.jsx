@@ -27,9 +27,16 @@ export default function Edituser() {
 
   const submitForm = async (e) => {
     e.preventDefault();
-    const err = validateEditUser(value, 'edit');
+     const trim = {
+      fname: value.fname.trim(),
+      lname: value.lname.trim(),
+      education: value.education.trim(),
+      email: value.email.trim(),
+      password: value.password.trim()
+    }
+    const err = validateEditUser(trim, 'edit');
     if (err) return setError(err);
-    await updateUser({ id, ...value });
+    await updateUser({ id, value });
    if(data?.message){
      setTimeout(() => {
        navigate(-1)
