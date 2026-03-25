@@ -1,14 +1,16 @@
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
  const validateLogin = ({ email, password }) => {
+  const trimEmail=email.trim()
+  console.log('regex', emailRegex)
   console.log('email', email)
-  console.log('test is', emailRegex.test(email))
-  if (!email) return "Please Enter Emails";
-  if (!password) return "Please Enter Password";
+  const trimPass=password.trim()
+  if (!trimEmail) return "Please Enter Emails";
+  if (!trimPass) return "Please Enter Password";
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,}$/;
-  if(password.length<6) return "Password Must be at least 6 digit Letter."
-  if(password.length>25) return "Password Max can be a 25 digit Letter."
-  if (!emailRegex.test(email)) return "Email Format is Invalid.";
-  if (!passwordRegex.test(password)) return "Invalid password format.";
+  if(trimPass.length<6) return "Password Must be at least 6 digit Letter."
+  if(trimPass.length>25) return "Password Max can be a 25 digit Letter."
+  if (!emailRegex.test(trimEmail)) return "Email Format is Invalid.";
+  if (!passwordRegex.test(trimPass)) return "Invalid password format.";
   return null;
 };
 
