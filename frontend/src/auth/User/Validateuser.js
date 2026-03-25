@@ -1,18 +1,18 @@
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
  const validateLogin = ({ email, password }) => {
+  console.log('email', email)
+  console.log('test is', emailRegex.test(email))
   if (!email) return "Please Enter Emails";
   if (!password) return "Please Enter Password";
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,}$/;
   if(password.length<6) return "Password Must be at least 6 digit Letter."
   if(password.length>25) return "Password Max can be a 25 digit Letter."
-  if (!emailRegex.test(email)) return "Invalid email format.";
+  if (!emailRegex.test(email)) return "Email Format is Invalid.";
   if (!passwordRegex.test(password)) return "Invalid password format.";
-
   return null;
 };
 
 export const validateEditUser= ({fname, lname, education, email, experience, password}, type)=>{
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const validEducation=['Basic', 'Matrix', 'High School', 'Undergraduation', 'Postgraduation'];
   if(!fname){
     return "Please Enter a First Name"
