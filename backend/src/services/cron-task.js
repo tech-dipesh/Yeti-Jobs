@@ -21,7 +21,7 @@ cron.schedule("0 0 * * *", async () => {
         );
       }
     }
-    return res.json(200).json({message: "data cleaned successfuly"});
+    return res.status(200).json({message: "data cleaned successfuly"});
   } catch (error) {
     return res.status(501).json({ message: error.message });
   }

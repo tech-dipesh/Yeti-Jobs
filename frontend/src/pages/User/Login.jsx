@@ -31,6 +31,7 @@ export default function Login() {
     if (err) return setError(err);
    const res= await execute(value)
   if(res){
+    await reexecute()
     navigate(state?.from || "/")
   }
   else{
