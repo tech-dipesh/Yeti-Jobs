@@ -10,6 +10,7 @@ import Successcomps from '../../components/common/Success.jsx';
 import Errorloading from '../../components/common/Errorloading.jsx';
 import Linkcomps from '../../components/common/Linkcomps.jsx';
 import Registerleftcomps from '../../components/common/User/Registerleftcomps.jsx';
+import Errorpopup from '../../components/Error/Errorpopup.jsx';
 
 export default function Login() {
   const {reexecute, data:checkuser}=useAuth()
@@ -19,14 +20,16 @@ export default function Login() {
   const navigate = useNavigate();
 
   const {data, loading, error:apierror, execute}=useFetchData(loginUser)
+  
   useEffect(()=>{
     if(checkuser || data){
       navigate(state?.from || "/")
     }
-  }, [checkuser, data, navigate, state])
+  }, [checkuser, navigate, state])
   
   const submitForm = async (e) => {
     e.preventDefault();
+    setError("")
     const trim={email: value.email.trim(), password: value.password.trim()}
     const err = validateLogin(trim);
     if (err) return setError(err);
@@ -36,13 +39,14 @@ export default function Login() {
     navigate(state?.from || "/")
   }
   else{
-    setError(apierror || "Login Failed")
+    setError(apierror)
   }
   };
 
 
   return (
       <div className='grid md:grid-cols-2 grid-cols-1 items-center min-h-screen bg-slate-700 p-6'>
+        <Errorpopup error={apierror}/>
         <Registerleftcomps type={'Login'}/>
         <div className='border border-white/20 rounded-2xl p-6  flex flex-col gap-4 flex-1 self-stretch w-full'>
         <h1 className='font-semibold justify-center align-middle'>Welcome Back To The YetiJobs.</h1>
@@ -58,7 +62,7 @@ export default function Login() {
           Submit
         </button>
         </form>
-        <Errorloading data={{error: error, loading}}/>
+        <Errorloading data={{error: error || apierror, loading}}/>
         <div className='grid grid-cols-1 lg:grid-cols-2 justify-items-center  gap-4 justify-between my-4 '>
         <Linkcomps to='../forget-password' content={<ButtonComps values="Can't sign in?" color='bg-red-500' text='text-white'/>}/>
         <Linkcomps to='../signup' content={<ButtonComps values='Create an account' color={'bg-slate-800'} text='text-white'/>}/>

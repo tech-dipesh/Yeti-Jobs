@@ -27,7 +27,8 @@ const applicationSchema=z.object({
     .max(90, {message: "Maximum Notice Period Can be 90 days"})
     .optional(),
     expected_salary:
-    z.coerce.number({error: "Please Enter a Salary That You Want"})
+    z.coerce
+    .number({error: "Please Enter a Salary That You Want"})
     .min(5000, {message: "Salary Can't be Below 5000"})
     .max(10000000, {message: "Salary Can't be Above 10000000"}),
     why_hire:

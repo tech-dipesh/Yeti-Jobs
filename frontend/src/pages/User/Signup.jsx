@@ -10,6 +10,7 @@ import Selectcomps from '../../components/common/Selectcomps';
 import { EducationOption } from '../../Data/OptionList';
 import Successcomps from '../../components/common/Success';
 import Registerleftcomps from '../../components/common/User/Registerleftcomps';
+import Errorpopup from '../../components/Error/Errorpopup';
 
 export default function Signup() {
   const navigate = useNavigate()
@@ -46,6 +47,7 @@ export default function Signup() {
   }
   return (
     <div className='grid md:grid-cols-2 grid-cols-1 items-center min-h-screen bg-slate-700 p-6'>
+      <Errorpopup error={apiError}/>
       <Registerleftcomps type='Signup' />
       <div className='bg-white/10 backdrop-blur m-8 rounded-2xl p-8 flex flex-col gap-4'>
         <form onSubmit={submitForm} className='grid space-y-4'>
@@ -62,7 +64,6 @@ export default function Signup() {
           <Link to='../forget-password'><ButtonComps values='Reset Your Password' /></Link>
           <Link to='../login' className='grid justify-items-center'><ButtonComps values='Login' color='bg-red-500' /></Link>
         </span>
-
       </div>
     </div>
   )

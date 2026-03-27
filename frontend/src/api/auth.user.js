@@ -14,7 +14,7 @@ import api from "../lib/axios"
 export const listAlluserFollowingCompanies=()=>api.get(`users/following`)
 
  export const verifyUser = (code) =>api.post('/users/verify', { code });
- export const resendVerificationCode=(code)=>api.post('/users/verify/resend', {code})
+ export const resendVerificationCode=()=>api.post('/users/verify/resend')
  export const forgetPassword=(email)=>api.post('/users/forget-password', {email})
  export const verifyForgetPassword=({...value})=>api.post('/users/forget-password/verify', value)
  export const uploadProfilePicture=(payload)=>api.post('/users/profile-picture', payload)

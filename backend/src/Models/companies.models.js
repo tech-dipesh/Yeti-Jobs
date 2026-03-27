@@ -4,17 +4,21 @@ const websitePattern=/^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})(\/[^\
 const companiesSchema=z.object({
     name:z
     .string({ error: "Name is required" })
+    .trim()
     .min(2, {error: "Name must be a 2 characters"}),
-  description:z 
+    description:z 
     .string({error: "Please Add a Description"})
+    .trim()
     .min(25, {error: "Minimum Letter Should be 25 Letter of Description"})
     .max(250, {error: "Maximum Letter Should be 250 Letter of Description"})
     ,
     website:z
     .string({error: "Please Enter a Website Name"})
+    .trim()
     .regex(websitePattern, "Please Enter Correct Url Type Type"),
     location:z
     .string({error: "Please Enter a Location Name"})
+    .trim()
     .min(3, {error: "Location Must be The 5 Letters.."})
     ,
     founded_year:z.coerce

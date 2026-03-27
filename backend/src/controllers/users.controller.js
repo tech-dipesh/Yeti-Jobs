@@ -6,7 +6,6 @@ import sendMail from "../services/email-verification.js";
 import isUserVerifiedEmail from "../utils/isUserEmailVerified.js";
 import dns from "dns/promises"
 import VerifyJwt from "../services/verifyJwt.js";
-import { promise } from "zod";
 export const getAllUserController= async (req, res)=>{
   try {
     const {rows}=await connect.query("select uid as userId, fname as firstName, lname as lastName, education, email, role, resume_url, profile_pic_url, skills, experience from users")
@@ -83,7 +82,7 @@ export const postSignupUserController= async (req, res) => {
     
     const {rows: query}=await connect.query("select exists(select 1 from users where email=$1)", [email]);
     if(query[0].exists){
-      return res.status(401).json({message: `The User with same email of: ${email} already exist.`})
+      return res.status(401).json({message: `The User with same email already exist.`})
     }
     const hashPassword=await bcrypt.hash(password, 12);
     const {rows}=await connect.query(
