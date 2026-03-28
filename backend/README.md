@@ -314,6 +314,7 @@ supabase.storage.from('bucketname').getPublicUrl(pathurl)
 - Logout: simply clear cookie from server
 - Prevent logged-in users from accessing signup/login pages
 - with One things of: `logout` i've to set teh clearCookie to give all the options, `httpOnly, secure, sameSite` which i previously only set when i set a cookies, which cause a conflict on the deployment.
+- Also one of the error on the serach instead of: `to_tsquery` which only handle the non space item, rather i can fetch with: `plainto_tsquery` which handle the also a space.
 
 ## Packages Used
 1. Express

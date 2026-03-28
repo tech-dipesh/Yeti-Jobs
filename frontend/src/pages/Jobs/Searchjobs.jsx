@@ -14,7 +14,6 @@ export default function Searchjobs() {
   const [sortby, setSortBy] = useState("created_at")
   const debounce = CustomDebounceHook(search, 300)
   const { data, error, loading, execute } = useFetchData(searchJobs);
-
   useEffect(() => {
     if (debounce) {
       execute({ title: debounce, order: sortby });

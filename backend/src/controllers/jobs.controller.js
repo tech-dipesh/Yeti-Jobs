@@ -1,15 +1,14 @@
 import express from "express"
 import client from "../db.js"
-import tableDataFetch from "../utils/tableDataFetch.js";
+import tableDataFetch, { allowAllSearchQuery } from "../utils/Querytablehelper.js";
 import listingSchema from "../Models/jobs.models.js";
-const DATALIST=["uid", "title", "description", "salary", "job_type", "is_job_open", "created_by", "created_at", "skills", "total_job_views"];
 const router=express.Router();
 
 export const getAllListingController=async (req, res) => {
   let {page=1, limit=10, sortby='created_at'}=req.query;
   const offset=(page-1)*limit;
   try {
-    if(!DATALIST.includes(sortby)){
+    if(!allowAllSearchQuery.includes(sortby)){
       return res.status(401).json({message: "Please Add Only Avaible column list"});
     }
     const {rows: countTotal}=await client.query("select count(*) as count from jobs");
@@ -27,9 +26,13 @@ export const searchJobsListing=async (req, res) => {
     return res.status(204).json({message: message});
   }
   try {
-    const {rows, rowCount}=await client.query(`select j.*, c.name as company_name from jobs j left join companies c on c.uid=j.company_id where search_title @@ to_tsquery($1) order by ${sortby} desc`, [title]);
+    if(!allowAllSearchQuery.includes(title)){
+      return res.status(401).json({message: "Please Add Only Avaible column list"});
+    }
+    const {rows, rowCount}=await client.query(`select j.*, c.name as company_name from jobs j left join companies c on c.uid=j.company_id where search_title @@ plainto_tsquery($1) order by ${sortby} desc`, [title]);
     return  res.status(200).json({message: rows})
   } catch (error) {
+    console.log(error)
     return res.status(500).json({message: error.message});
   }
 };

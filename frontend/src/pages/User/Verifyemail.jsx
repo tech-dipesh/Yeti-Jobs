@@ -19,7 +19,7 @@ export default function VerifyEmail() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate()
-  const {data:isUser, error: autherr}=useAuth();
+  const {data:isUser, error: autherr, reexecute}=useAuth();
   const { state } = useLocation();
   const { error: apierror, loading, data, execute } = useFetchData(verifyUser);
   const { error: apiresend, loading: loadresend, data: resenddata, execute: resendexecute } = useFetchData(resendVerificationCode);
@@ -40,6 +40,8 @@ export default function VerifyEmail() {
 
     const res=await execute(value)
     if(data || res){
+      navigate(0)
+      reexecute()
       navigate("/")
     }
   }

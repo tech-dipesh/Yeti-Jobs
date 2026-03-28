@@ -1,4 +1,3 @@
-
 import express from "express";
 import { adminDashBoard, assignUsersToCompanies, searchCompany, searchUsers, verifyAdminController } from "../controllers/admin.controllers.js";
 import isAdminMIddleware from "../Middleware/isAdmin.js";

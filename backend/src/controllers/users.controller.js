@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import connect from "../db.js";
-import tableDataFetch from "../utils/tableDataFetch.js";
+import tableDataFetch from "../utils/Querytablehelper.js";
 import userSchema, { loginUserSchema, updateUserSchema } from "../Models/users.models.js";
 import sendMail from "../services/email-verification.js";
 import isUserVerifiedEmail from "../utils/isUserEmailVerified.js";

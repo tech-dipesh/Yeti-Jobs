@@ -1,5 +1,5 @@
 import express from "express";
-import { companyDashBoard, companyStatsController, deleteCompanyController, followCompany, getallApplicationsList, getAllCompaniesFollowers, getAllCompaniesList, getAllEmployeesList, getAllJobsList, getCompanyController, postCompanyController, putCompanyController, unFollowCompany} from "../controllers/companies.controller.js";
+import { companyDashBoard, deleteCompanyController, followCompany, getallApplicationsList, getAllCompaniesFollowers, getAllCompaniesList, getAllEmployeesList, getAllJobsList, getCompanyController, postCompanyController, putCompanyController, unFollowCompany} from "../controllers/companies.controller.js";
 import isCompanyEmployee from "../Middleware/isCompanyEmployee.js";
 import validateCorrectUid from "../Middleware/validateCorrectUid.js";
 import upload from "../services/Multer.js";

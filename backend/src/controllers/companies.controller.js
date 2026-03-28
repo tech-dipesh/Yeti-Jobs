@@ -1,5 +1,5 @@
 import connect from "../db.js";
-import tableDataFetch from "../utils/tableDataFetch.js";
+import tableDataFetch from "../utils/Querytablehelper.js";
 import companySchema from "../Models/companies.models.js";
 import { supabase } from "../services/Supabase.js";
 
