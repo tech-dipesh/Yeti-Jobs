@@ -24,9 +24,10 @@ export const getloginUserController= async (req, res) => {
   try {
     const validateuser=loginUserSchema.safeParse(req?.body);
     if(!validateuser.success){
-      const message=validateuser.error.issues.map(m=>m.message);
-      return res.status(422).json({message: message[0]})
+      const message=validateuser.error.issues[0].message;
+      return res.status(422).json({message: message})
     }
+    const {rows}= await connect.query("select email, password, uid, company_id, role from users where email=$1", [email]);
     if(rows.length==0){
       return res.status(401).json({message: "Invalid Email Id."});
     }
@@ -34,7 +35,8 @@ export const getloginUserController= async (req, res) => {
     if(!saltPassword){
       return res.status(404).json({message: "Please Enter a Correct Password."})
     }
-    let {uid, role, company_id=null}=rows[0] ?? {};
+    let {uid, role, company_id=null}=rows[0];
+    if(!role)role='guest'
     const userVerified=await isUserVerifiedEmail(uid)
    const content={uid, role, company_id, userVerified};
    VerifyJwt(res, content)
@@ -65,8 +67,8 @@ export const postSignupUserController= async (req, res) => {
     const allUser={fname, lname, education, email, password}
     const validateuser=userSchema.safeParse(allUser);
     if(!validateuser.success){
-      const message=validateuser.error.issues.map(m=>m.message);
-      return res.status(422).json({message: message[0]})
+      const message=validateuser.error.issues[0].message;
+      return res.status(422).json({message: message})
     }
     const domain = email.split('@')[1];
     try {

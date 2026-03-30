@@ -1,10 +1,10 @@
 import express from "express"
 import client from "../db.js"
-import tableDataFetch, { allowAllSearchQuery } from "../utils/Querytablehelper.js";
+import { allowAllSearchQuery } from "../utils/Querytablehelper.js";
 import listingSchema from "../Models/jobs.models.js";
 const router=express.Router();
 
-export const getAllListingController=async (req, res) => {
+export const getAllJobsController=async (req, res) => {
   let {page=1, limit=10, sortby='created_at'}=req.query;
   const offset=(page-1)*limit;
   try {
@@ -38,7 +38,7 @@ export const searchJobsListing=async (req, res) => {
 };
 
 
-export const getListingController= async (req, res) => {
+export const getJobsController= async (req, res) => {
   const {id}=req.params;
   const {uid, company_id}=req?.user;
   try {
@@ -47,13 +47,13 @@ export const getListingController= async (req, res) => {
       return res.status(404).json({message: "Id Doesn't exist that you're looking for"})
     }
     await client.query("update jobs set total_job_views=(total_job_views+1) where uid=$1", [id]);
-    return res.status(200).json(rows[0])
+    return res.status(200).json({message: rows[0]})
   } catch (error) {
-    return res.status(400).json({message: error.message})
+    return res.status(500).json({message: error.message})
   }
 };
 
-export const postListingController= async (req, res) => {
+export const postJobsController= async (req, res) => {
   let {title, description, job_type, salary, skills, experience_years}=req.body;
   const {company_id, uid}=req.user;
   if (typeof skills === 'string') {
@@ -71,28 +71,27 @@ export const postListingController= async (req, res) => {
     const {rows}=await client.query("Insert into jobs (title, description, salary, job_type, company_id, created_by, skills, experience_years) values ($1, $2, $3, $4, $5, $6, $7, $8) returning uid", [title, description, salary, job_type, company_id , uid,  skills, experience_years])
    return res.status(200).json({message: rows[0]})
   } catch (error) {
-   return res.json({message: error.message})
+   return res.status(500).json({message: error.message})
   }
 };
 
 
-export const deleteListingController= async (req, res) => {
+export const deleteJobsController= async (req, res) => {
   const {id}=req.params;
   try {
     const {rows:query}=await client.query("select exists(select 1 from jobs where uid=$1)", [id]);
     if(!query[0].exists){
         return res.json({message: "Id Doesn't exist"})
     }
-    const {rows}=await client.query("delete FROM jobs where uid=$1", [id])
-    const data= await tableDataFetch('jobs')
-   return res.status(200).json({data})
+    await client.query("delete FROM jobs where uid=$1", [id])
+   return res.status(204).json({message: 'Job Deleted Successfully'})
   } catch (error) {
-    return res.json({message: error.message})
+    return res.status(500).json({message: error.message})
   }
 };
 
 
-export const putListingController= async (req, res) => {
+export const putJobsController= async (req, res) => {
   const {id}=req.params;
     if (typeof req.body.skills === 'string') {
     req.body.skills = req.body.skills.split(',').map(s => s.trim());
@@ -111,7 +110,7 @@ export const putListingController= async (req, res) => {
     }
    return res.status(200).json({message: rows[0]})
   } catch (error) {
-   return res.json({message: error.message})
+   return res.status(500).json({message: error.message})
   }
 };
 
@@ -123,7 +122,7 @@ export const verifyOwnerController=async(req, res)=>{
     if(!rows[0].exists){
         return res.status(401).json({message: "You're Not a Owner of Routes."})
     }
-      return res.status(200).json({message: "You owned this route."})
+    return res.status(200).json({message: "You owned this route."})
   } catch (error) {
     (error)
     return res.status(500).json({message: error.message})

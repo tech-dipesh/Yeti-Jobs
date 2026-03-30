@@ -6,9 +6,9 @@ export const allAppliedJobs=async (req, res)=>{
   const {uid}=req.user;
   try {
     const {rows}=await connect.query("select j.title, j.description, j.job_type, a.applied_at, a.cover_letter, a.notice_period, a.expected_salary, a.why_hire, j.experience_years, j.expired_at, a.status, j.uid from jobs j inner join applications a on a.job_id=j.uid where user_id=$1", [uid]);
-    return res.status(201).json({message: rows})
+    return res.status(200).json({message: rows})
   } catch (error) {
-    return res.status(201).json({message: error.message})
+    return res.status(500).json({message: error.message})
   }
 }
 
@@ -28,8 +28,8 @@ export const applyJobApplicationController=async (req, res)=>{
   try {
     const validateListing=applicationSchema.safeParse(req.body);
   if(!validateListing.success){
-      const message=validateListing.error.issues.map(m=>m.message);
-      return res.status(404).json({message: message[0]})
+      const message=validateListing.error.issues[0].message;
+      return res.status(422).json({message: message})
     }
     const {rowCount, rows: appliedList}=await connect.query("select exists(select 1 from applications where user_id=$1 and job_id=$2);", [uid, job_id])
     if(appliedList[0].exists){
@@ -73,8 +73,8 @@ export const changeApplicationStatus=async (req, res)=>{
   }
   const validateApplication=validateAllInputApplicationStatus.safeParse({status});
   if(!validateApplication.success){
-    const message=validateApplication.error.issues.map(m=>m.message);
-    return res.status(422).json({message: message[0]})
+    const message=validateApplication.error.issues[0].message;
+    return res.status(422).json({message: message})
   }
   try {
     const {rows:query}=await connect.query("select exists(select 1 from applications where job_id=$1)", [job_id]);
@@ -91,6 +91,6 @@ export const changeApplicationStatus=async (req, res)=>{
     await connect.query("update applications set status=$1 where user_id=$2 and job_id=$3", [status, user_id, job_id])
     return res.status(201).json({message: "Application Status Updated Successfully"});
   } catch (error) {
-    return res.status(201).json({message: error.message})
+    return res.status(500).json({message: error.message})
   }
 }

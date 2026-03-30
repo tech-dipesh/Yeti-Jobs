@@ -68,7 +68,7 @@ export default function EachJob() {
     }
   }
 
-  const { title, job_type, location, salary, experience_years, logo_url, company_name, company_id, is_saved, is_owner } = data || {}
+  const { uid, title, job_type, location, salary, experience_years, logo_url, company_name, company_id, is_saved, is_owner } = data?.message || {}
   const valueButton = is_saved ? <FontAwesomeIcon icon={solid} /> : <FontAwesomeIcon icon={regular} />;
 
   if (loading || loadabookmark || loadremovebookmark || loaddelete || loader) {
@@ -78,9 +78,9 @@ export default function EachJob() {
     <article className='min-w-screen min-h-screen px-6 py-8'>
       <Goback />
       <Errorpopup error={error|| removeerrbookmark || errdelete || withdrawerror || errabookmark} />
-      {data &&
+      {data?.message &&
         <div className='bg-slate-800 p-8 max-w-5xl min-h-[90vh] mx-auto rounded-2xl flex flex-col gap-5'>
-          <span className='text-slate-400 text-xs text-center opacity-90'>Job Id: {data.uid}</span>
+          <span className='text-slate-400 text-xs text-center opacity-90'>Job Id: {uid}</span>
           <div className='flex justify-between items-start'>
             <div className='flex items-center gap-3'>
               <img src={logo_url? logo_url : defaultImage} alt="Logo" className='h-10 w-10 rounded-full object-cover shrink-0' />
@@ -127,7 +127,7 @@ export default function EachJob() {
           </div>
               {action && <Confirmation type={action} confirm={confirmAnyActionPerform} cancel={() => setAction(null)} />}
             <div className='flex flex-col flex-1'>
-              <EachJobAction setAction={setAction} data={data} />
+              <EachJobAction setAction={setAction} data={data?.message} />
             </div>
         </div>
       }

@@ -39,7 +39,7 @@ const unsaveListJob=async (req, res)=>{
     await connect.query("delete from saved_jobs where job_id=$1 and users_id=$2", [id, uid]);
     return res.status(201).json({message: 'Successfully Removed jobs from bookmark'})
   } catch (error) {
-    return res.status(403).json({message: error.message})
+    return res.status(500).json({message: error.message})
   }
 }
 

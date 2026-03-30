@@ -71,15 +71,13 @@ export const deleteCompanyController= async(req, res) => {
     return res.status(404).json({message: "Please Enter Id For Delete the element;"})
   }
   try {
-    const {rows, rowCount}=await connect.query("delete from companies where uid=$1", [id]);
-
+    const { rowCount}=await connect.query("delete from companies where uid=$1", [id]);
     if(!rowCount){
-      return res.json({message: "Please Enter Correct Uid:"})
+      return res.status(404).json({message: "Please Enter Correct Uid:"})
     }
-    const data=await tableDataFetch('companies')
     return res.status(200).json({message: "Id Deleted Succssfully"})
   } catch (error) {
-    return res.status(404).json({message: "Please Enter Correct Uid"})
+    return res.status(500).json({message: "Please Enter Correct Uid"})
   }
 };
 
@@ -131,9 +129,8 @@ export const getAllJobsList=async (req, res)=>{
   const {id}=req.params;
   try {
     const {rows}=await connect.query("select j.uid, j.title, j.expired_at, j.experience_years, j.total_job_views, j.description, j.salary, j.job_type, j.is_job_open, j.created_by, c.name as company_name from jobs j left join companies c on c.uid=j.company_id where company_id=$1", [id])
-    res.status(200).json({message: rows})
+    return res.status(200).json({message: rows})
   } catch (error) {
-    
     return res.status(500).json({message: error.message})
   }
 }
@@ -145,7 +142,7 @@ export const getallApplicationsList=async (req, res)=>{
     const {rows}=await connect.query("select a.uid as application_id,  a.status, a.cover_letter, a.notice_period, a.expected_salary, a.why_hire, u.resume_url, j.title as job_title, j.total_job_views, u.uid as applicant_id, j.uid as job_id from applications a join users u on a.user_id = u.uid join jobs j on a.job_id = j.uid where j.company_id=$1", [id])
    return res.status(200).json({message: rows})
   } catch (error) {
-    res.status(500).json({message: error.message})
+   return res.status(500).json({message: error.message})
   }
 }
 
@@ -156,7 +153,7 @@ export const companyDashBoard=async (req, res)=>{
     const {rows}=await connect.query(`select count(distinct j.uid) as total_jobs, count(distinct uc.company_id) as total_followers, count(distinct a.uid) as total_applications, count(distinct case when j.is_job_open ='active'then j.uid end) as open_jobs, count(distinct u.uid) as total_employees from jobs j left join applications a on j.uid = a.job_id left join users u on u.company_id = j.company_id inner join user_companies_follows uc on uc.company_id=$1  where j.company_id = $1;`,[company_id])
     return res.status(200).json({message: rows[0]})
     } catch (error) {
-      return res.status(501).json({message: error.message})
+      return res.status(500).json({message: error.message})
     }
 }
 

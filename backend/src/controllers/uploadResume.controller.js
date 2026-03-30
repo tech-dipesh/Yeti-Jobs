@@ -31,12 +31,11 @@ const uploadResume=  async (req, res)=>{
     const {path}=data;
     const {data: getOutputUrl}=supabase.storage.from('resume').getPublicUrl(path)
     const {publicUrl}=getOutputUrl
-await connect.query("update users set resume_url=$1 where uid=$2", [publicUrl, userId])
+    await connect.query("update users set resume_url=$1 where uid=$2", [publicUrl, userId])
    return res.status(201).json({message: 'Resume UPloaded Successfully'})
   } catch (error) {
-    (error)
-    // res.status(401).json({message: error.message})
-    return res.status(401).json({message: "Please only add less than 2mb file and Must be a pdf file type"})
+    console.log(error)
+    return res.status(500).json({message: "Please only add less than 2mb file and Must be a pdf file type"})
   }
 }
 
@@ -44,7 +43,6 @@ await connect.query("update users set resume_url=$1 where uid=$2", [publicUrl, u
 
 const uploadProfilePicture=async (req, res)=>{
   const {uid}=req.user;
-  
   const {originalname, buffer, mimetype}=req.file;
   try {
     const {rows, rowCount}=await connect.query("SELECT profile_pic_url FROM users WHERE uid=$1", [uid]);
@@ -59,11 +57,11 @@ const uploadProfilePicture=async (req, res)=>{
    }
    
    const {data: getOutputUrl, error: errorOutputUrl}= supabase.storage.from("profile_pic").getPublicUrl(data.path)
-   if(errorOutputUrl){
+    if(errorOutputUrl){
       return res.json(401).json({message: errorOutputUrl.message})
-   }
-  const {rows:check}=await connect.query("update  users set profile_pic_url=$1 where uid=$2 returning *", [getOutputUrl.publicUrl, uid])
-    return res.status(201).json({message: 'Profile Picture Uploadd Successfully'})
+    }
+    await connect.query("update  users set profile_pic_url=$1 where uid=$2 returning *", [getOutputUrl.publicUrl, uid])
+    return res.status(201).json({message: 'Profile Picture Uploaded Successfully'})
   } catch (error) {
     return res.status(500).json({message: error.message})
   }
