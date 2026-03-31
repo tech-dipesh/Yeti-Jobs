@@ -11,8 +11,6 @@ describe(`GET ${BASEURL}/jobs`, () => {
         limit: 10,
         sortby: "created_at",
       });
-      console.log('Status:', response.statusCode);
-  console.log('Body:', JSON.stringify(response.body, null, 2));
       expect(response.statusCode).toBe(200);
       expect(response.body).toHaveProperty("message");
       expect(response.body).toHaveProperty("limit");
@@ -31,6 +29,19 @@ describe(`GET ${BASEURL}/jobs`, () => {
     });
   });
 });
+
+describe(`GET ${BASEURL}/jobs/:id`, () => {
+  describe("Single Job Query", () => {
+    test("must return a Single queries", async () => {
+      const response = await request(app).get(`${BASEURL}/jobs/:id`).query({
+        page: 1,
+        limit: 10,
+        sortby: "created_at",
+      });
+
+    })
+  })
+})
 
 afterAll(async () => {
   await connect.end();

@@ -6,14 +6,14 @@ const router=express.Router();
 
 export const getAllJobsController=async (req, res) => {
   let {page=1, limit=10, sortby='created_at'}=req.query;
-  const offset=(page-1)*limit;
+  const offset=(Number(page)-1)*Number(limit);
   try {
     if(!allowAllSearchQuery.includes(sortby)){
-      return res.status(401).json({message: "Please Add Only Avaible column list"});
+      return res.status(400).json({message: "Please Add Only Avaible column list"});
     }
     const {rows: countTotal}=await client.query("select count(*) as count from jobs");
     const {rows}=await client.query(`select j.*, c.name as company_name from jobs j left join companies c on c.uid=j.company_id  order by ${sortby} desc limit $1 offset $2`, [limit, offset])
-    return res.status(200).json({message: rows, limit, page, total: countTotal[0].count})
+    return res.status(200).json({message: rows || [], limit, page, total: countTotal[0].count})
   } catch (error) {
     return res.status(500).json({message: error.message})
   }
@@ -22,13 +22,12 @@ export const getAllJobsController=async (req, res) => {
 export const searchJobsListing=async (req, res) => {
   const {sortby='created_at', title}=req.query;
   if(!title){
-    const message='Please Enter Search Term'
-    return res.status(204).json({message: message});
+    return res.status(404).json({message: 'Please Enter Search Term'});
+  }
+  if(!allowAllSearchQuery.includes(sortby)){
+    return res.status(401).json({message: "Please Add Only Avaible column list"});
   }
   try {
-    if(!allowAllSearchQuery.includes(title)){
-      return res.status(401).json({message: "Please Add Only Avaible column list"});
-    }
     const {rows, rowCount}=await client.query(`select j.*, c.name as company_name from jobs j left join companies c on c.uid=j.company_id where search_title @@ plainto_tsquery($1) order by ${sortby} desc`, [title]);
     return  res.status(200).json({message: rows})
   } catch (error) {

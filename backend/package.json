@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "- Phase 1:\r   Backend:",
   "main": "app.js",
+  "private": "true",
   "scripts": {
     "start": "nodemon server.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"

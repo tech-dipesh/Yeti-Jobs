@@ -353,7 +353,8 @@ erDiagram
 
 
 ## Testing:
-- Currently Not implemnted.
+- Only setup the basic congiguration of: `jest, supertest` and only test a all: `/api/v1/jobs`.
+- Rest will be added soon.
 
 ### Planned:
 - Unit Testing
