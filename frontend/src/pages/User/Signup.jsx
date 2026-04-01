@@ -51,7 +51,7 @@ export default function Signup() {
       <Registerleftcomps type='Signup' />
       <div className='bg-white/10 backdrop-blur m-8 rounded-2xl p-8 flex flex-col gap-4'>
         <form onSubmit={submitForm} className='grid space-y-4'>
-          <InputComps placeholder='First Name' type='text' name='fname' value={value.fname} click={setValue} error={setAPIError} />
+          <InputComps placeholder='First Name' type='text' name='fname' value={value.fname} click={setValue} error={setAPIError} autoComplete='current-password'/>
           <InputComps placeholder='Last Name' type='text' name='lname' value={value.lname} click={setValue} error={setAPIError} />
           <InputComps placeholder='Email' type='email' name='email' value={value.email} click={setValue} error={setAPIError} />
           <Selectcomps value={value.education} name={'education'} change={setValue} option={EducationOption} multiple={true} />

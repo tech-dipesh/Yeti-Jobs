@@ -53,9 +53,10 @@ export default function Login() {
         <Successcomps data={data}/>
         <form onSubmit={submitForm} className='flex flex-col gap-4 align-middle'>
           <h2>Email</h2>
-          <InputComps type='text' name='email' placeholder='Email' value={value.email} click={setValue} error={setError}/>
+          <InputComps type='text' name='email' placeholder='Email' value={value.email} click={setValue} error={setError}
+          autoComplete='current-password'/>
           <h2>Password</h2>
-          <InputComps type='password' name='password' placeholder='Password' value={value.password} click={setValue} error={setError}/>
+          <InputComps type='password' name='password' placeholder='Password' value={value.password} click={setValue} error={setError} autoComplete='current-password'/>
         <button 
           type="submit" 
           className='w-24 py-3 self-center rounded-xl bg-slate-800 text-white font-bold text-lg hover:bg-slate-900 transition-all duration-200 cursor-pointer'>

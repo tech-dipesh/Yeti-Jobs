@@ -23,14 +23,13 @@ export default function VerifyEmail() {
   const { state } = useLocation();
   const { error: apierror, loading, data, execute } = useFetchData(verifyUser);
   const { error: apiresend, loading: loadresend, data: resenddata, execute: resendexecute } = useFetchData(resendVerificationCode);
-
+  console.log('is user', isUser)
   useEffect(() => {
-    if(isUser?.isVerified==true || data){
-      navigate(state?.from || "../")
+    if(isUser?.isVerified===true || data){
+      navigate(state?.from || "/")
     }
-    // if (!isUser || isUser?.uid || error) 
   }, [data, isUser, navigate, state?.from])
-
+  
   const verifyYourMail = async () => {
     const err = validateVerifyMail(value);
     if (err) {
@@ -39,11 +38,10 @@ export default function VerifyEmail() {
     }
 
     const res=await execute(value)
-    if(data || res){
-      navigate(0)
-      reexecute()
-      navigate("/")
-    }
+     if (res || data) {
+    await reexecute();
+    window.location.href = state?.from || "/"; 
+  }
   }
 
 

@@ -30,19 +30,25 @@ describe(`GET ${BASEURL}/jobs`, () => {
   });
 });
 
-describe(`GET ${BASEURL}/jobs/:id`, () => {
+describe(`GET ${BASEURL}/jobs/f989f97-361c-4b58-9e91-95b5d478392a`, () => {
   describe("Single Job Query", () => {
-    test("must return a Single queries", async () => {
-      const response = await request(app).get(`${BASEURL}/jobs/:id`).query({
-        page: 1,
-        limit: 10,
-        sortby: "created_at",
-      });
-
-    })
-  })
-})
-
+    test("Not Correct Job id", async () => {
+      const response = await request(app).get(
+        `${BASEURL}/jobs/f989f97-361c-4b58-9e91-95b5d478392`,
+      );
+      expect(response.statusCode).toBe(400);
+      expect(response.body).toHaveProperty("message");
+    });
+    test("Correct Job Id", async () => {
+      const response = await request(app).get(
+        `${BASEURL}/jobs/f3517f94-968f-4494-9db7-7d898b5dd61a`,
+      );
+      console.log('res', response)
+      expect(response.statusCode).toBe(404);
+      expect(response.body).toHaveProperty("message");
+    });
+  });
+});
 afterAll(async () => {
   await connect.end();
 });
