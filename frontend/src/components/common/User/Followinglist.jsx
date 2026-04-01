@@ -8,20 +8,20 @@ import Textcomps from '../Textcomps'
 import Linkcomps from '../Linkcomps'
 import Buttoncomps from '../Button'
 import Errorpopup from '../../Error/Errorpopup'
+import Loading from '../../Loading'
 export default function Followinglist({ setIsFollowing, isFollowing }) {
-  const navigate=useNavigate()
   const { data, error, loading, execute } = useFetchData(listAlluserFollowingCompanies)
   const { execute: unFollowaction, error: unfollowerr, data: unfollowdata, loading: unfollowload } = useFetchData(unFollowCompany)
   useEffect(() => {
     execute()
   }, [])
   if (loading || unfollowload) {
-    return <loading />
+    return <Loading/>
   }
   const unFollowCompanyAction = async (uid) => {
     await unFollowaction(uid)
     if(unfollowdata){
-      navigate(0)
+      window.location.reload()
     }
   }
   return (
@@ -34,7 +34,7 @@ export default function Followinglist({ setIsFollowing, isFollowing }) {
               <div className='flex items-center justify-between py-3' key={uid}>
                 <div className='flex flex-col'>
                   <span className='text-xm font-semibold text-white'>{name}</span>
-                  <Linkcomps to={`/companies/${uid}`} content={'Visit Company'} />
+                  <Linkcomps to={`/companies/${uid}`} className='hover:text-5xl' content={'Visit Company'} />
                 </div>
                 <Buttoncomps onClick={() => unFollowCompanyAction(uid)} values='UnFollow' color={'bg-red-700'} />
               </div>

@@ -5,7 +5,7 @@ import { getIndividualUser, uploadProfilePicture } from "../../api/auth.user"
 import validateFileUpload from "../../auth/User/validateFileUpload"
 import Errorloading from '../../components/common/Errorloading'
 import Successcomps from '../../components/common/Success'
-import { useNavigate, useParams } from 'react-router'
+import { useLocation, useParams } from 'react-router'
 import useFetchData from '../../hooks/useFetchData'
 import { useEffect } from 'react'
 import Linkcomps from "../../components/common/Linkcomps"
@@ -19,7 +19,7 @@ import Errorpopup from '../../components/Error/Errorpopup'
 import Goback from '../../components/common/Goback'
 export default function ProfilePhoto() {
   const { id } = useParams();
-  const navigate = useNavigate()
+  const {state}=useLocation()
   const [file, setFile] = useState(null)
   const [content, setContent] = useState()
   const [error, setError] = useState()
@@ -56,8 +56,8 @@ export default function ProfilePhoto() {
     const formData = new FormData();
     formData.append('profile', content);
     const res = await execute(formData)
-    if (res) {
-      navigate(0)
+    if (res || data) {
+      window.location.href = state?.from || "../profile";
     }
   }
 
@@ -101,7 +101,7 @@ export default function ProfilePhoto() {
         </label>
       </form>
       {preview &&
-      <div>
+      <div className='grid justify-center align-middle my-4'>
         <h3 className='text-xs'>Preview Image:</h3>
        <img src={preview} alt={defaultImage} className='h-32 w-32 rounded-full object-cover grid justify-items-center'/>
       </div>

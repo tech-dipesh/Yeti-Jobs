@@ -30,8 +30,13 @@ export default function Individualuser() {
 
   useEffect(() => {
     execute(id);
+     document.addEventListener("keydown", (e)=>{
+      if(e.key=='Escape'){
+        setIsFollowing(false)
+      }
+    })
   }, [id])
-
+  
   const isValid = authUid(id);
   if (!isValid) return <Errorloading data={{ error: 'Incorrect uid please enter correct uid' }} />
 

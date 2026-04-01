@@ -354,6 +354,7 @@ erDiagram
 
 ## Testing:
 - Only setup the basic congiguration of: `jest, supertest` and only test a all: `/api/v1/jobs`.
+- Add The Testing for the All Jobs Individual Jobs And Login Status
 - Rest will be added soon.
 
 ### Planned:
