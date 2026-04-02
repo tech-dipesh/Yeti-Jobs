@@ -29,7 +29,7 @@ A Scalable job portal built with the **PERN stack** that connects job seekers an
 16. [Security](#security)
 17. [Performance Optimization](#performance-optimization)
 18. [Scalability Consideration](#scalability-consideration)
-19. [Known Issue](#known-issue)
+19. [Challenges and Learnings](#challenges--learnings)
 20. [Limitation](#limitation)
 21. [Something Go Beyond Features](#something-go-beyond-features)
 22. [Future Improvements](#future-improvements)
@@ -50,7 +50,7 @@ The Project is a Job Portal Platform **with** all the features needed to build a
 ## Demo Url:
 - Frontend: https://yeti-jobs.vercel.app
 - Backend: https://yeti-jobs.onrender.com/api/v1/
-- Backend Api Demo: https://yeti-jobs.onrender.com/api/v1/swagger
+- Backend API Demo: https://yeti-jobs.onrender.com/api/v1/swagger
 
 
 ## Features:
@@ -64,7 +64,7 @@ The Project is a Job Portal Platform **with** all the features needed to build a
 - View All Bookmarks
 - All Companies List
 - Individual Company jobs and Description About Company
-- view Single Job
+- View Single Job
 
 ### Recruiters (Employees):
 - Company Dashboard
@@ -73,13 +73,27 @@ The Project is a Job Portal Platform **with** all the features needed to build a
 - See Profile
 - Create/Delete/Edit a Job
 - Update Company
-- Change Applicant **Status**" 
+- Change Applicant **Status**
 - Get All **Followers** Company
+- Dashboard Stats such as: 
+  ``` bash
+    All Owned Jobs
+    All Applications
+    All Employees
+    All Followers
+  ```
 
 ### Admin:
 - Assign User to companies.
-- edit/delete/create/update Company
+- Delete/Create/Update Company
 - Company Entire Overview dashboard
+- Company Dashboard Stats such as: 
+  ``` bash
+    Total Jobs
+    Total Applications
+    Open Jobs
+    All Followers
+  ```
   
 ### Common:
 - Authentication (JWT)
@@ -95,7 +109,7 @@ The Project is a Job Portal Platform **with** all the features needed to build a
   - Node.js
   - Express
 - Database:
-  - PostgreSQL
+  - Raw PostgreSQL
 - Devops:
   - Docker
 
@@ -117,13 +131,15 @@ The Project is a Job Portal Platform **with** all the features needed to build a
 ## Folder Structure
 
 ### Backend
-- app.js
-- controllers/
-- middleware/
-- models/
-- routes/
-- services/
-- utils/
+- server.js
+- src
+-- controllers/
+-- middleware/
+-- models/
+-- routes/
+-- services/
+-- utils/
+- tests
 
 ### Frontend
 - api/
@@ -132,6 +148,7 @@ The Project is a Job Portal Platform **with** all the features needed to build a
 - hooks/
 - context/
 - lib/
+- data/
 
 
 ## Environment Variables
@@ -182,8 +199,15 @@ The Project is a Job Portal Platform **with** all the features needed to build a
 
 
 ## Installation & Setup:
-- To Run the System to a Local Server, we've to make sure have the muliple of systems for differnet purpose.
-- Requirements: **Node.js**, Postgres Server, Supabase Keys, Nodemailer Keys
+To Run the System to a Local Server, we've to make sure have the muliple of systems for differnet purpose.
+Requirements: Node.js, Postgres Server, Supabase Keys, Nodemailer Keys
+Backend Configuration:
+Here’s the shorter, cleaner version of what you need — straight to the point.
+### Backend Requirement:
+- **Node.js** – to run the JavaScript code
+- **PostgreSQL** – database to store data
+- **Supabase keys** – for database + auth (URL + anon key)
+- **Nodemailer keys** – to send emails (email + app password)
 
 ### Backend Configuration:
 ``` bash
@@ -196,15 +220,15 @@ The Project is a Job Portal Platform **with** all the features needed to build a
 npm i # Install all our node libraries
 node app.js # Run our nodejs server
 ```
+>:white_check_mark: your server will run on the http://localhost:PORT
 
 
 ### Frontend:
 ``` bash
 cd frontend
 touch .env
-vim .env
+vim .env # Insert a: VITE_SERVER_URL on .env file.
 ```
-- Insert a: VITE_SERVER_URL on .env file.
 
 ``` bash
  npm i:  # Install all our node libraires
@@ -216,14 +240,14 @@ vim .env
 
 
 ## Docker Setup:
-- Dockerbase have only one single container of the nodejs configuration.
-- With Use the Image of the `node` image 
-- in the coming time i'm plan to migrate my database to the dockrize.
-- first Build the Image of The Nodejs Application:
-  ``` bash
-  cd backend
-  docker build -t yeti-jobs-backend . # on current folder
-  ```
+- Docker base has only one single container for the Node.js configuration.
+- Use the `node` image.
+- In the coming time, I plan to migrate my database to Docker.
+- First, build the image of the Node.js application.
+``` bash
+cd backend
+docker build -t yeti-jobs-backend . # on current folder
+```
 - Now Run the Docker Container:
   ``` bash
   docker run -d -p 3000:3000 --name yeti-jobs-backend: # Run's on the backgound
@@ -231,10 +255,12 @@ vim .env
 
 
 
-## Api Documentation:
-- Swagger UI: `https://yeti-jobs.onrender.com/api/v1/swagger`
-
-
+## API Documentation
+- Swagger UI: https://yeti-jobs.onrender.com/api/v1/swagger
+- It Will Provide a Interactive Graphical User Interface to Api Documentation to all our backend endpoints.
+- View all available routes (jobs, users, companies, etc.)
+- Check request parameters, body, and headers
+- See response formats and status codes
 
 ## Database Design
 
@@ -246,7 +272,7 @@ The database follows a strict **Separation of Concerns** principle — each tabl
 - **Triggers** automate internal operations such as populating the `search_title` tsvector column on job insert/update.
 - **Referential integrity** is handled via `ON DELETE CASCADE` (e.g. deleting a user removes their email verifications and follows) and `ON DELETE RESTRICT` where linked data must be preserved before deletion is allowed.
 
-## Visual Diagram:
+### Visual Diagram:
 ``` mermaid
 erDiagram
   USERS {
@@ -345,23 +371,21 @@ erDiagram
   JOBS ||--o{ SAVED_JOBS : "saved in"
 ```
 
-
 ## Cron Task:
-- The cron task mean it'll run on that particular time which we've specified.
-- the operation that I'm using cron for is on jobs which have an **expiry** time of 30 days, which checks every night at **midnight**.
-- on the every noon cron node check which jobs time have expired or not if expired change the that job set to the closeed of is_job_active colum from `jobs` table.
-`
+- A cron task runs at a specific time that we define.
+- I'm using cron for jobs that have an expiry time of 30 days. It checks every night at midnight.
+- At every noon, the cron node checks if any jobs have expired. If expired, it updates the `is_job_active` column in the `jobs` table to "closed".
 
 ## Testing:
-- Only setup the basic congiguration of: `jest, supertest` and only test a all: `/api/v1/jobs`.
-- Add The Testing for the All Jobs Individual Jobs And Login Status
-- Rest will be added soon.
+- Set up the basic configuration using `jest` and `supertest`, and test only the `/api/v1/jobs` endpoints.
+- Add testing using `jest` and `supertest` for all job routes.
+- Include only two test routes initially: `/jobs`, `/jobs/:id`, and `/users/login-status`.
+- More tests will be added in the coming days, mainly for job and user routes.
 
 ### Planned:
-- Unit Testing
-- Integration testing(supertest)
+- Unit testing
+- Integration testing (using supertest)
 - Focus on critical routes (auth, jobs, companies)
-
 
 ## Deployment
 ### Frontend — Vercel
@@ -389,13 +413,12 @@ PostgreSQL database and file storage (resumes, profile pictures) are both hosted
 
 File uploads are handled via the `@supabase/supabase-js` SDK — files go directly into Supabase Storage buckets and the returned public URL is saved to the database.
 ## Security:
-- use **Helmet** for the response purpose which removes **X-Powered-By** so the client will not know which framework we've built with.
 ### validation Security:
 - Every major table will have validation from Zod which **checks** the integrity of our data.
 - beside the client side validate, server side validation, i also make sure to add the database validation.
 - even if user bypass a both client and server validation it can't insert due to the database validation.
 - With checking a text pattern, blank/undefined, correct data type, unique constraint,min length max length which are common for the data validation i've implemented.
-- i make sure to every single data to enforce the database integrity.
+- Ensure every piece of data maintains database integrity at all times.
 
 
 ### System Security:
@@ -410,7 +433,7 @@ File uploads are handled via the `@supabase/supabase-js` SDK — files go direct
 
 
 ### Middlewares:
-- i make sure to validate every incomoning  request to the both cilent side and the server side have the middleware.
+- Validate all incoming requests using middleware on both the client side and the server side to guarantee data consistency and security.
 #### Client Validation:
 - on the client validation guest can't visit the page of the admin dashboard and the other admin restricted page and also the employee restricted page.
 - while the employees only restrict to perform a employee can't apply to the jobs or can't perform and also neither a guest or the admin action.
@@ -438,9 +461,6 @@ File uploads are handled via the `@supabase/supabase-js` SDK — files go direct
 
 
 ## Scalability Considerations
-
-The system is built with scalability in mind from the ground up — not as an afterthought.
-
 - **API versioning** (`/api/v1`) and **MVC pattern** keep the codebase modular and easy to extend.
 - **Global error handling** on both client and server prevents crashes — every error is caught and returned with a proper status code (`2xx`, `4xx`, `5xx`) and message.
 - **PostgreSQL full-text search** with a GIN index on `jobs.search_title` replaces slow `ILIKE` prefix queries for job searching.
@@ -449,28 +469,63 @@ The system is built with scalability in mind from the ground up — not as an af
 - **Caching** is not yet implemented but the architecture is ready for it — currently comfortable handling up to ~10k MAU.
 - **Monitoring & observability** is planned for when the user base grows — not a priority at the current scale but will be added before hitting 10k+ users.
 
-## Known Issue:
-- UI alignment issues (Tailwind CSS)
-- Email sending lacks proper failure handling
-- Token resend logic needs improvement
-- PostgreSQL parameter binding inconsistency in some queries
+## Challenges & Learnings:
+* **UI inconsistencies**
+  Some components still have minor alignment and responsiveness issues across different screen sizes.
+
+* **Email system reliability**
+  Email delivery (verification/reset) lacks robust failure handling, retry mechanisms, and proper logging.
+
+* **Token resend logic**
+  Verification and reset token resend flow can create edge cases (e.g., overlapping or unused tokens).
+
+* **Query parameter binding inconsistency**
+  A few PostgreSQL queries do not follow consistent parameterized patterns, which may lead to maintainability issues.
+
+* **Limited test coverage**
+  Testing is currently focused on selected job routes, leaving other critical modules (auth, companies) under-tested.
+
+* **Cold start latency (backend)**
+  Backend hosted on free tier (Render) experiences delays after inactivity.
 
 
 ## Limitations
-- Free-tier hosting causes cold start delays
-- Limited MAU due to free database tier
-- No direct communication between recruiters and job seekers yet
+* **Free-tier infrastructure constraints**
+  Hosting (Render + Supabase) limits performance, concurrent users, and scalability.
 
+* **No real-time features**
+  Currently lacks real-time communication (e.g., chat, notifications, live updates).
 
+* **No recruiter–candidate communication system**
+  There is no direct messaging or interaction between job seekers and recruiters.
+
+* **No caching layer**
+  Absence of Redis/CDN caching increases response time under heavy load.
+
+* **Limited scalability (~10k MAU)**
+  System is optimized for small to medium scale but not yet production-ready for large-scale usage.
+
+* **Basic monitoring & observability**
+  No logging, alerting, or performance monitoring tools (e.g., metrics dashboards).
+
+* **Partial Dockerization**
+  Only backend is containerized; database and full system orchestration are not yet implemented.
+* **Incomplete feature ecosystem**
+ Missing advanced features like:
+  * ATS scoring
+  * Interview scheduling
+  * Notification system
+  * Resume parsing
 
 ## Additional Features
 - Dockerize a entire system with to the nodejs application and also docker ignore some files: `.dockerignore`
 - Only Install a system settings where it required on the production not on the development.
 - also have the controller and also the abort feature if the request takes longer time dont' wat for more than  a 10 sec.
-- now on the react 19 we dont' need: `auth.provider rather it also work a auth` 
+- now on the react 19 we dont' need: `auth.provider` rather it also work a auth 
 - use the portal system for the popup of the some features.
 - for previous a page on the profile picturee of the resume to change it i can use: `createObjectURL` to print show it.
-- add the vercel analytics for the get the stats about the frontend application.
+- Implement the vercel analytics on client side for the get the stats about the frontend application.
+- REcruiter/Company Employee will have full control of change a status of any jobs applicant
 - With hr have the full control which use to reject which to move forward to the interview or the hired or rejected hr have full control.
 - Add the List of the bruno all api endpoints link to convert to the swagger ui and add the endpoints of: `api/v1/swagger`
 
@@ -491,9 +546,8 @@ The system is built with scalability in mind from the ground up — not as an af
 > - profile completneess score based on the badged applicant top skills and how much active jobs seeker.
 > - On the edit content page if user try to submit a content without any change don't allow them which reduce a less backend request.
 > - Adding a phone number of the user that can send to hr when ur is accepted.
-> - testing even it's not complete only the important routes to test in the coming days.
 > - Adding a CDN to cache our static assets that never changed
-> - Move Our Asynchronous operation to the background queue with use services such as: Kafka.
+> - Move Our Asynchronous operation to the background queue with use services such as: `Kafka`.
 
 
 <div align="center">

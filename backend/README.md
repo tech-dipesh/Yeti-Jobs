@@ -53,6 +53,10 @@ Backend service for Yeti Jobs built with Node.js, Express, and PostgreSQL, provi
 
 
 
+## Swagger:
+- Swagger UI: `https://yeti-jobs.onrender.com/api/v1/swagger`
+
+
 ## Architecture
 
 - Controllers: Business logic
@@ -318,7 +322,8 @@ supabase.storage.from('bucketname').getPublicUrl(pathurl)
 
 ### Testing: 03/30
 - Add the Testing from the `jest, supertest` just for all the jobs routes.
-- With Just a two testing
+- With Just a two testing routes of: `/jobs, jobs/:id, /users/login-status`
+- Rest Will coming in the coming days mainly jobs and users routes.
 
 ## Packages Used
 1. Express

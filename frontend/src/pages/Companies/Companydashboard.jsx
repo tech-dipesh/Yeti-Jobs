@@ -11,14 +11,11 @@ export default function Companydashboard() {
   const { data: authdata, error: errdata, loading: loaddata } = useAuth();
   const { execute, data, error, loading } = useFetchData(getCompanyDashboard);
   useEffect(() => {
-    // (async () =>{
-    //   await execute()
-    // })()
     execute()
+    if (error == "You're not a employee of the company") {
+      return navigate("/")
+    }
   }, [])
-  if (error == "You're not a employee of the company") {
-    return navigate("/")
-  }
   const { company_id, role } = authdata ?? {};
   const { message } = data || {}
   const allRecruiterLink = [
@@ -28,12 +25,13 @@ export default function Companydashboard() {
     { to: `/companies/followers`, value: 'Followers' },
   ]
   const allStats = [
-    { bg: 'bg-blue-100', value: `Total Jobs: ${message?.total_jobs || 'N/A'}` },
-    { bg: 'bg-green-100', value: `Total Applications: ${message?.total_applications || 'N/A'}` },
-    { bg: 'bg-yellow-100', value: `Open Jobs: ${message?.open_jobs || 'N/A'}` },
-    { bg: 'bg-purple-100', value: `Total Employees: ${message?.total_employees || 'N/A'}` },
-    { bg: 'bg-gray-100', value: `Total Followers: ${message?.total_followers || 'N/A'}` },
+    { bg: 'bg-blue-100', name: 'Jobs: ', value: 'total_jobs' },
+    { bg: 'bg-green-100', name: 'Applications:', value: 'total_applications' },
+    { bg: 'bg-yellow-100', name: 'Open Jobs', value: 'open_jobs' },
+    { bg: 'bg-purple-100', name: 'Employees', value: 'total_employees'},
+    { bg: 'bg-gray-100', name: 'Followers', value: 'total_followers'}
   ]
+  
   return (
     <div>
       <div className='px-8 pt-8 pb-4 border-b border-neutral-700 mb-6'>
@@ -43,7 +41,7 @@ export default function Companydashboard() {
       <h2>Welcome Back To Company Dashboard:</h2>
       {(message && role == 'recruiter') &&
         <div className='grid grid-cols-1 md:grid-cols-4 gap-4 mb-8 text-black'>
-          {allStats.map(({ bg, value }, i)=>
+          {allStats?.map(({ bg, value }, i)=>
           <div className={`${bg} p-4 rounded-lg`} key={i}>{value}</div>
         )}
         </div>
@@ -53,7 +51,7 @@ export default function Companydashboard() {
       {(role && role == 'recruiter') &&
         <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 justify-items-center gap-4 mt-6'>
           {allRecruiterLink.map(({ to, value }, i) =>
-            <Link key={i} to={to}><ButtonComps values={value} /></Link>
+            <Link key={i} to={to}><ButtonComps values={message[value]? 'All Company value': 'N/A'} /></Link>
           )}
         </div>
       }

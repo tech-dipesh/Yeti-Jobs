@@ -12,7 +12,6 @@ export default function Alluser() {
     execute()
   }, [])
 
-
   if (loading) {
     return <Loading />
   }
