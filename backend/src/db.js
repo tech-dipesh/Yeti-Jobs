@@ -3,7 +3,8 @@ import "dotenv/config"
 
 const client = new Client({
   connectionString: process.env.DATABASE_PASSWORD,
-  ssl: {rejectUnauthorized: false}
+  ssl: false
+  // ssl: {rejectUnauthorized: false}
 });
 try {
   await client.connect()

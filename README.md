@@ -141,6 +141,7 @@ The Project is a Job Portal Platform **with** all the features needed to build a
 -- services/
 -- utils/
 -- tests/
+-- db/
 
 ### Frontend
 - api/
@@ -361,11 +362,19 @@ erDiagram
     int4 verified_code
     bool is_verified
   }
+  ATS_SCORE {
+    uuid uid PK
+    uuid user_id FK "Foreign key to USERS.uid"
+    timestamptz created_at
+    int4 score
+    jsonb feedback 
+  }
 
   USERS }o--o| COMPANIES : "belongs to"
   USERS ||--o{ JOBS : "creates"
   USERS ||--o{ APPLICATIONS : "submits"
   USERS ||--o{ SAVED_JOBS : "bookmarks"
+  USERS ||--o{ ATS_SCORE : "has" 
   USERS ||--o{ USER_COMPANIES_FOLLOWS : "follows"
   USERS ||--o{ EMAIL_VERIFIED : "has"
 

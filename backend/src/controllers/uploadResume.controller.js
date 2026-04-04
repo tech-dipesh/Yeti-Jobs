@@ -2,7 +2,6 @@ import connect from "../db.js";
 import "dotenv/config";
 import { supabase } from "../services/Supabase.js";
 import { PDFParse } from "pdf-parse";
-import { GoogleGenAI } from "@google/genai";
 import gemini from "../utils/grok.js"
 const uploadResume = async (req, res) => {
   const { uid: userId } = req.user;
