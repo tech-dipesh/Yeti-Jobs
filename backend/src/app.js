@@ -21,7 +21,11 @@ const app = express();
 
 
 
-app.use(cors({origin: process.env.CLIENT_BASE_URL,  credentials: true}));
+app.use(cors({
+  origin: process.env.CLIENT_BASE_URL,
+  credentials: true,
+  exposedHeaders: ['Content-Length']
+}));
 const limitUser=rateLimit({
   windowMs: 1000*60,
   limit: 200

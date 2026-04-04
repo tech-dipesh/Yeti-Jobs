@@ -1,5 +1,5 @@
 import express from "express";
-import { addUserSkills, getAllUserController, getloginUserController, getParticularUserController, litOfAllFollowingCompanies, patchUserController, postSignupUserController, putUserController, sendUserLoggedInStatus, userLoggedOutcontroller } from "../controllers/users.controller.js";
+import { addUserSkills, getAllUserController, getloginUserController, getParticularUserController, litOfAllFollowingCompanies, patchUserController, postSignupUserController, putUserController, resumeInformation, sendUserLoggedInStatus, userLoggedOutcontroller } from "../controllers/users.controller.js";
 import {uploadResume, uploadProfilePicture} from "../controllers/uploadResume.controller.js";
 import authUserMiddleware from "../Middleware/isLoggedIn.js";
 import verifyEmailConfirmation, { forgetEmailPassword, resendVerificationCode, verifyForgetPassword } from "../controllers/verifyCode.controller.js";
@@ -35,6 +35,8 @@ router.post("/verify/resend", limitUser, isUnverifiedUser, resendVerificationCod
 router.get("/following", authUserMiddleware, isJobSeeker, litOfAllFollowingCompanies)
 
 router.post("/resume", upload.single('resume'), authUserMiddleware,  uploadResume)
+router.get("/resume", authUserMiddleware,  resumeInformation)
+
 router.post("/profile-picture", upload.single('profile'), authUserMiddleware,  uploadProfilePicture)
 
 

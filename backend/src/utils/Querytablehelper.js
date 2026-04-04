@@ -1,6 +1,6 @@
 import connect from "../db.js";
 
-const allTableList=['users', 'jobs', 'companies', 'applications', 'saved_jobs', 'email_verified', 'user_companies_follows']
+const allTableList=['users', 'jobs', 'companies', 'applications', 'saved_jobs', 'email_verified', 'user_companies_follows', 'ats_score']
 const dataFetch = async (name) => {
   if(!allTableList.includes(name)){
     throw new Error("Invalid Table Name:")

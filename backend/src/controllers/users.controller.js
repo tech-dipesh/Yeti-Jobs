@@ -193,6 +193,15 @@ export const litOfAllFollowingCompanies=async(req, res)=>{
   }
 }
 
+export const resumeInformation=async(req, res)=>{
+  const {uid}=req?.user;
+  try {
+    const {rows}=await connect.query("select a.user_id, a.created_at, score, feedback, u.resume_url from ats_score a left join users u on u.uid=a.user_id where a.user_id=$1 order by a.created_at desc limit 1", [uid]);
+    return res.status(200).json({message: rows[0]})
+  } catch (error) {
+    return res.status(201).json({message: error.message})
+  }
+}
 
 export const userLoggedOutcontroller=async(req, res)=>{
   const httpOptions={

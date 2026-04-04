@@ -1,16 +1,12 @@
 {
   "name": "job-portal",
-  "version": "0.0.1",
-  "description": "- Phase 1:\r   Backend:",
   "main": "app.js",
-  "private": "true",
+  "private": true,
   "scripts": {
     "start": "nodemon server.js",
+    "dev": "node server.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "module",
   "dependencies": {
     "@supabase/supabase-js": "^2.97.0",
@@ -24,7 +20,8 @@
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.0.2",
     "node-cron": "^4.2.1",
-    "nodemailer": "^8.0.1",
+    "openai": "^6.33.0",
+    "pdf-parse": "^2.4.5",
     "pg": "^8.18.0",
     "swagger-ui-express": "^5.0.1",
     "yamljs": "^0.3.0",

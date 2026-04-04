@@ -12,6 +12,7 @@ Backend service for Yeti Jobs built with Node.js, Express, and PostgreSQL, provi
 - GET /:id
 - PATCH /:id
 - POST /upload-resume
+- GET /resume
 - POST /upload-profile-picture
 
 ### Jobs
@@ -82,12 +83,13 @@ Client → Routes → Controllers → Services → Database
 
 
 ## File Upload
-
 - Uses Supabase for storage
 - Multer with memoryStorage
 - Supports resume and profile image upload
 - Old files are deleted before new upload
-
+- Use the Pdf Parse And Grok to extract the content.
+- Which i'm using the `Grok` library to as a ai for ats scoring and the feedback.
+- which top of that i use: `pdf-parse` to extract a text content from user input.
 
 
 ## Performance Optimization
@@ -326,7 +328,7 @@ supabase.storage.from('bucketname').getPublicUrl(pathurl)
 - Rest Will coming in the coming days mainly jobs and users routes.
 
 ## Packages Used
-1. Express
+1. express
 2. pg
 3. zod
 4. bcryptjs
@@ -338,8 +340,14 @@ supabase.storage.from('bucketname').getPublicUrl(pathurl)
 10. express-rate-limit
 11. node-cron
 12. nodemailer
-13. yamljs
-14. 
+13. swagger-ui-express
+14. yamljs
+15. cors
+16. multer
+17. pdf-parse
+18. openai
+19. jest
+20. supertest
 
 
 ## Post-Feb 26 Features
