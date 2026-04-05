@@ -50,7 +50,7 @@ export const getloginUserController= async (req, res) => {
 export const getParticularUserController=  async (req, res) => {
   const {id, company_id}=req.params;
   try {
-    const { rows } = await connect.query("SELECT uid, profile_pic_url, fname, education, email, experience, resume_url, skills, company_id IS NOT NULL AS is_employee, uid AS job_uid FROM users WHERE uid =$1", [id]);
+    const { rows } = await connect.query("SELECT uid, profile_pic_url, phone_number, fname, lname, education, email, experience, resume_url, skills, company_id IS NOT NULL AS is_employee, uid AS job_uid FROM users WHERE uid =$1", [id]);
     if(rows.length==0) return res.status(404).json({message: "Please Enter Correct Uid"})
     return res.status(200).json({message: rows[0]});
   } catch (error) {
@@ -64,7 +64,7 @@ export const getParticularUserController=  async (req, res) => {
 export const postSignupUserController= async (req, res) => {
   try {
     const { fname, lname, education, email, password} = req.body;
-    const allUser={fname, lname, education, email, password}
+    const allUser={fname, lname, education, email,number, password}
     const validateuser=userSchema.safeParse(allUser);
     if(!validateuser.success){
       const message=validateuser.error.issues[0].message;
@@ -134,7 +134,7 @@ export const addUserSkills=async (req, res)=>{
 
 export const putUserController= async(req, res) => {
    const {id}=req.params;
-  const {fname, lname, education, email }=req.body;
+  const {fname, lname, education, email, experience, number }=req.body;
     const validateuser=updateUserSchema.safeParse(req?.body);
   if(!validateuser.success){
     const message=validateuser.error.issues[0].message;
@@ -145,9 +145,10 @@ export const putUserController= async(req, res) => {
    if(!query[0].exists){
     return res.status(201).json({message: "Invalid User Id"})
    }
-    const {rows}=await connect.query("update users set fname=$1, lname=$2, education=$3, email=$4 where uid=$5 returning *", [fname, lname, education, email, id])
-   return res.status(200).json({message: rows})
+    await connect.query("update users set fname=$1, lname=$2, education=$3, email=$4, experience=$5, phone_number=$6 where uid=$7", [fname, lname, education, email, experience, number, id])
+   return res.status(200).json({message: "Data Updated Succssfully"})
   } catch (error) {
+    console.log('error is', error)
     return res.status(500).json({message: error.message})
   }
 };

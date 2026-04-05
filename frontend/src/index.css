@@ -26,3 +26,10 @@ h1 {
 html, body {
   overflow-x: hidden;
 }
+.PhoneInputCountrySelect {
+  background: #262626;
+  color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}

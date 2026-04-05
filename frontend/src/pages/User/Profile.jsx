@@ -51,13 +51,15 @@ export default function Individualuser() {
       return;
     }
   }
-  const { profile_pic_url, fname, lname, email, education, experience_years, resume_url, skills } = data?.message || {}
+  const { profile_pic_url, fname, lname, email, education, experience, resume_url, skills, phone_number } = data?.message || {}
   const originalName = getOriginalFileName(profile_pic_url)
   const {role}=globalContext ?? {};
   if(loader || loading){
     return <Loading/>
   }
-
+   if (err) {
+    return navigate("/")
+  }
   return (
     <div className='max-w-3xl mx-auto p-6 space-y-6'>
       {data &&
@@ -71,8 +73,9 @@ export default function Individualuser() {
             <h1 className='text-2xl font-bold text-center transition-colors'>{fname} {lname}</h1>
             <span className="px-3 py-1 text-sm bg-green-800 my-4 font-mono rounded-lg text-white mx-auto">{user?.role == 'guest' ? 'Job Seeker' : user?.role == 'admin' ? 'Admin' : 'Recruiter'}</span>
             <p className='text-gray-600 text-center mb-4'>{email}</p>
+            <p className='text-gray-500 text-center mb-4 font-semibold'>Phone Number: {phone_number || 'N|A'}</p>
             <Textcomps content={`Education: ${education}`} />
-            <Textcomps content={`Experience: ${experience_years ?? '0'} years`} />
+            <Textcomps content={`Experience: ${experience ?? '0'} years`} />
             <span className='my-4 justify-center grid cursor-pointer'> <Linkcomps to={'edit'} content={<ButtonComps values='Edit Profille' />}></Linkcomps></span>
             {role=='guest' && 
             <span className='my-4 justify-center grid cursor-pointer' onClick={()=>setIsFollowing(!isFollowing)}><ButtonComps values='Following List' /></span>

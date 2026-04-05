@@ -360,7 +360,8 @@ supabase.storage.from('bucketname').getPublicUrl(pathurl)
 - Validate correct UID everywhere
 - Changed status codes in 10+ areas
 - Bookmark job testing and fixes
-
+- With Add the Phone Number Cols on the Users db, Add the Regex Phone Number Pattern
+- Phone Number Added to Other needed Area
 
 
 

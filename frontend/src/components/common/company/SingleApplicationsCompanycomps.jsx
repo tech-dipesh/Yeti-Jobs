@@ -7,7 +7,7 @@ import Successcomps from '../Success';
 import { changeApplicationStatus } from '../../../api/auth.applications';
 import Errorpopup from '../../Error/Errorpopup';
 
-export default function SingleApplicationsCompanycomps({ job_id, applicant_id, job_title, resume_url, status: oldstatus, cover_letter, notice_period, expected_salary, why_hire }) {
+export default function SingleApplicationsCompanycomps({ job_id, applicant_id, job_title, resume_url, phone_number, status: oldstatus, cover_letter, notice_period, expected_salary, why_hire }) {
   let [status, setStatus] = useState(oldstatus)
   const { data, execute, error, loading } = useFetchData(changeApplicationStatus)
   useEffect(() => {
@@ -46,12 +46,8 @@ export default function SingleApplicationsCompanycomps({ job_id, applicant_id, j
               {ApplyLowerCasestatusOption?.map((o, i) => <option value={o} className='mb-4 p-2 text-2xl lg:text-xl border rounded cursor-pointer' defaultValue={oldstatus && o === oldstatus} key={i}>{o}</option>)}
             </>
           </select>
+          <p>Phone Number: {phone_number}</p>
         </div>
-
-        {/* cover_letter": "Nepal World Love Nepal", */}
-            {/* "notice_period": 23, */}
-            {/* "expected_salary": "38429", */}
-            {/* "why_hire */}
         <div>
           {cover_letter && <h3>Cover Letter: {cover_letter}</h3>}
           {notice_period && <h3>Notice Period: {notice_period} days</h3>}

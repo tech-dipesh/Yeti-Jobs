@@ -172,6 +172,7 @@ App runs on: http://localhost:5173
 - Added new logo created in Canva.
 - Header Profile Ui Changed a Lot
 - Improve the Add Resume Page With Better ui
+- Added a phone number on the Edit User of new ui with the new library
 ---
 
 ## Portal:

@@ -12,13 +12,11 @@ export default function IsOwnerandloggedIn() {
     const {execute, error:fetcherrData, loading: verifyOwner}=useFetchData(isUserOwnedRoute)
     const {data, error, loading}=useAuth()
   useEffect(() => {
-    (async () => {
       if (error) {
       navigate("/auth/login", {state:{ from: location.pathname }, replace: true  });
       return;
-    }
-      await execute(id);
-    })();
+      }
+      execute(id);
   }, [id]); 
 
 

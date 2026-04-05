@@ -139,7 +139,7 @@ export const getAllJobsList=async (req, res)=>{
 export const getallApplicationsList=async (req, res)=>{
   const {id}=req.params;
   try {
-    const {rows}=await connect.query("select a.uid as application_id,  a.status, a.cover_letter, a.notice_period, a.expected_salary, a.why_hire, u.resume_url, j.title as job_title, j.total_job_views, u.uid as applicant_id, j.uid as job_id from applications a join users u on a.user_id = u.uid join jobs j on a.job_id = j.uid where j.company_id=$1", [id])
+    const {rows}=await connect.query("select a.uid as application_id,  a.status, a.cover_letter, a.notice_period, a.expected_salary, a.why_hire, u.resume_url, u.phone_number, j.title as job_title, j.total_job_views, u.uid as applicant_id, j.uid as job_id from applications a join users u on a.user_id = u.uid join jobs j on a.job_id = j.uid where j.company_id=$1", [id])
    return res.status(200).json({message: rows})
   } catch (error) {
    return res.status(500).json({message: error.message})

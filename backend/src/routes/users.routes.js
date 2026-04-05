@@ -43,7 +43,8 @@ router.post("/profile-picture", upload.single('profile'), authUserMiddleware,  u
 router.post("/:id/skills", validateCorrectUid, authUserMiddleware,  addUserSkills);
 
 
-router.route("/:id", validateCorrectUid, authUserMiddleware, isOwnerMiddleware)
+router.use("/:id", validateCorrectUid, authUserMiddleware, isOwnerMiddleware)
+router.route("/:id")
 .get(authUserMiddleware, getParticularUserController)
 .put(putUserController)
 .patch(patchUserController)

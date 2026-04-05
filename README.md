@@ -202,6 +202,7 @@ The Project is a Job Portal Platform **with** all the features needed to build a
 | [![openai](https://img.shields.io/npm/v/openai)](https://npmjs.com/package/openai) | `^6.33.0` | LLM |
 | [![pdf-parse](https://img.shields.io/npm/v/pdf-parse)](https://npmjs.com/package/pdf-parse) | `^2.4.5` | Backend |
 | [![@vercel/analytics](https://img.shields.io/npm/v/@vercel/analytics)](https://npmjs.com/package/@vercel/analytics) | `^2.0.1` | Frontend |
+| [![react-phone-number-input](https://img.shields.io/npm/v/react-phone-number-input)](https://npmjs.com/package/react-phone-number-input) | `^3.4.16` | Frontend |
 
 
 
@@ -291,6 +292,7 @@ erDiagram
     text password
     enum role "guest|admin|recruiter"
     uuid company_id FK
+    text phone
     text resume_url
     text profile_pic_url
     text[] skills
@@ -543,6 +545,7 @@ File uploads are handled via the `@supabase/supabase-js` SDK — files go direct
 - REcruiter/Company Employee will have full control of change a status of any jobs applicant
 - With hr have the full control which use to reject which to move forward to the interview or the hired or rejected hr have full control.
 - Add the List of the bruno all api endpoints link to convert to the swagger ui and add the endpoints of: `api/v1/swagger`
+- Add the Phone Number In User Information.
 
 > [!NOTE]
 > ## Future Improvements:
@@ -560,7 +563,6 @@ File uploads are handled via the `@supabase/supabase-js` SDK — files go direct
 > - Add the notification page list about notified user about recent events, followed companies notification, recruiter viewed your resume.
 > - profile completneess score based on the badged applicant top skills and how much active jobs seeker.
 > - On the edit content page if user try to submit a content without any change don't allow them which reduce a less backend request.
-> - Adding a phone number of the user that can send to hr when ur is accepted.
 > - Adding a CDN to cache our static assets that never changed
 > - Move Our Asynchronous operation to the background queue with use services such as: `Kafka`.
 

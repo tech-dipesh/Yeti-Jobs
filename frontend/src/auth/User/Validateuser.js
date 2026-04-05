@@ -1,4 +1,6 @@
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const phoneNumberRegex = /^\+?(?:[0-9] ?){6,14}[0-9]$/;
+
  const validateLogin = ({ email, password }) => {
   if (!email) return "Please Enter Emails";
   if (!password) return "Please Enter Password";
@@ -9,7 +11,7 @@ const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   return null;
 };
 
-export const validateEditUser= ({fname, lname, education, email, experience, password}, type)=>{
+export const validateEditUser= ({fname, lname, education, email, number, experience, password}, type)=>{
   const validEducation=['Basic', 'Matrix', 'High School', 'Undergraduation', 'Postgraduation'];
   if(!fname){
     return "Please Enter a First Name"
@@ -39,6 +41,14 @@ export const validateEditUser= ({fname, lname, education, email, experience, pas
     }
     if(experience<0 || experience>35){
       return "Please Enter a valid experience Years."
+    }
+    if(!number){
+      return "Please Enter a Phone Number"
+    }
+    console.log('number is', number)
+    console.log('p', phoneNumberRegex.test(number))
+    if(!phoneNumberRegex.test(number)){
+      return "Please Enter a Valid Internation Phone Number."
     }
   }
   else if(type=='signup'){

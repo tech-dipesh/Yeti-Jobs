@@ -15,7 +15,7 @@ export const allAppliedJobs=async (req, res)=>{
 export const particularJobsListController=async(req, res)=>{
   const {id}=req.params;
   try {
-    const {rows}=await connect.query("SELECT CONCAT(u.fname,' ', u.lname) AS full_name, u.experience, u.resume_url, u.skills AS user_skills, a.status, a.applied_at FROM applications a INNER JOIN users u ON a.user_id = u.uid WHERE a.job_id=$1;", [id]);
+    const {rows}=await connect.query("SELECT CONCAT(u.fname,' ', u.lname) AS full_name, u.experience, u.phone_number, u.resume_url, u.skills AS user_skills, a.status, a.applied_at FROM applications a INNER JOIN users u ON a.user_id = u.uid WHERE a.job_id=$1;", [id]);
     return res.json({message: rows})
   } catch (error) {
      return  res.status(504).json({message:error.message})
