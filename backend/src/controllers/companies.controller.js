@@ -22,13 +22,13 @@ export const getCompanyController= async(req, res) => {
       rows=guestrows[0];
     }
     else{
-      const {rows:nonguestrows}=await connect.query("select c from companies c where c.uid=$1;", [id]);
+      const {rows:nonguestrows}=await connect.query("select * from companies c where c.uid=$1;", [id]);
       rows=nonguestrows[0]
     }
     if(rows?.length==0){
       return res.status(404).json({message: "Please Enter a Valid Country Id."})
     }
-    return res.status(200).json(rows)
+    return res.status(200).json({message: rows})
   } catch (error) {
     return res.status(500).json({message: error.message})
   }
@@ -58,7 +58,7 @@ export const postCompanyController=async (req, res) => {
     }
     const {data:getUrl}= supabase.storage.from('company').getPublicUrl(data.path)
     const {rows}=await connect.query("insert into companies (name, description, website, location, founded_year, logo_url) values ($1, $2, $3, $4, $5, $6) returning *", [name, description, website, location, founded_year, getUrl.publicUrl])
-    return res.status(201).json(rows[0]);
+    return res.status(201).json({message: "New Company Added"});
   } catch (error) {
     return res.status(500).json({message: error.message});
   }

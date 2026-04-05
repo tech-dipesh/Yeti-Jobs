@@ -23,7 +23,7 @@ export default function NewCompany() {
       setError("Please Enter a Company.")
       return;
     }
-    const err = validateCompany(value)
+    const err = validateCompany(value,'new')
     if (err) {
       setError(err)
       return;

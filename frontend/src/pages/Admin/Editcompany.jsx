@@ -17,7 +17,7 @@ export default function Editcompany() {
   useEffect(() => {
     (async () => {
       const res = await execute(id)
-      setValue({ name: res.name, description: res.description, website: res.website, founded_year: res.founded_year, location: res.location })
+      setValue({ name: res?.message?.name, description: res?.message?.description, website: res?.message?.website, founded_year: res?.message?.founded_year, location: res?.message?.location })
     })()
   }, [])
 
@@ -28,25 +28,23 @@ export default function Editcompany() {
       name: value.name.trim(),
       description: value.description.trim(),
       website: value.website.trim(),
-      founded_year: value.founded_year.trim(),
+      founded_year: value.founded_year,
       location: value.location.trim(),
     }
-    const err = validateCompany(trim);
+    const err = validateCompany(trim, 'edit');
     if (err) {
       setError(err);
       return;
     }
     const res = await editcompany({ id, value:trim });
     if (res) {
-      setTimeout(() => {
-        navigate("../../all")
-      }, 200);
+      navigate("../../all")
     }
   }
   return (
     <div className='bg-slate-700 min-h-screen'>
       <div className='max-w-6xl mx-auto px-4 py-8 space-y-8'>
-        <Goback to={"../"}/>
+          <Goback to={"../"}/>
         <div className='mb-6 border-b border-neutral-200 pb-4'>
           <h1 className='text-3xl font-bold text-gray-900 dark:text-white'>Edit Company</h1>
           <p className='text-sm text-neutral-500 mt-1'>Update your company details below</p>

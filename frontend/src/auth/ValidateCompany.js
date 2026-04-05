@@ -9,7 +9,7 @@ const isValidWebsite=(val)=>{
   }
 }
 
-const validateCompany= ({name, description, website, location, founded_year, company_logo})=>{
+const validateCompany= ({name, description, website, location, founded_year, company_logo}, type)=>{
   if(!name){
     return "Please Enter the Name."
   }
@@ -37,15 +37,17 @@ const validateCompany= ({name, description, website, location, founded_year, com
   if(description.length<25 || description.length>250){
     return "Description Can't be more than a 250 letter and less than 25 letter."
   }
-  if(website.length<3 || website.length>20){
-    return "website Can't be more than a 20 letter and less than 3 letter."
+  if(website.length<3 || website.length>30){
+    return "website Can't be more than a 30 letter and less than 3 letter."
   }
   if(!isValidWebsite(website)){
     return "Please Enter Website in correct format."
   }
-  const err=validateFileUpload(company_logo, 'image');
-  if(err){
-    return err;
+  if(type=='new'){
+    const err=validateFileUpload(company_logo, 'image');
+    if(err){
+      return err;
+    }
   }
   return null;
 }

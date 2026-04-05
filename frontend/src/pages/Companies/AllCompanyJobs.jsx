@@ -11,14 +11,14 @@ export default function AllCompanyJobs() {
   const { data, error, loading, execute } = useFetchData(getCompanyJobs);
   // useEffect(()=>execute(id), [id])
   useEffect(() => {
-    ; (async () => await execute(id))()
+    execute(id)
   }, [id])
 
   const {pathname}=useLocation()
   const isJob=pathname.split("/")[3]
   return (
     <div>
-      <Goback to={isJob ? `../${id}` : 'jobs'} content={isJob ? 'View Company Page':'Visit All Jobs'}/>
+      <Goback to={isJob ? `../${id}` : '/jobs'} content={isJob ? 'View Company Page':'Visit All Jobs'}/>
       <Errorloading data={{ error, loading }} />
       <Emptycomps data={data?.message} type={'Company Jobs'}/>
       <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 p-8'>

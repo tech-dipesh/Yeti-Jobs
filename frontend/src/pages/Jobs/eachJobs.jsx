@@ -24,8 +24,8 @@ export default function EachJob() {
     execute(id)
   }, [id])
 
-  const [action, setAction]=useState(null)
-  const [copy, setCopy]=useState(false)
+  const [action, setAction] = useState(null)
+  const [copy, setCopy] = useState(false)
   const [open, setOpen] = useState(false);
   const navigate = useNavigate()
   const { loading: loader, error: withdrawerror, execute: withd } = useFetchData(withdrawToParticularJob)
@@ -34,37 +34,37 @@ export default function EachJob() {
   const { error: errdelete, loading: loaddelete, execute: deletes } = useFetchData(deleteExistingJobs)
   const { data: initalValue = {}, reexecute } = useAuth()
   const { role } = initalValue;
-  
+
   const confirmAnyActionPerform = async () => {
-    let success=false;
+    let success = false;
     if (action === 'delete') {
-      const res=await deletes(id)
-      if (res){
+      const res = await deletes(id)
+      if (res) {
         navigate("/jobs")
       }
     } else if (action === 'withdraw') {
-      const res=  await withd(id)
+      const res = await withd(id)
       if (res) {
-        navigate(0); 
-        success=true;
+        navigate(0);
+        success = true;
         return;
       }
-      
+
     } else if (action === 'bookmark') {
-      const res= await bookmark(id)
+      const res = await bookmark(id)
       if (res) {
-        success=true;
+        success = true;
       }
     } else if (action === 'withdrawbookmark') {
-      const res=await removeBook(id)
+      const res = await removeBook(id)
       if (res) {
-        success=true;
+        success = true;
       }
     }
     setAction(null)
-    if(success){
-      await execute(id) 
-      await reexecute() 
+    if (success) {
+      await execute(id)
+      await reexecute()
     }
   }
 
@@ -77,40 +77,40 @@ export default function EachJob() {
   return (
     <article className='min-w-screen min-h-screen px-6 py-8'>
       <Goback />
-      <Errorpopup error={error|| removeerrbookmark || errdelete || withdrawerror || errabookmark} />
+      <Errorpopup error={error || removeerrbookmark || errdelete || withdrawerror || errabookmark} />
       {data?.message &&
         <div className='bg-slate-800 p-8 max-w-5xl min-h-[90vh] mx-auto rounded-2xl flex flex-col gap-5'>
           <span className='text-slate-400 text-xs text-center opacity-90'>Job Id: {uid}</span>
           <div className='flex justify-between items-start'>
             <div className='flex items-center gap-3'>
-              <img src={logo_url? logo_url : defaultImage} alt="Logo" className='h-10 w-10 rounded-full object-cover shrink-0' />
+              <img src={logo_url ? logo_url : defaultImage} alt="Logo" className='h-10 w-10 rounded-full object-cover shrink-0' />
               <div className='flex flex-col'>
-              <p className='font-bold text-sm'>{company_name}</p>
-              <Linkcomps to={`/companies/${company_id}`} content={<>Visit Company Profile: <FontAwesomeIcon icon={faArrowRight} /></>} />
+                <p className='font-bold text-sm'>{company_name}</p>
+                <Linkcomps to={`/companies/${company_id}`} content={<>Visit Company Profile: <FontAwesomeIcon icon={faArrowRight} /></>} />
               </div>
             </div>
             <div className='grid lg:flex items-center gap-2'>
-                <div onClick={() => setOpen(!open)}>
-                  < Buttoncomps values={
-                    <div className='flex items-center gap-2 p-2.5 rounded-lg border hover:bg-slate-700' 
-                    onClick={()=>{
-                       const CorrectUrl = window.location.href;
+              <div onClick={() => setOpen(!open)}>
+                < Buttoncomps values={
+                  <div className='flex items-center gap-2 p-2.5 rounded-lg border hover:bg-slate-700'
+                    onClick={() => {
+                      const CorrectUrl = window.location.href;
                       navigator.clipboard.writeText(CorrectUrl)
-                        setCopy(!copy)
+                      setCopy(!copy)
                     }}>
-                      <span>{open ?'Shared':'Share'}</span>
-                      <FontAwesomeIcon icon={open ? faClipboardCheck:faShareNodes} style={''} className='transition-all'/>
-                    </div >
-                  }
-                  />
-                </div >
+                    <span>{open ? 'Shared' : 'Share'}</span>
+                    <FontAwesomeIcon icon={open ? faClipboardCheck : faShareNodes} style={''} className='transition-all' />
+                  </div >
+                }
+                />
+              </div >
               {(!is_owner && role == 'guest') &&
-                <div className='flex items-center gap-2 p-2 rounded-lg border-slate-600 text-sm cursor-pointer'  onClick={() =>
-                      is_saved ? setAction("withdrawbookmark") : setAction("bookmark")
-                    } >
+                <div className='flex items-center gap-2 p-2 rounded-lg border-slate-600 text-sm cursor-pointer' onClick={() =>
+                  is_saved ? setAction("withdrawbookmark") : setAction("bookmark")
+                } >
                   <Buttoncomps values={valueButton}
-                   />
-                    <span>Save</span>
+                  />
+                  <span>Save</span>
                 </div>
               }
             </div>
@@ -125,10 +125,10 @@ export default function EachJob() {
             <span>Experience: <strong className='text-white'>{experience_years || '0'} yrs</strong></span>
             <p className='text-right text-slate-300 text-sm'>Location: <strong className='text-white'>{location || 'none'}</strong></p>
           </div>
-              {action && <Confirmation type={action} confirm={confirmAnyActionPerform} cancel={() => setAction(null)} />}
-            <div className='flex flex-col flex-1'>
-              <EachJobAction setAction={setAction} data={data?.message} />
-            </div>
+          {action && <Confirmation type={action} confirm={confirmAnyActionPerform} cancel={() => setAction(null)} />}
+          <div className='flex flex-col flex-1'>
+            <EachJobAction setAction={setAction} data={data?.message} />
+          </div>
         </div>
       }
     </article>

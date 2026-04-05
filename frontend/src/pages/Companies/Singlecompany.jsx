@@ -13,14 +13,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import authUid from '../../auth/authUid'
 import Errorpopup from '../../components/Error/Errorpopup'
 import Loading from '../../components/Loading'
-
+import Textcomps from "../../components/common/Textcomps"
 export default function Singlecompany() {
   const { id } = useParams()
-  const { data: insideValue } = useAuth()
+  const { data: { role } } = useAuth()
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const [error, setError] = useState("")
-  const [copy, setCopy]=useState(false)
+  const [copy, setCopy] = useState(false)
   const { data, error: singleerr, loading, execute } = useFetchData(getSingleCompany)
   const { execute: deleteaction, error: deleteerr, loading: deleteload, data: deletedata } = useFetchData(deleteCompany)
   const { execute: followaction, error: followerr, data: followdata, loading: followload } = useFetchData(followCompany)
@@ -33,7 +33,6 @@ export default function Singlecompany() {
   if (!authUid(id)) {
     return <Errorloading data={{ error: "Please Enter a Correct UID" }} />
   }
-
   const clickDelete = async () => {
     await deleteaction(id);
     if (deletedata) {
@@ -42,20 +41,19 @@ export default function Singlecompany() {
       }, 50);
     }
   }
-
-  const { name, description, created_at, website, is_followed } = data ?? {};
+  const { name, description, created_at, website, is_followed } = data?.message || {};
   const clickFollow = async () => {
-      await followaction(id);
-      if(followdata){
-        navigate(0)
-      }
+    await followaction(id);
+    if (followdata) {
+      navigate(0)
+    }
   }
-  const clickUnFollow = async() => {
+  const clickUnFollow = async () => {
     await unFollowaction(id);
-      if(unfollowdata){
-        navigate(0)
-      }
-   }
+    if (unfollowdata) {
+      navigate(0)
+    }
+  }
   if (loading || followload || unfollowload || deleteload) {
     return <Loading />
   }
@@ -75,28 +73,27 @@ export default function Singlecompany() {
             </div>
           </div>
           <div>
-
-          <div className='flex justify-center md:justify-end md:shrink-0' onClick={is_followed ? clickUnFollow : clickFollow}>
+            {role == 'guest' && 
+              <div className='flex justify-center md:justify-end md:shrink-0' onClick={is_followed ? clickUnFollow : clickFollow}>
             <Buttoncomps values={is_followed ? 'UnFollow' : 'Follow'} color={is_followed && 'bg-red-500'} />
-          </div>
-           <div onClick={() => setOpen(!open)}>
-          < Buttoncomps values={
-            <div className='flex items-center gap-2 p-1 rounded-lg border hover:bg-slate-700' 
+            </div>
+            }
+            <div className='flex items-center gap-2 py-2 p-1 rounded-lg border hover:bg-slate-700 cursor-pointer' 
             onClick={()=>{
               const CorrectUrl = window.location.href;
               navigator.clipboard.writeText(CorrectUrl)
-              setCopy(!copy)
+              setCopy(true)
+              setTimeout(() => {
+                setCopy(false)
+              }, 2500);
             }}>
-              <span>{open ?'Shared':'Share'}</span>
-              <FontAwesomeIcon icon={open ? faClipboardCheck:faShareNodes} style={''} className='transition-all'/>
+              <span>{copy ?'Shared':'Share'}</span>
+              <FontAwesomeIcon icon={copy ? faClipboardCheck:faShareNodes} className='transition-all'/>
             </div >
-          }
-          />
-          </div>
         </div >
         </div>
       }
-      {insideValue?.role == 'admin' &&
+      {role == 'admin' &&
         <div className='flex gap-3 my-4'>
           {!open ?
             <span onClick={() => setOpen(true)}>
