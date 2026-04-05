@@ -432,7 +432,7 @@ File uploads are handled via the `@supabase/supabase-js` SDK — files go direct
 ## Security:
 ### validation Security:
 - Every major table will have validation from Zod which **checks** the integrity of our data.
-- beside the client side validate, server side validation, i also make sure to add the database validation.
+- beside the client side validate, server side validation, i also make sure to add the database validation
 - even if user bypass a both client and server validation it can't insert due to the database validation.
 - With checking a text pattern, blank/undefined, correct data type, unique constraint,min length max length which are common for the data validation i've implemented.
 - Ensure every piece of data maintains database integrity at all times.
@@ -443,10 +443,9 @@ File uploads are handled via the `@supabase/supabase-js` SDK — files go direct
 > Rate Limiting:
 >> Rate limiting: 200 req/min globally
 >>> Reset password: 2 req/min strictly
-- use the helmet  for the reponse purpose which remove the `X-Powered` by that the client will not konw which framework we've build without this it'll show it build from the express.
+- use the helmet for the reponse purpose which remove the `X-Powered` by that the client will not konw which framework we've build without this it'll show it build from the express.
   - Also have  one more feature  it's add 12 more responsive header, for better secuirty purpose of prevent from the `xss attack`.
-- Use the `cors` library for only allow my client url dont' allow any external api endpoints which also have a better security feature for avoid a cross side attack.
-
+- Use the `cors` library for only allow my client url dont' allow any external api endpoints which also have a better security feature for avoid a cross side attack."* — should read something like: *"Uses the `cors` library to whitelist only the client URL, blocking external origins to prevent cross-origin attacks.
 
 
 ### Middlewares:
@@ -458,7 +457,6 @@ File uploads are handled via the `@supabase/supabase-js` SDK — files go direct
 #### Server MIddleware:-
 - More than: 9+ middleware for server validation of custom middleware.
 - With make the controller user action to the only isJobSekkker, companies contoller to the isEmployee and the admin contoller to the isAdmin.
-- with i also validation whether the use is logged in or not, and also whether the user logged in but not verified, whether the user is owner of that routes or not, whether the user given a correct `uuid` which i also validaion that also save some time for invalid ui to check from the database.
 
 
 ## Performance Optimization
@@ -529,10 +527,8 @@ File uploads are handled via the `@supabase/supabase-js` SDK — files go direct
   Only backend is containerized; database and full system orchestration are not yet implemented.
 * **Incomplete feature ecosystem**
  Missing advanced features like:
-  * ATS scoring
   * Interview scheduling
   * Notification system
-  * Resume parsing
 
 ## Additional Features
 - Dockerize a entire system with to the nodejs application and also docker ignore some files: `.dockerignore`
