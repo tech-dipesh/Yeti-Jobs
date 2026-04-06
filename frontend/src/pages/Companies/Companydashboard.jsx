@@ -42,7 +42,7 @@ export default function Companydashboard() {
       {(message && role == 'recruiter') &&
         <div className='grid grid-cols-1 md:grid-cols-4 gap-4 mb-8 text-black'>
           {allStats?.map(({ bg, name, value }, i) =>
-            <div className={`${bg} p-4 rounded-lg`} key={i}>{`All Company ${name}: ${message?.[value]}`}</div>
+            <div className={`${bg} p-4 rounded-lg`} key={i}>{`All Company ${name}: ${message?.[value] ?? null}`}</div>
           )}
         </div>
       }

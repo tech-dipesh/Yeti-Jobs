@@ -5,14 +5,15 @@ import Popup from '../../Popup';
 import InputComps from '../Input';
 import ValidateApplication from '../../../auth/Application/ValidateApplications';
 import Errorloading from '../Errorloading';
-
+import useAuth from "../../../context/Authcontext"
 import { applyToParticularJob } from '../../../api/auth.applications';
 import Errorpopup from '../../Error/Errorpopup';
 import useFetchData from '../../../hooks/useFetchData';
 import Loading from '../../Loading';
 import CleanFilterEmptySpace from "../../../auth/CleanFilterEmptySpace"
 export default function EachJobAction({ setAction, data, }) {
-  
+  const {data: userValue}=useAuth()
+  const {role}=userValue ?? {}
   const {id}=useParams()
   const navigate=useNavigate()
   const [loaddesc, setShowDesc] = useState(false)
@@ -88,11 +89,13 @@ export default function EachJobAction({ setAction, data, }) {
                 <>&#36; {salary} </> : 'none'}
               </p>
             </div>
+            {role=='guest' && 
             <span onClick={() => is_applied ? setAction("withdraw"):setApply(true)}
-              // className='lg:my-10 text-nowrap text-2xl my-6 justify-end'
-              >
+            // className='lg:my-10 text-nowrap text-2xl my-6 justify-end'
+            >
               <Buttoncomps values={is_applied ? 'Withdraw Apply' : "Apply Job"} color={is_applied ? 'bg-red-500' : 'bg-blue-500'} />
             </span>
+            }
           </div>
         }
         {
