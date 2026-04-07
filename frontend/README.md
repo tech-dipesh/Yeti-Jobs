@@ -173,7 +173,7 @@ App runs on: http://localhost:5173
 - Header Profile Ui Changed a Lot
 - Improve the Add Resume Page With Better ui
 - Added a phone number on the Edit User of new ui with the new library
----
+- 
 
 ## Portal:
 - For popup positioning issues, used Portal.
@@ -193,5 +193,5 @@ App runs on: http://localhost:5173
 4. **react-spinners** – loading indicators
 5. **react-icons** – additional icons
 6. **react-toastify** – toast alerts
-7. **date-fns** – date operations (to be removed)
 8. **@vercel/analytics** – frontend stats and visitor count
+8. **@vercel/speed-insights/react** – frontend Speed Insights

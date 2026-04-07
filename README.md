@@ -202,6 +202,7 @@ The Project is a Job Portal Platform **with** all the features needed to build a
 | [![openai](https://img.shields.io/npm/v/openai)](https://npmjs.com/package/openai) | `^6.33.0` | LLM |
 | [![pdf-parse](https://img.shields.io/npm/v/pdf-parse)](https://npmjs.com/package/pdf-parse) | `^2.4.5` | Backend |
 | [![@vercel/analytics](https://img.shields.io/npm/v/@vercel/analytics)](https://npmjs.com/package/@vercel/analytics) | `^2.0.1` | Frontend |
+| [![@vercel/speed-insights/react](https://img.shields.io/npm/v/@vercel/speed-insights/react)](https://npmjs.com/package/@vercel/speed-insights/react) | `^2.0.0` | Frontend |
 | [![react-phone-number-input](https://img.shields.io/npm/v/react-phone-number-input)](https://npmjs.com/package/react-phone-number-input) | `^3.4.16` | Frontend |
 
 

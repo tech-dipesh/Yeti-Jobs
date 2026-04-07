@@ -6,7 +6,7 @@ import Footer from './components/Footer';
 import Loading from './components/Loading';
 import ToastConataine from './components/Toast';
 import { Analytics } from '@vercel/analytics/react';
-import api from './lib/axios';
+import { SpeedInsights } from "@vercel/speed-insights/react"
 function App() {
   const { data, loading } = useAuth()
   if (loading) {
@@ -16,6 +16,7 @@ function App() {
     <div className='w-full min-h-screen flex flex-col overflow-x-hidden'>
       <Header data={data} />
       <Analytics/>
+      <SpeedInsights/>
       <main className='flex-1'>
         <Outlet />
         <ToastConataine />

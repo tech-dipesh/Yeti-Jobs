@@ -7,7 +7,12 @@
     "type": "git",
     "url": "git+https://github.com/tech-dipesh/Job-Portal-Full-Stack.git"
   },
-  "keywords": ["Full Stack", "PERN Stack", "Postgres", "ATS Score"],
+  "keywords": [
+    "Full Stack",
+    "PERN Stack",
+    "Postgres",
+    "ATS Score"
+  ],
   "author": "tech-dipesh",
   "license": "ISC",
   "bugs": {
