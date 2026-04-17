@@ -19,7 +19,7 @@ const limitUser=rateLimit({
 
 const router = Router();
 
-router.get("/login-status", authUserMiddleware, sendUserLoggedInStatus)
+router.get("/login-status", sendUserLoggedInStatus)
 router.get("/logout", userLoggedOutcontroller);
 router.post("/login", alreadyLoggedIn, getloginUserController);
 router.post("/signup", alreadyLoggedIn, postSignupUserController);

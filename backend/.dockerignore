@@ -3,3 +3,6 @@ node_modules/
 Dockerfile
 *.md
 .gitignore
+*.png
+user.sql
+sql-commands.sql

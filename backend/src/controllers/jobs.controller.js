@@ -19,7 +19,7 @@ export const getAllJobsController=async (req, res) => {
   }
 };  
 
-export const searchJobsListing=async (req, res) => {
+export const searchJobsListing=async (req, res) => {  
   const {sortby='created_at', title}=req.query;
   if(!title){
     return res.status(404).json({message: 'Please Enter Search Term'});

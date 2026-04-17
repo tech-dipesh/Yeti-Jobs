@@ -5,26 +5,26 @@ import currentDate from "../utils/currentDateFormat.js";
 import VerifyJwt from "../services/verifyJwt.js";
 async function verifyEmailConfirmation(req, res) {
   const {code}=req.body;
-  const {uid, role, company_id, userVerified}=req?.user;
+  const {uid, role, company_id, verify}=req?.user;
   if(!code){
    return res.status(404).json({message: "Please Enter Verification Code"})
   }
- if(userVerified==true){
+ if(verify==true){
   return res.status(404).json({message: "You've Already Verified"})
  }
   try {
    const {rows} =await connect.query("select e.verified_code, e.is_verified, e.expired_at, e.uid, e.user_id, u.email from email_verified e inner join users u on u.uid=e.user_id where e.user_id=$1 order by e.created_at desc limit 1", [uid])
-   const {verified_code, is_verified:userVerified=false, expired_at}=rows[0] ?? {};
+   const {verified_code, is_verified:verify=false, expired_at}=rows[0] ?? {};
   if(verified_code!=code){
     return res.status(422).json({message: "Please Enter Correct Code"})
   }
-  if(userVerified==true){
+  if(verify==true){
       return res.status(401).json({message: "Token Already In Used, You've Already Logged In."})
   }
   if(expired_at<currentDate()){
       return res.status(403).json({message: "Token is Expired Please Generate new Token"})
   }
-  const content={uid, role, company_id, userVerified:true};
+  const content={uid, role, company_id, verify:true};
   VerifyJwt(res, content)
   await connect.query(`update email_verified set is_verified=true where user_id=$1 and verified_code=$2 and verified_type='verify_mail'`, [uid, code]);
   return res.json({message: "Verification Code Have Been Succssfully Verified"})
@@ -36,8 +36,8 @@ async function verifyEmailConfirmation(req, res) {
 
 
 export const resendVerificationCode=async (req, res)=>{
-  const {uid, userVerified}=req?.user;
-  if(userVerified==true){
+  const {uid, verify}=req?.user;
+  if(verify==true){
   return res.status(404).json({message: "You've Already Verified"})
   }
   try {

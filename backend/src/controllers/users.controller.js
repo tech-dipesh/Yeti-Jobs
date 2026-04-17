@@ -6,6 +6,9 @@ import sendMail from "../services/email-verification.js";
 import isUserVerifiedEmail from "../utils/isUserEmailVerified.js";
 import dns from "dns/promises"
 import VerifyJwt from "../services/verifyJwt.js";
+import jwt from "jsonwebtoken"
+import "dotenv/config"
+import { verify } from "crypto";
 export const getAllUserController= async (req, res)=>{
   try {
     const {rows}=await connect.query("select uid as userId, fname as firstName, lname as lastName, education, email, role, resume_url, profile_pic_url, skills, experience from users")
@@ -16,7 +19,21 @@ export const getAllUserController= async (req, res)=>{
 }
 
 export const sendUserLoggedInStatus=async (req, res)=>{
-  return res.status(200).json({message: req.user})
+    const { token } = req.cookies;
+    const message={login: false, verify: false};
+    try {
+      if (!token) return res.status(401).json({message});
+      req.user = jwt.verify(token, process.env.JSON_SECRET_KEY); 
+      if(req.user.verify==false){
+        message.login=true;
+        return res.status(403).json({message})
+      }
+      message.login=true;
+      message.verify=true;
+      return res.status(200).json({message:req.user})
+    } catch(err) {
+      return res.status(403).json({message});
+    }
 }
 
 export const getloginUserController= async (req, res) => {
@@ -37,8 +54,8 @@ export const getloginUserController= async (req, res) => {
     }
     let {uid, role, company_id=null}=rows[0];
     if(!role)role='guest'
-    const userVerified=await isUserVerifiedEmail(uid)
-   const content={uid, role, company_id, userVerified};
+    const verify=await isUserVerifiedEmail(uid)
+   const content={uid, role, company_id, verify};
    VerifyJwt(res, content)
     return res.status(200).json({message: "Succssfully Logged In"});
   } catch (error) {
@@ -64,7 +81,7 @@ export const getParticularUserController=  async (req, res) => {
 export const postSignupUserController= async (req, res) => {
   try {
     const { fname, lname, education, email, password} = req.body;
-    const allUser={fname, lname, education, email,number, password}
+    const allUser={fname, lname, education, email, password}
     const validateuser=userSchema.safeParse(allUser);
     if(!validateuser.success){
       const message=validateuser.error.issues[0].message;
@@ -91,10 +108,11 @@ export const postSignupUserController= async (req, res) => {
     );
     const {uid, role, fname:firstName, lname:lastName, email:userEmail}=rows[0]
      sendMail(uid, firstName, lastName, userEmail, 'verify')
-    const content={uid, role, company_id:null, userVerified: false};
+    const content={uid, role, company_id:null, verify: false};
     VerifyJwt(res, content)
     return res.status(201).json({message: "Succssfully Signed Up, Verification Code have been sent to your mail"})
   } catch (error) {
+    console.log('err', error)
     return res.status(500).json({ message: error.message });
   }
 };
@@ -185,9 +203,6 @@ export const litOfAllFollowingCompanies=async(req, res)=>{
   const {uid}=req?.user;
   try {
     const {rows, rowCount}=await connect.query("select c.* from companies c left join user_companies_follows u on u.company_id=c.uid where u.user_id=$1", [uid])
-    if(rowCount==0){
-      return res.status(204).json({message: "YOu've Not Following Any Company As Of Now"})
-    }
     return res.status(200).json({message: rows})
   } catch (error) {
     return res.status(500).json({message: error.message})
