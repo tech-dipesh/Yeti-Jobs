@@ -1,4 +1,4 @@
-  import useFetchData from '../../hooks/useFetchData';
+import useFetchData from '../../hooks/useFetchData';
 import { getCompanyApplications } from '../../api/auth.companies';
 import Errorloading from '../../components/common/Errorloading';
 import { useEffect } from 'react';
@@ -24,7 +24,7 @@ export default function Allapplications() {
       <h1 className='text-white text-2xl font-bold mb-6'>All Applications</h1>
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
       {message && message.map(({job_title, applicant_id, resume_url, status, total_job_views, phone_number, job_id, cover_letter, why_hire, expected_salary, notice_period}, i)=>(
-         <SingleApplicationsCompanycomps  applicant_id={applicant_id} phone_number={phone_number} job_id={job_id} job_title={job_title} resume_url={resume_url} status={status} cover_letter={cover_letter} why_hire={why_hire} expected_salary={expected_salary} notice_period={notice_period} key={i}/>
+        <SingleApplicationsCompanycomps  applicant_id={applicant_id} phone_number={phone_number} job_id={job_id} job_title={job_title} resume_url={resume_url} status={status} cover_letter={cover_letter} why_hire={why_hire} expected_salary={expected_salary} notice_period={notice_period} key={i}/>
       ))}
     </div>
     </div>

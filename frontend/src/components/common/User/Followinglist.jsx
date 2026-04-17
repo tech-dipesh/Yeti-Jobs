@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import useFetchData from '../../../hooks/useFetchData'
-import { useNavigate } from "react-router"
 import { unFollowCompany } from "../../../api/auth.companies"
 import { listAlluserFollowingCompanies } from '../../../api/auth.user'
 import Popup from '../../Popup'

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCreativeCommons } from "@fortawesome/free-brands-svg-icons"
 import Linkcomps from './common/Linkcomps'
 import { Link } from 'react-router'
+import { faBarsProgress } from '@fortawesome/free-solid-svg-icons';
 export default function Footer({ data }) {
   const socials = [
     { name: 'Twitter', link: 'https://linkedin.com/in/tech-dipesh' },
@@ -26,8 +27,15 @@ export default function Footer({ data }) {
         <Linkcomps to={'/jobs/search'} content={<ButtonComps values='Search Jobs' />} />
         <Linkcomps to={'https://github.com/tech-dipesh/yeti-jobs/issues'} content={<ButtonComps values='Request Issue/Features?' />} />
         <Link to={'https://yeti-jobs.onrender.com/api/v1/swagger'} target='_blank' className='text-xs text-white font-medium underline-offset-4 hover:underline hover:text-blue-400 transition-colors duration-200e w-fit'><ButtonComps values='View API Docs ↗' /></Link>
+        <Link to={'https://stats.uptimerobot.com/DJs087hnNBr'} target='_blank' className='text-xs text-white font-medium underline-offset-4 hover:underline hover:text-blue-400 transition-colors duration-200e w-fit'><ButtonComps 
+        values={
+          <span>
+          API Status Page
+          <FontAwesomeIcon icon={faBarsProgress}/>
+          </span>
+        }/>
+          </Link>
       </div>
-      {/* </div> */}
       </div>
     </footer>
   )
