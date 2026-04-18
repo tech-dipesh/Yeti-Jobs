@@ -23,7 +23,7 @@ export default function Resetpassword() {
   const { data: resetdata, loading: resetload, error: reseterr, execute: resetexec } = useFetchData(verifyForgetPassword)
 
   const butSubmit = async (e) => {
-    e.preventDefault();
+    e.preventdefault();
     const err = validateEmail(email)
     if (err) {
       setError(err)
@@ -38,7 +38,7 @@ export default function Resetpassword() {
   }
 
   const verifyCode = async (e) => {
-    e.preventDefault()
+    e.preventdefault()
     const err = validateCode(value) || validatePassword(password) || validateEmail(email)
     if (err) {
       setError(err)

@@ -39,7 +39,7 @@ export default function EditJob() {
     return <Loading />
   }
   const submitForm = async (e) => {
-    e.preventDefault()
+    e.preventdefault()
     const err = validateJobs(value);
     if (err) {
       setError(err)

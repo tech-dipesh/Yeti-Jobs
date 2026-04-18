@@ -26,7 +26,7 @@ export default function Signup() {
   const { data, error, loading, execute } = useFetchData(signupUser)
 
   const submitForm = async (e) => {
-    e.preventDefault()
+    e.preventdefault()
     const trim = {
       fname: value.fname.trim(),
       lname: value.lname.trim(),
@@ -39,7 +39,7 @@ export default function Signup() {
       setAPIError(err)
       return;
     }
-    e.preventDefault();
+    e.preventdefault();
     const res = await execute(trim)
     if (data || res) {
       navigate("../verify-email", { state: "Please Verify Your Mail" })

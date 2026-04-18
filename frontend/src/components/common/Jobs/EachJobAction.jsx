@@ -31,7 +31,7 @@ export default function EachJobAction({ setAction, data, }) {
     { label: 'Why Should We Hire You?', name: 'why_hire', type: 'text' }
   ]
   const submitFormApply = async (e) => {
-    e.preventDefault()
+    e.preventdefault()
     const err = ValidateApplication(value)
     if (err) {
       setError(err)

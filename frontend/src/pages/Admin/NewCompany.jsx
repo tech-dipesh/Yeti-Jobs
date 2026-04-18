@@ -16,7 +16,7 @@ export default function NewCompany() {
   const { data, error, loading, execute } = useFetchData(postNewCompany);
   const navigate = useNavigate()
   const submitForm = async (e) => {
-    e.preventDefault()
+    e.preventdefault()
     const fileInput = e.target.elements.company_logo;
     const file = fileInput?.file[0];
     if(file){

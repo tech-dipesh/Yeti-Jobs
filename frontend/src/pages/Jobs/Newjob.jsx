@@ -29,7 +29,7 @@ export default function EditJob() {
 
 
   const submitForm = async (e) => {
-    e.preventDefault()
+    e.preventdefault()
     setError(null)
      const trim = {
       title: value.title.trim(),

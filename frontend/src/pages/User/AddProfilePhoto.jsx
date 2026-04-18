@@ -86,7 +86,7 @@ export default function ProfilePhoto() {
         </div>
         :
         <div className='flex justify-center my-5'>
-          <img src={defaultImage} alt="Default Image" className='w-48 h-48 rounded-full object-cover' />
+          <img src={defaultImage} alt="default Image" className='w-48 h-48 rounded-full object-cover' />
           {/* <h3 className='text-sm'>No Any Image Uploaded yet</h3> */}
         </div>
       }

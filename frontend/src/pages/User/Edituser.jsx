@@ -40,7 +40,7 @@ export default function Edituser() {
   }, [startValue]);
 
   const submitForm = async (e) => {
-    e.preventDefault();
+    e.preventdefault();
     const trim = {
       fname: value.fname.trim(),
       lname: value.lname.trim(),

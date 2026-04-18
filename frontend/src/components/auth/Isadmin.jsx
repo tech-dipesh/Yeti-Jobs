@@ -11,7 +11,7 @@ export default function Isadmin() {
   useEffect(() => {
     if(error=='Only Admin Allowed') navigate("/", {state: {from: location.pathname}, replace: true})
       if(error) navigate("/auth/login", { state: { from: location.pathname }, replace: true })
-      }, [])
+      }, [error, navigate])
     
     if (loading) return <Loading/>;
     if(role && role!='admin'){

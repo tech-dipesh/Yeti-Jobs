@@ -11,10 +11,10 @@ import Errorloading from '../../components/common/Errorloading';
 
 export default function Jobs() {
   const { data, error, loading, execute } = UseFetchData(allJobsList)
-  let page = 1, limit = 10;
+  let page = 1;
   useEffect(() => {
     ; (async () => {
-      await execute({ page, limit })
+      await execute({ page })
     })()
   }, [])
 
@@ -23,8 +23,7 @@ export default function Jobs() {
   }
   const loadMore = async () => {
     page++;
-    limit+=10;
-    await execute({ page, limit });
+    await execute({ page });
   }
   return (
     <div className='min-h-screen grid min-w-screen w-auto bg-slate-900 text-white'>
