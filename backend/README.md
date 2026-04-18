@@ -221,6 +221,7 @@ Client → Routes → Controllers → Services → Database
 - Fixed issue where status update created new record instead of updating
 - Separated controller code from router
 - Only owner can view/edit applications
+- With the one things that i use: `Pool` which can handle the multiple concurrency on the latest update
 
 
 ## File Upload (Resume & Profile Picture)
@@ -232,7 +233,7 @@ Client → Routes → Controllers → Services → Database
 
 **Enable upload policy in Supabase:**
 ```sql
-CREATE POLICY "Allow all" ON storage.objects
+CREATE  POLICY "Allow all" ON storage.objects
 FOR ALL TO public USING (bucket_id = 'resume') WITH CHECK (bucket_id = 'resume');
 ```
 
@@ -303,7 +304,7 @@ supabase.storage.from('bucketname').getPublicUrl(pathurl)
 - Created `email_verified` table with: `uid`, `user_id`, `type`, `email`, `expired`, `is_used`, `created_at`
 - Generated 6-digit random code with `Math.random()`
 - Used `interval` for time manipulation
-- `now()` and `current_timestamp` are same
+- `now()` and `CURRENT_TIMESTAMP` are same
 - Convert ISO string to Date object
 
 

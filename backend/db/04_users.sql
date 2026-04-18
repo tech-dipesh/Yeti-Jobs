@@ -1,16 +1,16 @@
-CREATE TABLE IF NOT EXISTS users (
-    uid uuid NOT NULL DEFAULT gen_random_uuid(),
-    fname text NOT NULL,
+create TABLE if not exists users (
+    uid uuid not null default gen_random_uuid(),
+    fname text not null,
     lname text,
-    education user_degree_type NOT NULL DEFAULT 'Basic'::user_degree_type,
+    education user_degree_type not null default 'Basic'::user_degree_type,
     email text,
     password text,
-    role role_type NOT NULL DEFAULT 'guest'::role_type,
+    role role_type not null default 'guest'::role_type,
     company_id uuid,
     resume_url text,
     profile_pic_url text,
     skills _text,
     experience int4,
-    CONSTRAINT users_company_id_fkey FOREIGN KEY (company_id) REFERENCES companies(uid) ON DELETE RESTRICT,
-    PRIMARY KEY (uid)
+    constraint users_company_id_fkey foreign key (company_id) references companies(uid) ON DELETE cascade,
+    primary key (uid)
 );

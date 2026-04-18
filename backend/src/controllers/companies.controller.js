@@ -2,13 +2,16 @@ import connect from "../db.js";
 import tableDataFetch from "../utils/Querytablehelper.js";
 import companySchema from "../Models/companies.models.js";
 import { supabase } from "../services/Supabase.js";
-import { promise } from "zod";
 
 export const getAllCompaniesList= async (req, res)=>{
+  const {page=1, limit=5}=req.query;
+  const offset=(Number(page)-1)*Number(limit);
   try {
-    const {rows}=await connect.query("select c.*, c.name, count(j.company_id) as job_count from companies c left join jobs j on j.company_id = c.uid group by c.uid, c.name;")
-    // SELECT c.uid, c.name, COUNT(j.company_id) as job_count FROM companies c LEFT JOIN jobs j ON j.company_id = c.uid GROUP BY c.uid, c.name;
-   return res.status(200).json({message: rows})
+    const [{rows: totalCount}, {rows}]=await Promise.all([
+      connect.query("select count(*) as total from companies"),
+       connect.query("select c.*, COUNT(*) OVER() AS total_count, c.name, count(j.company_id) as job_count from companies c left join jobs j on j.company_id = c.uid group by c.uid, c.name limit $1 offset $2;", [limit, offset])
+    ])
+   return res.status(200).json({message: rows, limit, page, total: totalCount[0].total})
   } catch (error) {
     return res.status(500).json({message: error.message})
   }

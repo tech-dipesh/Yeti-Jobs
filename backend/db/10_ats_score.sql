@@ -1,10 +1,10 @@
 -- Table Definition
-CREATE TABLE IF NOT EXISTS ats_score (
-    uid uuid NOT NULL DEFAULT gen_random_uuid(),
+create TABLE if not exists ats_score (
+    uid uuid not null default gen_random_uuid(),
     user_id uuid,
-    created_at timestamptz DEFAULT CURRENT_TIMESTAMP,
+    created_at timestamptz default CURRENT_TIMESTAMP,
     score int4,
     feedback jsonb,
-    CONSTRAINT ats_score_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(uid) ON DELETE CASCADE,
-    PRIMARY KEY (uid)
+    constraint ats_score_user_id_fkey foreign key (user_id) references users(uid) on delete cascade,
+    primary key (uid)
 );

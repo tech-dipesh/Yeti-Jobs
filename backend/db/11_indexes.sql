@@ -1,19 +1,19 @@
 -- Indices
-CREATE INDEX idx_companies_name ON companies USING btree (name);
+create index if not exists idx_companies_name on companies using btree (name);
 
 
 -- Indices
-CREATE UNIQUE INDEX unique_user_companies ON user_companies_follows USING btree (user_id, company_id);
+create unique index if not exists unique_user_companies on user_companies_follows using btree (user_id, company_id);
 
 
 -- Comments
-COMMENT ON TABLE jobs IS 'Jobs in Small List';
+COMMENT on table jobs is 'Jobs in Small List';
 
 
 -- Indices
-CREATE INDEX index_jobs_search_title ON jobs USING gin (search_title);
+create index if not exists index_jobs_search_title on jobs using gin (search_title);
 
 
 
 -- Indices
-CREATE INDEX idx_verified_code ON email_verified USING btree (verified_code);
+create index if not exists idx_verified_code on email_verified using btree (verified_code);

@@ -31,8 +31,9 @@ A Scalable job portal built with the **PERN stack** that connects job seekers an
 18. [Scalability Consideration](#scalability-consideration)
 19. [Challenges and Learnings](#challenges--learnings)
 20. [Limitation](#limitation)
-21. [Something Go Beyond Features](#something-go-beyond-features)
-22. [Future Improvements](#future-improvements)
+21. [Additional features](#additional-features)
+21. [Updates](#updates)
+23. [Future Improvements](#future-improvements)
 
 
 ## Overview:
@@ -546,6 +547,13 @@ File uploads are handled via the `@supabase/supabase-js` SDK — files go direct
 - Add the Phone Number In User Information.
 - Resume parsing Analysis with extract skills education from: `pdf-parser` library.
 - The Problem that i'm facing that i must fix is that on the useAuth backeend is not correctly sending a data and frontend is also not implementing of: `useAuth` function
+
+
+## Updates:
+- Add the Pagination to the Companies Page
+- Move to the pooling of the database
+
+
 
 > [!NOTE]
 > ## Future Improvements:
