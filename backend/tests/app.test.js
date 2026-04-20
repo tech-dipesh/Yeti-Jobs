@@ -1,11 +1,8 @@
 /// <reference types="jest" />
-
-import { connect } from "../src/db";
-
-const BASEURL = `/api/v1`;
+import { pool } from "../src/db.js";
+import "./unit/jobs.test.js"
+import "./unit/users.test.js"
 
 afterAll(async () => {
-  await connect.end();
+  await pool.end();
 });
-
-export default BASEURL;
