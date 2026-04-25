@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-const CustomDebounceHook= (cb, timer=300)=>{
+const useDebounceHook= (cb, timer=300)=>{
   const [value, setValue]=useState(cb);
   useEffect(()=>{
     const debounce=setTimeout(()=>{
@@ -10,4 +10,4 @@ const CustomDebounceHook= (cb, timer=300)=>{
   }, [timer, cb])
   return value;
 }
-export default CustomDebounceHook
+export default useDebounceHook

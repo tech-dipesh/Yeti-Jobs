@@ -47,7 +47,7 @@ export default function Individualuser() {
       return;
     }
   }
-  const { profile_pic_url, fname, lname, email, education, experience, resume_url, skills, phone_number } = data?.message || {}
+  const { profile_pic_url, fname, lname, email, education, experience, resume_url, skills, phone_number, degree } = data?.message || {}
   const originalName = getOriginalFileName(profile_pic_url)
   const {role}=globalContext ?? {};
   if(loader || loading){
@@ -71,6 +71,7 @@ export default function Individualuser() {
             <p className='text-gray-600 text-center mb-4'>{email}</p>
             <p className='text-gray-500 text-center mb-4 font-semibold'>Phone Number: {phone_number || 'N|A'}</p>
             <Textcomps content={`Education: ${education}`} />
+            <Textcomps content={`Degree: ${degree || 'N|A'}`} />
             <Textcomps content={`Experience: ${experience ?? '0'} years`} />
             <span className='my-4 justify-center grid cursor-pointer'> <Linkcomps to={'edit'} content={<ButtonComps values='Edit Profille' />}></Linkcomps></span>
             {role=='guest' && 
