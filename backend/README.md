@@ -14,6 +14,7 @@ Backend service for Yeti Jobs built with Node.js, Express, and PostgreSQL, provi
 - POST /upload-resume
 - GET /resume
 - POST /upload-profile-picture
+- POST /add-education
 
 ### Jobs
 - GET /

@@ -205,6 +205,7 @@ The Project is a Job Portal Platform **with** all the features needed to build a
 | [![@vercel/analytics](https://img.shields.io/npm/v/@vercel/analytics)](https://npmjs.com/package/@vercel/analytics) | `^2.0.1` | Frontend |
 | [![@vercel/speed-insights/react](https://img.shields.io/npm/v/@vercel/speed-insights/react)](https://npmjs.com/package/@vercel/speed-insights/react) | `^2.0.0` | Frontend |
 | [![react-phone-number-input](https://img.shields.io/npm/v/react-phone-number-input)](https://npmjs.com/package/react-phone-number-input) | `^3.4.16` | Frontend |
+| [![react-select](https://img.shields.io/npm/v/react-select)](https://npmjs.com/package/react-select) | `^5.10.2` | Frontend |
 
 
 
@@ -373,12 +374,22 @@ erDiagram
     int4 score
     jsonb feedback 
   }
+  USER_EDUCATION {
+    uuid uid PK
+    uuid user_id FK "Foreign key to USERS.uid"
+    text university_name
+    text degree
+    date start_date 
+    date end_date
+    text grade
+  }
 
   USERS }o--o| COMPANIES : "belongs to"
   USERS ||--o{ JOBS : "creates"
   USERS ||--o{ APPLICATIONS : "submits"
   USERS ||--o{ SAVED_JOBS : "bookmarks"
   USERS ||--o{ ATS_SCORE : "has" 
+  USERS ||--o{ USER_EDUCATION : "has" 
   USERS ||--o{ USER_COMPANIES_FOLLOWS : "follows"
   USERS ||--o{ EMAIL_VERIFIED : "has"
 
@@ -432,7 +443,7 @@ PostgreSQL database and file storage (resumes, profile pictures) are both hosted
 
 File uploads are handled via the `@supabase/supabase-js` SDK — files go directly into Supabase Storage buckets and the returned public URL is saved to the database.
 ## Security:
-### validation Security:
+### validation Security
 - Every major table will have validation from Zod which **checks** the integrity of our data.
 - beside the client side validate, server side validation, i also make sure to add the database validation
 - even if user bypass a both client and server validation it can't insert due to the database validation.
