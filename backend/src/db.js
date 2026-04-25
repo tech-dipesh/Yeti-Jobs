@@ -18,4 +18,5 @@ try {
   console.log('unable to connect', error.message)
 }
 export { client as connect };
+export {client as Pool}
 export default client;

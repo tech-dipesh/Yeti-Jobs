@@ -1,12 +1,12 @@
 import {Router} from "express";
-import { addUserSkills, getAllUserController, getloginUserController, getParticularUserController, litOfAllFollowingCompanies, patchUserController, postSignupUserController, putUserController, resumeInformation, sendUserLoggedInStatus, UserEducationAdd, userLoggedOutcontroller } from "../controllers/users.controller.js";
+import { addUserSkills, getAllUserController, getloginUserController, getUserProfile, litOfAllFollowingCompanies, patchUserController, postSignupUserController, putUserController, resumeInformation, sendUserLoggedInStatus, UserEducationAdd, userLoggedOutcontroller } from "../controllers/users.controller.js";
 import {uploadResume, uploadProfilePicture} from "../controllers/uploadResume.controller.js";
 import authUserMiddleware from "../Middleware/isLoggedIn.js";
 import verifyEmailConfirmation, { forgetEmailPassword, resendVerificationCode, verifyForgetPassword } from "../controllers/verifyCode.controller.js";
 import rateLimit from "express-rate-limit";
 import alreadyLoggedIn from "../Middleware/alreadyLoggedIn.js"
 import isAdminMIddleware from "../Middleware/isAdmin.js";
-import isUnverifiedUser from "../Middleware/isAuthButUnverified .js";
+import isUnverifiedUser from "../Middleware/isAuthButUnverified.js";
 import isOwnerMiddleware from "../Middleware/isOwner.js"
 import validateCorrectUid from '../Middleware/validateCorrectUid.js'
 import upload from "../services/Multer.js"
@@ -32,21 +32,22 @@ router.post("/forget-password/verify", limitUser, verifyForgetPassword)
 router.post("/verify", limitUser, isUnverifiedUser, verifyEmailConfirmation)
 router.post("/verify/resend", limitUser, isUnverifiedUser, resendVerificationCode)
 
-router.get("/following", authUserMiddleware, isJobSeeker, litOfAllFollowingCompanies)
+router.get("/following", authUserMiddleware,  isJobSeeker, litOfAllFollowingCompanies)
 
-router.post("/resume", upload.single('resume'), authUserMiddleware,  uploadResume)
-router.get("/resume", authUserMiddleware,  resumeInformation)
+router.route("/resume")
+.all(authUserMiddleware)
+.get(resumeInformation)
+.post(upload.single('resume'),  uploadResume)
 
-router.post("/profile-picture", upload.single('profile'), authUserMiddleware,  uploadProfilePicture)
+router.post("/profile-picture", authUserMiddleware, isOwnerMiddleware("users"), upload.single('profile'),  uploadProfilePicture)
 
-router.post("/add-education", authUserMiddleware, UserEducationAdd)
+router.post("/add-education", authUserMiddleware, isOwnerMiddleware("users"), UserEducationAdd)
 
-router.post("/:id/skills", validateCorrectUid, authUserMiddleware,  addUserSkills);
+router.post("/:id/skills", validateCorrectUid, authUserMiddleware, isOwnerMiddleware("users"),  addUserSkills);
 
-
-router.use("/:id", validateCorrectUid, authUserMiddleware, isOwnerMiddleware)
 router.route("/:id")
-.get(authUserMiddleware, getParticularUserController)
+.all(validateCorrectUid, authUserMiddleware, isOwnerMiddleware("users"))
+.get(authUserMiddleware, getUserProfile)
 .put(putUserController)
 .patch(patchUserController)
 export default router;

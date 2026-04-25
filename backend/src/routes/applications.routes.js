@@ -4,12 +4,12 @@ import { allAppliedJobs, applyJobApplicationController, changeApplicationStatus,
 import isCompanyEmployee from "../Middleware/isCompanyEmployee.js";
 import validateCorrectUid from "../Middleware/validateCorrectUid.js"
 import isJobSeeker from "../Middleware/isJobSeeker.js"
-const router = Router();
+const router = Router({mergeParams: true});
 import isOwnerMiddleware from "../Middleware/isOwner.js"
 
 router.get("/applylist", isLoggedInMiddleware, allAppliedJobs)
-  
-router.get("/:id/applist", validateCorrectUid, isOwnerMiddleware, isCompanyEmployee, particularJobsListController)
+
+router.get("/:id/applist", validateCorrectUid, isOwnerMiddleware("applications"), isCompanyEmployee, particularJobsListController)
 router.post("/:id/apply", validateCorrectUid, isLoggedInMiddleware, isJobSeeker, applyJobApplicationController)
 router.post("/:id/status", validateCorrectUid, isLoggedInMiddleware, isCompanyEmployee, changeApplicationStatus)
   

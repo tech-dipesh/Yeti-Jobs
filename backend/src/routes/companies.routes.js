@@ -4,6 +4,7 @@ import isCompanyEmployee from "../Middleware/isCompanyEmployee.js";
 import validateCorrectUid from "../Middleware/validateCorrectUid.js";
 import upload from "../services/Multer.js";
 import isJobSeeker from "../Middleware/isJobSeeker.js";
+import isOwnerMiddleware from "../Middleware/isOwner.js"
 
 const router = Router();
 
@@ -13,19 +14,19 @@ router.get("/dashboard", isCompanyEmployee, companyDashBoard);
 router.get("/followers", isCompanyEmployee, getAllCompaniesFollowers);
 
 router.route("/:id")
-.get(validateCorrectUid, getCompanyController)
-.delete( validateCorrectUid, isCompanyEmployee, deleteCompanyController)
-.put(validateCorrectUid, isCompanyEmployee, putCompanyController)
+.all(validateCorrectUid, )
+.get(getCompanyController, isOwnerMiddleware("companies"))
+.delete(isCompanyEmployee, deleteCompanyController)
+.put(isCompanyEmployee, putCompanyController)
 
 router.route("/:id/follow")
-.post(validateCorrectUid, isJobSeeker, followCompany)
-.delete(validateCorrectUid, isJobSeeker, unFollowCompany)
+.all(validateCorrectUid, isJobSeeker)
+.post(followCompany)
+.delete(unFollowCompany)
 
-router.get("/:id/employees", validateCorrectUid, isCompanyEmployee, getAllEmployeesList)
-router.get("/:id/jobs", validateCorrectUid,  getAllJobsList)
-router.get("/:id/applications", validateCorrectUid, isCompanyEmployee, getallApplicationsList)
-
-
-
+router.use("/:id", validateCorrectUid, isOwnerMiddleware("companies")); 
+router.get("/:id/employees", isCompanyEmployee, getAllEmployeesList);
+router.get("/:id/jobs", getAllJobsList);
+router.get("/:id/applications", isCompanyEmployee, getallApplicationsList);
 
 export default router;
