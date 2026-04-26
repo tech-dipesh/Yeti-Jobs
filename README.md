@@ -477,6 +477,7 @@ File uploads are handled via the `@supabase/supabase-js` SDK — files go direct
 >:white_check_mark: Added **indexing** on frequently queried columns for faster data retrieval
 >:white_check_mark: Used `SELECT EXISTS(SELECT 1 ...)` instead of full `SELECT` statements for condition checks — returns `true/false` without fetching rows
 >:white_check_mark: Indexed search query fields to ensure faster full-text or filter operations
+>:white_check_mark: Indexed email verified code, users email and company name for the faster retrieval.
 
 ### API & Server
 >:white_check_mark: Validated email domains via Node's built-in `dns/promises` module before attempting to send mail — prevents unnecessary SMTP calls
