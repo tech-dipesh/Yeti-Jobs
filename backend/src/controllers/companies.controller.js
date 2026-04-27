@@ -29,7 +29,7 @@ export const getCompanyController= async(req, res) => {
       const {rows:nonguestrows}=await connect.query("select * from companies c where c.uid=$1;", [id]);
       rows=nonguestrows[0]
     }
-    if(rows?.length==0){
+    if(rows?.length===0){
       return res.status(404).json({message: "Please Enter a Valid Country Id."})
     }
     return res.status(200).json({message: rows})
@@ -116,7 +116,7 @@ export const getAllEmployeesList=async(req, res)=>{
   }
 }
 
-export const getAllJobsList=async (req, res)=>{
+export const getAllCompanyJobsList=async (req, res)=>{
   const {id}=req.params;
   try {
     const {rows}=await connect.query("select j.uid, j.title, j.expired_at, j.experience_years, j.total_job_views, j.description, j.salary, j.job_type, j.is_job_open, j.created_by, c.name as company_name from jobs j left join companies c on c.uid=j.company_id where company_id=$1", [id])

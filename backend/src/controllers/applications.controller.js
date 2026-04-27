@@ -77,15 +77,17 @@ export const changeApplicationStatus=async (req, res)=>{
     return res.status(422).json({message: message})
   }
   try {
-    const {rows:query}=await connect.query("select exists(select 1 from applications where job_id=$1)", [job_id]);
-    if(!query[0].exists){
+      const [{rows: invalid}, {rows}]=await Promise.all([
+        ("select exists(select 1 from applications where job_id=$1)", [job_id]),
+       ("select exists(select 1 from applicatkions where user_id=$1 and job_id=$2)", [user_id, job_id])
+    ])
+    if(!invalid[0].exists){
       return res.status(422).json({message: "Invalid Job Id."})
     }
-    const {rows}=await connect.query("select exists(select 1 from applications where user_id=$1 and job_id=$2)", [user_id, job_id])
     if(!rows[0].exists){
       return res.status(422).json({message: "You've Not Applied Please First Apply."})
     }
-    if( rows[0].status==status){
+    if(rows[0].status===status){
      return res.status(401).json({message: "Please Change the Application Status"})
    }
     await connect.query("update applications set status=$1 where user_id=$2 and job_id=$3", [status, user_id, job_id])

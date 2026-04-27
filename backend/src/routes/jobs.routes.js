@@ -9,18 +9,20 @@ import validateCorrectUid from "../Middleware/validateCorrectUid.js";
 import isJobSeeker from "../Middleware/isJobSeeker.js"
 const router=Router();
 
+router.get("/", getAllJobsController);
+router.get("/search", authUserMiddleware, searchJobsListing);
+
+router.post("/new", authUserMiddleware,  isCompanyEmployee, postJobsController);
+
 router.get("/saved_jobs/list", authUserMiddleware, isJobSeeker, getallSaveJob);
 router.post("/:id/bookmark_job", validateCorrectUid, authUserMiddleware, isJobSeeker, storeSaveJob);
 router.delete("/:id/remove_from_bookmark", validateCorrectUid, authUserMiddleware, isJobSeeker, isOwnwerMiddleware('jobs'), unsaveListJob);
 
-router.get("/", getAllJobsController);
-router.get("/search", authUserMiddleware, searchJobsListing);
+router.delete("/:id/delete", validateCorrectUid, authUserMiddleware, isOwnwerMiddleware('jobs'), deleteJobsController);
+
+router.put("/:id/edit", validateCorrectUid, authUserMiddleware, isOwnwerMiddleware('jobs'), putJobsController);
+router.get("/:id/verify-owner", validateCorrectUid, authUserMiddleware, verifyOwnerController);
 
 router.get("/:id", validateCorrectUid, authUserMiddleware, getJobsController);
-router.post("/new", authUserMiddleware,  isCompanyEmployee, postJobsController);
 
-router.delete("/:id/delete", validateCorrectUid, isOwnwerMiddleware('jobs'), deleteJobsController);
-
-router.put("/:id/edit", validateCorrectUid, isOwnwerMiddleware('jobs'), putJobsController);
-router.get("/:id/verify-owner", validateCorrectUid, authUserMiddleware, verifyOwnerController);
 export default router;

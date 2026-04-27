@@ -6,7 +6,7 @@ const authUserMiddleware = async(req, res, next) => {
   if (!token) return res.status(401).json({ message: 'No token Please Loged in First' });
   try {
     req.user = jwt.verify(token, process.env.JSON_SECRET_KEY); 
-    if(req.user.verify==false){
+    if(req.user.verify===false){
       return res.status(403).json({message: "Please Verify Your verification code."})
     }
     next();
