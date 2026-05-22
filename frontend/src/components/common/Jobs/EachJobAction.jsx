@@ -55,7 +55,7 @@ export default function EachJobAction({ setAction, data, }) {
           <p className='text-slate-400 text-sm leading-relaxed'>{description}</p> :
           <>
             <p className='text-slate-300 text-sm'>
-              {!loaddesc && description?.slice(0, 100)}
+              {!loaddesc &&<span>{description?.slice(0, 100)} ...</span> }
               {loaddesc && description}
             </p>
             <span onClick={() => setShowDesc(!loaddesc)} className='mt-2 inline-block'>
@@ -96,7 +96,7 @@ export default function EachJobAction({ setAction, data, }) {
             <p className='text-lg font-semibol text-whited'>
               {salary ?
                 <>
-                  &#36; {salary}
+                  &#8377;{salary}
                 </>
                 :
                 <span className='text-slate-500'>Not Given</span>

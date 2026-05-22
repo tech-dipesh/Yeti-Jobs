@@ -21,7 +21,7 @@ export default function Footer({ data }) {
       </div>
       {/* <div className='lg:grid lg:none'> */}
       <div className='flex flex-col items-start gap-2 lg:contents'>
-      <p className='text-gray-500  font-sans'><FontAwesomeIcon icon={faCreativeCommons} />2026 Dipesh Sharma. All rights reserved.</p>
+      <p className='text-gray-500  font-sans'><FontAwesomeIcon icon={faCreativeCommons} />2026 Dipendra  Sharma. All rights reserved.</p>
       <div className='grid grid-cols-1 gap-2 w-full text-nowrap lg:flex lg:w-auto'>
         {company_id && <Linkcomps to='companies/dashboard' content={<ButtonComps values='Dashboard' />} />}
         <Linkcomps to={'/jobs/search'} content={<ButtonComps values='Search Jobs' />} />

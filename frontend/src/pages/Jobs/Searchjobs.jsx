@@ -29,12 +29,12 @@ export default function Searchjobs() {
   }
   return (
     <div className='bg-neutral-800 min-h-screen max-w-5/6 py-4 mx-auto p-6'>
-      <div className='flex flex-col min-h-screen'>
-        <div className='mb-6'>
+      <div className='flex flex-col min-h-screen self-start w-full '>
+        <div className='mb-6 self-start w-full '>
           <Goback to='/jobs' content='Go Back To Jobs'/>
         </div>
         <div className='flex flex-col items-center'>
-          <span className='grid justify-items-center'>
+          <span className='grid max-w-lg w-full  justify-items-center'>
             <input type="text" autoFocus className={`bg-transparent h-11 w-full rounded-lg text-white placeholder-gray-400 ring px-2  ring-white focus:ring-sky-500 focus:outline-none`} placeholder="Your Search Term" value={search} onChange={(e)=>setSearch(e.target.value)}/>
           </span>
           <div className='grid justify-items-center gap-3 my-3'>
@@ -62,7 +62,7 @@ export default function Searchjobs() {
             <Jobcomps key={uid} uid={uid} title={title} description={description} salary={salary} job_type={job_type} expired_at={expired_at}/>
           ))
             :
-            <div className='flex items-center justify-center text-gray-400 text-lg'>
+            <div className='flex items-center justify-center text-gray-400 text-lg col-span-full'>
               No Results For: <span className='text-white  font-semibold'>{debounce && debounce}</span>
             </div>
           }
