@@ -112,7 +112,7 @@ export default function EachJob() {
               </div >
               {(!is_owner && role == 'guest') &&
                 <div
-                  className='flex items-center gap-2 px-3 py-2 rounded-lg border  border-slate-600 text-sm text-slate-300 hover:bg-slate-700 cursor-pointer transition'
+                  className=' items-center gap-2 px-2  py-1  rounded-lg border  border-slate-600 text-sm text-slate-300 hover:bg-slate-700 cursor-pointer transition'
                   onClick={() =>
                     is_saved ? setAction("withdrawbookmark") : setAction("bookmark")
                   } >

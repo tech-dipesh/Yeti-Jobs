@@ -5,3 +5,10 @@ export const allWeakPassword = [
   "p@ssw0rd", "112233", "abc123", "iloveyou", "secret",
   "dragon", "monkey", "letmein", "sunshine", "welcome"
 ];
+
+export const allAuthRoutes=[
+  "/auth/signup",
+  "/auth/login",
+  "/auth/forget-password",
+  "/auth/verify-email",
+]

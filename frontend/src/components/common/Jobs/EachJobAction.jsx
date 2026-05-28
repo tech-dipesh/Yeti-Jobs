@@ -13,6 +13,7 @@ import Loading from '../../Loading';
 import CleanFilterEmptySpace from "../../../auth/CleanFilterEmptySpace"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
+import {IndianRupee} from "lucide-react"
 export default function EachJobAction({ setAction, data, }) {
   const { data: userValue } = useAuth()
   const { role } = userValue ?? {}
@@ -95,9 +96,10 @@ export default function EachJobAction({ setAction, data, }) {
             <p className='text-xs text-slate-400 mb-1'>Annual salary</p>
             <p className='text-lg font-semibol text-whited'>
               {salary ?
-                <>
-                  &#8377;{salary}
-                </>
+                <span className="flex">
+                <IndianRupee /> {salary}
+                  {/* &#8377;{salary} */}
+                </span>
                 :
                 <span className='text-slate-500'>Not Given</span>
               }
