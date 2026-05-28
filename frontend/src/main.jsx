@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from "react-router"
 
 const Alluser = lazy(() => import('./pages/Admin/Alluser'))
 const Individualuser = lazy(() => import('./pages/User/Profile'))
+const Notifications= lazy(() => import('./pages/User/Notifications'))
 const Edituser = lazy(() => import('./pages/User/Edituser'))
 const Addresume = lazy(() => import('./pages/User/AddResume'))
 
@@ -68,6 +69,13 @@ const router = createBrowserRouter([
           { path: "forget-password", element: <Resetpassword /> },
         ]
       },
+      {
+        path: "notifications",
+        element: <IsloggedinUser />,
+        children: [
+          {index: true, element: <Notifications/>}
+        ]
+      },  
       {
         path: "jobs",
         element: <IsloggedinUser />,

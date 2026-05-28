@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, NavLink, useNavigate } from 'react-router'
+import { Link, NavLink, useNavigate, useLocation } from 'react-router'
 import useFetchData from '../hooks/useFetchData'
 import { logoutUser } from '../api/auth.user'
 import { useAuth } from '../context/Authcontext'
@@ -8,7 +8,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Linkcomps from './common/Linkcomps'
 import { GrUserAdmin } from 'react-icons/gr'
 import LogoRounded from "../assets/logo-rounded.png"
+import {allAuthRoutes} from "../Data/UserArray"
+import { Bell } from "lucide-react";
 export default function Header() {
+  const {pathname}=useLocation();
+  console.log('loca', pathname);
+  allAuthRoutes
+  console.log(pathname==='/auth/login' || pathname==='/auth/signup'?"Yes": "No");
   const navigate = useNavigate()
   const { execute } = useFetchData(logoutUser);
   const [profile, setProfile] = useState(false)
@@ -21,29 +27,29 @@ export default function Header() {
   const { data, error, reexecute } = useAuth();
   const { verify, uid, role } = data ?? {};
 
-  const allUserLinks = !data ? [
-    { value: 'Login', link: `/auth/login` },
-    { value: 'Signup', link: `/auth/signup` },
+  const allUserLinks = role === 'guest' ? [
+    { value: 'Visit Your Profile', link: `users/${uid}/profile` },
+    { value: 'All Jobs', link: `/jobs` },
+    { value: 'All Bookmarks', link: `/jobs/bookmarks` },
+    { value: 'Applied Jobs', link: `/applications/me` },
+    { value: 'All Companies', link: `/companies/all` },
   ]
-    : role === 'guest' ? [
-      { value: 'Visit Your Profile', link: `users/${uid}/profile` },
-      { value: 'All Jobs', link: `/jobs` },
-      { value: 'All Bookmarks', link: `/jobs/bookmarks` },
-      { value: 'Applied Jobs', link: `/applications/me` },
-      { value: 'All Companies', link: `/companies/all` },
+    : role === 'admin' ? [
+      { value: 'Admin Dashboard', link: `admin/dashboard` },
+      { value: 'Assign User To Companies', link: `admin/users/assign` },
     ]
-      : role === 'admin' ? [
-        { value: 'Admin Dashboard', link: `admin/dashboard` },
-        { value: 'Assign User To Companies', link: `admin/users/assign` },
+      : role === 'recruiter' ? [
+        { value: 'Dashboard', link: `companies/dashboard` },
+        { value: 'Create New Job', link: `jobs/new` },
       ]
-        : role === 'recruiter' ? [
-          { value: 'Dashboard', link: `companies/dashboard` },
-          { value: 'Create New Job', link: `jobs/new` },
+        : verify === false ? [
+          { value: 'Verify Email', link: `auth/verify-email` },
         ]
-          : verify === false ? [
-            { value: 'Verify Email', link: `auth/verify-email` },
-          ]
-            : []
+          :!(allAuthRoutes.includes(pathname))?
+            [    { value: 'Login', link: `/auth/login` },
+              { value: 'Signup', link: `/auth/signup` },
+            ]
+            :            []
 
   const roleIcon = {
     recruiter: <FontAwesomeIcon icon={faBriefcase} />,
@@ -84,7 +90,7 @@ export default function Header() {
               </span>
 
               <div className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm
-              ${verify ? 'bg-green-900/30 text-green-400' : 'bg-red-900/30 text-red-400'}`}
+${verify ? 'bg-green-900/30 text-green-400' : 'bg-red-900/30 text-red-400'}`}
               >
                 <FontAwesomeIcon icon={verify ? faUserCheck : faUserXmark} className='w-4' />
                 <span>{verify ? 'Verified Account' : 'Not Verified'}</span>
@@ -120,11 +126,11 @@ export default function Header() {
           <Linkcomps to='/' onClick={LogoutPage} content='Logout' />
         </div>
       ) : !uid && (
-        <div className='mx-4 flex gap-8'>
-          <Linkcomps to='/auth/login' content='Login' />
-          <Linkcomps to='/auth/signup' content='Signup' />
-        </div>
-      )}
+          <div className='mx-4 flex gap-8'>
+            <Linkcomps to='/auth/login' content='Login' />
+            <Linkcomps to='/auth/signup' content='Signup' />
+          </div>
+        )}
     </>
   )
 
@@ -153,6 +159,7 @@ export default function Header() {
 
   const allNavLinks = (
     <div className='hidden md:flex gap-7 ml-auto items-center'>
+      <Link to={"/notifications"}> <Bell className='cursor-pointer'/></Link>
       {role === 'guest' && guestNavLinks}
       {userProfile}
     </div>
@@ -177,6 +184,7 @@ export default function Header() {
           {isMobileMenu &&
             <div className='absolute top-full left-0 w-full bg-neutral-800 md:hidden'>
               <nav className='flex flex-col p-2'>
+              <Link to={"/notifications"}> <Bell className='cursor-pointer flex justify-center h-12 align-middle ml-8  relative'/></Link>
                 {allUserLinks.map(({ value, link }, i) => (
                   <NavLink key={i} onClick={() => setIsMobileMenu(false)} to={link}
                     className={({ isActive }) =>
