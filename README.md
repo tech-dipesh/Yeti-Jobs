@@ -7,13 +7,15 @@ A Scalable job portal built with the **PERN stack** that connects job seekers an
       <img src="frontend/public/logo-rounded.png" alt="Yeti Jobs" width="250" height='250'>
   </picture>
 </p>
-## System Architecture:
-  <picture>
-      <img src="assets/system-architecture.png" alt="Yeti Jobs" width="250" height='250'>
-  </picture>
+
 <p align="center">
   <strong>Climb your career like a Yeti climbs a mountain.</strong>
 </p>
+
+##  System Architecture:
+  <picture>
+      <img src="assets/system-architecture.png" alt="Yeti Jobs">
+  </picture>
 
 ## Table of Contents:
 

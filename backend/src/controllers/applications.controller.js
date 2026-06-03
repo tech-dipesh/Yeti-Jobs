@@ -83,7 +83,7 @@ export const changeApplicationStatus=async (req, res)=>{
         ("select exists(select 1 from applications where job_id=$1)", [job_id]),
        ("select exists(select 1 from applicatkions where user_id=$1 and job_id=$2)", [user_id, job_id])
     ])
-    if(!invalid[0].exists){
+    if(!invalid || !invalid[0].exists){
       return res.status(422).json({message: "Invalid Job Id."})
     }
     if(!rows[0].exists){
@@ -99,7 +99,7 @@ export const changeApplicationStatus=async (req, res)=>{
     await connect.query("rollback")
     return res.status(500).json({message: error.message})
   }
-  finally{
-    await connect.release()
-  }
+  // finally{
+  //   await connect.release()
+  // }
 }

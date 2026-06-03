@@ -118,7 +118,7 @@ export default function EachJob() {
                   } >
                   <Buttoncomps values={valueButton}
                   />
-                  <span>Save</span>
+                  <span>{is_saved?"Unsave": "Save"}</span>
                 </div>
               }
             </div>
