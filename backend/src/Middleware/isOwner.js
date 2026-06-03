@@ -17,6 +17,10 @@ const isOwnerMiddleware = (type = "users") => {
         query = "select exists(select 1 from jobs j where j.uid=$1 and j.company_id=$2)";
         params=[id, company_id]
         break;
+      case "saved_jobs":
+        query = "select exists(select 1 from saved_jobs where job_id=$1 and user_id=$2)";
+        params=[id, uid]
+        break;
       case "applications":
         query = "select exists(select 1 from applications where user_id=$1 and uid=$2)";
         params=[uid, id]

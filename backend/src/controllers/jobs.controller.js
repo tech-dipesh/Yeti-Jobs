@@ -5,7 +5,7 @@ import listingSchema from "../Models/jobs.models.js";
 const router=express.Router();
 
 export const getAllJobsController=async (req, res) => {
-  let {page=1, limit=10, sortby='created_at'}=req.query;
+  let {page=1, limit=10, sortby='created_at', filter=''}=req.query;
   const offset=(Number(page)-1)*Number(limit);
   try {
     if(!ALLOW_SEARCH_QUERY.includes(sortby)){

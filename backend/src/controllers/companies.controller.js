@@ -6,6 +6,7 @@ import { supabase } from "../services/Supabase.js";
 export const getAllCompaniesList= async (req, res)=>{
   const {page=1, limit=5}=req.query;
   const offset=(Number(page)-1)*Number(limit);
+  let client;
   try {
     const connect=await Pool.connect()
     await connect.query("begin")

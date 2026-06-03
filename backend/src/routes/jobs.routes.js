@@ -16,7 +16,7 @@ router.post("/new", authUserMiddleware,  isCompanyEmployee, postJobsController);
 
 router.get("/saved_jobs/list", authUserMiddleware, isJobSeeker, getallSaveJob);
 router.post("/:id/bookmark_job", validateCorrectUid, authUserMiddleware, isJobSeeker, storeSaveJob);
-router.delete("/:id/remove_from_bookmark", validateCorrectUid, authUserMiddleware, isJobSeeker, isOwnwerMiddleware('jobs'), unsaveListJob);
+router.delete("/:id/remove_from_bookmark", validateCorrectUid, authUserMiddleware, isJobSeeker, isOwnwerMiddleware('saved_jobs'), unsaveListJob);
 
 router.delete("/:id/delete", validateCorrectUid, authUserMiddleware, isOwnwerMiddleware('jobs'), deleteJobsController);
 
