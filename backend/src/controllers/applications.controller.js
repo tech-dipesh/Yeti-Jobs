@@ -77,13 +77,12 @@ export const changeApplicationStatus=async (req, res)=>{
     return res.status(422).json({message: message})
   }
   try {
-      const connect=await Pool.connect()
       await connect.query("begin")
       const [{rows: invalid}, {rows}]=await Promise.all([
-        ("select exists(select 1 from applications where job_id=$1)", [job_id]),
-       ("select exists(select 1 from applicatkions where user_id=$1 and job_id=$2)", [user_id, job_id])
+       connect.query ("select exists(select 1 from applications where job_id=$1)", [job_id]),
+      connect.query ("select exists(select 1 from applications where user_id=$1 and job_id=$2)", [user_id, job_id])
     ])
-    if(!invalid || !invalid[0].exists){
+    if(!invalid){
       return res.status(422).json({message: "Invalid Job Id."})
     }
     if(!rows[0].exists){

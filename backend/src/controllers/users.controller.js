@@ -23,14 +23,15 @@ export const sendUserLoggedInStatus=async (req, res)=>{
     const message={login: false, verify: false};
     try {
       if (!token) return res.status(401).json({message});
-      req.user = jwt.verify(token, process.env.JSON_SECRET_KEY); 
+      req.user = jwt.verify(token, process.env.JSON_SECRET_KEY);   
       if(req.user.verify==false){
         message.login=true;
         return res.status(403).json({message})
       }
       message.login=true;
       message.verify=true;
-      return res.status(200).json({message:req.user})
+    const {rows}=await connect.query("select profile_pic_url from users where uid=$1", [req.user?.uid])
+      return res.status(200).json({message:req.user, url: rows[0]?.profile_pic_url})
     } catch(err) {
       return res.status(403).json({message});
     }
