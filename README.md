@@ -631,6 +631,7 @@ File uploads are handled via the `@supabase/supabase-js` SDK — files go direct
 > - Adding a CDN to cache our static assets that never changed
 > - Move Our Asynchronous operation to the background queue with use services such as: `Kafka`.
 > - left a add of the my `user_education` table informat.
+> - Add the Profile Picture a frequently access data on the caching so it can faster
 
 <div align="center">
 
