@@ -11,7 +11,7 @@ export default function AuthProvider({children}) {
     (async()=> await execute())()
   }, [])
   return (
-    <authContext.Provider value={{data: data?.message, reexecute:execute, error, loading}} >
+    <authContext.Provider value={{data: data?.message,url:data?.url, reexecute:execute, error, loading}} >
       {children}
     </authContext.Provider>
   )

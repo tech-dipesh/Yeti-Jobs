@@ -12,8 +12,6 @@ import {allAuthRoutes} from "../Data/UserArray"
 import { Bell } from "lucide-react";
 export default function Header() {
   const {pathname}=useLocation();
-  console.log('loca', pathname);
-  allAuthRoutes
   console.log(pathname==='/auth/login' || pathname==='/auth/signup'?"Yes": "No");
   const navigate = useNavigate()
   const { execute } = useFetchData(logoutUser);
@@ -24,7 +22,7 @@ export default function Header() {
     navigate(0)
   }
 
-  const { data, error, reexecute } = useAuth();
+  const { data, error, reexecute,url} = useAuth();
   const { verify, uid, role } = data ?? {};
 
   const allUserLinks = role === 'guest' ? [
@@ -61,14 +59,16 @@ export default function Header() {
     <>
       {uid && (
         <div className='relative'>
-          <FontAwesomeIcon
-            icon={faUser}
+          <div 
             onClick={() => setProfile(!profile)}
-            size='2x'
-            className='bg-slate-900 h-32 w-32 rounded-full cursor-pointer flex justify-center items-center'
-          />
-
-          {profile && (
+            className='bg-slate-900 h-10 w-10 rounded-full cursor-pointer flex justify-center items-center overflow-hidden'
+          >
+            {url ? (
+              <img src={url} alt="Profile" className='w-full h-full object-cover' />
+            ) : (
+                <FontAwesomeIcon icon={faUser} size='sm' className="text-white" />
+              )}
+          </div>          {profile && (
             <nav className='absolute top-14 right-0 bg-neutral-800 shadow-2xl rounded-lg p-2 w-52 border border-neutral-600 z-50 flex flex-col gap-1'>
 
               <div className='px-3 py-2 border-b border-neutral-600 mb-1'>
@@ -184,7 +184,7 @@ ${verify ? 'bg-green-900/30 text-green-400' : 'bg-red-900/30 text-red-400'}`}
           {isMobileMenu &&
             <div className='absolute top-full left-0 w-full bg-neutral-800 md:hidden'>
               <nav className='flex flex-col p-2'>
-              <Link to={"/notifications"}> <Bell className='cursor-pointer flex justify-center h-12 align-middle ml-8  relative'/></Link>
+                <Link to={"/notifications"}> <Bell className='cursor-pointer flex justify-center h-12 align-middle ml-8  relative'/></Link>
                 {allUserLinks.map(({ value, link }, i) => (
                   <NavLink key={i} onClick={() => setIsMobileMenu(false)} to={link}
                     className={({ isActive }) =>
