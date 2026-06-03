@@ -96,7 +96,7 @@ export default function ProfilePhoto() {
           <input ref={refInput} id='profileInput' type='file' name='profile' className='hidden' onChange={handleUpload} />
           <FontAwesomeIcon icon={faFileArrowUp} />
           <p className='text-sm text-gray-400'>Supported formats: <span className='text-gray-200 font-medium'>JPG, PNG</span></p>
-          <p className='text-xs text-gray-500 mt-1'>Maximum size: 2 MB</p>
+          <p className='text-xs text-gray-500 mt-1'>Maximum size: 1.5 MB</p>
         </label>
       </form>
       {preview &&
