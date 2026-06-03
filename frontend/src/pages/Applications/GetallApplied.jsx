@@ -9,6 +9,7 @@ import ButtonComps from '../../components/common/Button'
 import Loading from '../../components/Loading'
 import Errorloading from '../../components/common/Errorloading'
 import Emptycomps from '../../components/Emptycomps'
+import Applicationcomps from '../../components/common/applications/Applicationscomps.jsx'
 
 export default function GetallApplied() {
   const {data, error, loading, execute}=useFetchData(getAllAppliedJobs)
@@ -37,8 +38,8 @@ export default function GetallApplied() {
       </div>
        )}
        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4'>
-      {data && filter.map(({title, description, uid, experience_years, job_type, status, applied_at, expired_at})=>(
-       <Jobcomps key={uid} title={title} description={description} uid={uid} experience_years={experience_years} job_type={job_type} status={status} applied_at={applied_at} expired_at={expired_at}/>
+      {data && filter.map(({title, description, uid, experience_years, job_type, status, applied_at, expired_at, cover_letter, expected_salary, why_hire, notice_period})=>(
+       <Applicationcomps key={uid} title={title} description={description} uid={uid} experience_years={experience_years} job_type={job_type} status={status} applied_at={applied_at} expired_at={expired_at} cover_letter={cover_letter} expected_salary={expected_salary} why_hire={why_hire} notice_period={notice_period}/>
       ))}
       </div>
     </div>
