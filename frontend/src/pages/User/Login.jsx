@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from "react-router"
 import validateLogin from "../../auth/User/Validateuser.js"
+
+import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { loginUser } from "../../api/auth.user.js"
 import ButtonComps from '../../components/common/Button';
 import InputComps from '../../components/common/Input';
@@ -11,6 +13,7 @@ import Errorloading from '../../components/common/Errorloading';
 import Linkcomps from '../../components/common/Linkcomps';
 import Registerleftcomps from '../../components/common/User/Registerleftcomps';
 import Errorpopup from '../../components/Error/Errorpopup';
+import Loading from "../../components/Loading.jsx";
 
 export default function Login() {
   const { reexecute, data: checkuser, error:checkUserError } = useAuth()
@@ -25,7 +28,7 @@ export default function Login() {
       navigate(state?.from || "/verify-email")
     }
     if(checkuser){
-        navigate(state?.from || '/')
+      navigate(state?.from || '/')
     }
   }, [checkuser, state])
 
@@ -44,43 +47,77 @@ export default function Login() {
       setError(apierror)
     }
   };
+  if(loading){
+    return <Loading/>
+  }
+
+
 
   return (
-    <div className='grid md:grid-cols-2 grid-cols-1 items-center min-h-screen bg-slate-700 p-6'>
-      <Errorpopup error={apierror} />
-      <Registerleftcomps type={'Login'} />
-      <div className='border border-white/20 rounded-2xl p-6  flex flex-col gap-4 flex-1 self-stretch w-full'>
-        <h1 className='font-semibold justify-center align-middle'>Welcome Back To The YetiJobs.</h1>
-        <Successcomps data={data} />
-        <form onSubmit={submitForm} className='flex flex-col gap-4 align-middle'>
-          <h2>Email</h2>
-          <InputComps type='text' name='email' placeholder='Email' value={value.email} click={setValue} error={setError}
-            autoComplete='current-password' />
-          <h2>Password</h2>
-          <InputComps type='password' name='password' placeholder='Password' value={value.password} click={setValue} error={setError} autoComplete='current-password' />
-          <button
-            type="submit"
-            className='w-24 py-3 self-center rounded-xl bg-slate-800 text-white font-bold text-lg hover:bg-slate-900 transition-all duration-200 cursor-pointer'>
-            Submit
-          </button>
-        </form>
-        <div className='flex flex-col gap-2'>
-          <p className='text-xs text-center text-neutral-400 uppercase tracking-widest'>Quick Fill</p>
-          <button
-            type='button'
-            onClick={() => setValue({ email: 'Test@gmail.com', password: 'Test@1234' })}
-            className='px-4 py-2 rounded-lg text-xs font-medium bg-blue-600/20 text-blue-400 border border-blue-500/30 hover:bg-blue-600/40 transition-colors cursor-pointer mx-auto'
-          >
-            Guest User
-          </button>
+    <div className='grid md:grid-cols-2 gap-8 items-center min-h-screen bg-slate-700 p-6'>
+  <div className='order-2 md:order-1'>
+    <div className='bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-600 p-8 shadow-xl'>
+      <div className='text-center mb-8'>
+        <h1 className='text-3xl font-bold text-white'>Welcome Back</h1>
+        <p className='text-slate-400 text-sm mt-2'>Sign in to continue to YetiJobs</p>
+      </div>
+      <Successcomps data={data} />
+      <form onSubmit={submitForm} className='space-y-5'>
+        <div>
+          <label className='block text-sm font-medium text-slate-300 mb-1'>Email address</label>
+          <InputComps
+            type='text'
+            name='email'
+            placeholder='you@example.com'
+            value={value.email}
+            click={setValue}
+            error={setError}
+            autoComplete='current-password'
+            className='w-full'
+          />
         </div>
-        <Errorloading data={{ error: error || apierror, loading }} />
-        <div className='grid grid-cols-1 lg:grid-cols-3 justify-items-center  gap-4 justify-between my-4 '>
-          <Linkcomps to='../forget-password' content={<ButtonComps values="Reset Your Password" color='bg-red-500' text='text-white' />} />
-          <Linkcomps to='../verify-email' content={<ButtonComps values="Verify Email?" color='bg-red-700' text='text-white' />} />
-          <Linkcomps to='../signup' content={<ButtonComps values='Create an account' color={'bg-slate-800'} text='text-white' />} />
+        <div>
+          <label className='block text-sm font-medium text-slate-300 mb-1'>Password</label>
+          <InputComps
+            type='password'
+            name='password'
+            placeholder='••••••••'
+            value={value.password}
+            click={setValue}
+            error={setError}
+            autoComplete='current-password'
+            className='w-full'
+          />
         </div>
+        <button
+          type='submit'
+          className='w-full py-2.5 rounded-xl bg-blue-600 text-white font-semibold text-base hover:bg-blue-700 transition-all duration-200 cursor-pointer'
+        >
+          Sign In
+        </button>
+      </form>
+      <div className='mt-6 pt-4 border-t border-slate-700'>
+        <p className='text-xs text-center text-slate-400 uppercase tracking-wider'>Quick demo</p>
+        <button
+          type='button'
+          onClick={() => setValue({ email: 'Test@gmail.com', password: 'Test@1234' })}
+          className='mt-2 w-full py-2 rounded-lg text-sm font-medium bg-blue-500/10 text-blue-300 border border-blue-500/30 hover:bg-blue-500/20 transition-colors cursor-pointer'
+        >
+          Use guest account
+        </button>
+        <p className='text-xs text-center text-slate-500 mt-2'>No registration – just click and explore</p>
+      </div>
+      <Errorloading data={{ error: error || apierror, loading }} />
+      <div className='flex flex-col sm:flex-row justify-center gap-4 mt-6 pt-4 border-t border-slate-700'>
+        <Linkcomps to='../forget-password' content={<span className='text-sm text-cyan-400 hover:underline'>Forgot password?</span>} />
+        <Linkcomps to='../verify-email' content={<span className='text-sm text-cyan-400 hover:underline'>Verify email</span>} />
+        <Linkcomps to='../signup' content={<span className='text-sm text-cyan-400 hover:underline'>Create account</span>} />
       </div>
     </div>
+  </div>
+  <div className='order-1 md:order-2'>
+    <Registerleftcomps type='Login' />
+  </div>
+</div>
   )
 }

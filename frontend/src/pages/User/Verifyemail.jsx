@@ -11,8 +11,11 @@ import Errorloading from '../../components/common/Errorloading';
 import Successcomps from '../../components/common/Success';
 import { useEffect } from 'react';
 import Loading from '../../components/Loading';
+
 import Goback from '../../components/common/Goback';
 import Errorpopup from '../../components/Error/Errorpopup';
+import {faExclamation} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function VerifyEmail() {
   const [value, setValue] = useState();
@@ -78,6 +81,7 @@ export default function VerifyEmail() {
         <span className='flex justify-center'>
           <ButtonComps values='submit' onClick={verifyYourMail}/>
         </span>
+    <p className='text-xs text-yellow-400 mt-1'><FontAwesomeIcon icon={faExclamation} /> Limit: 2 requests per minute for security</p>
       </div>
       <div className='grid justify-items-center bg-neutral-700 rounded-lg py-4 px-2 align-middle gap-4 my-4' >
         <p className='opacity-80 text-gray-100'>Didn't receive code?</p>
