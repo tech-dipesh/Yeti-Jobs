@@ -2,10 +2,11 @@ import express from "express"
 import client from "../db.js"
 import { ALLOW_SEARCH_QUERY } from "../utils/data.js";
 import listingSchema from "../Models/jobs.models.js";
+import prefixQuery from '../utils/Prefixquery.js';
 const router=express.Router();
 
 export const getAllJobsController=async (req, res) => {
-  let {page=1, limit=10, sortby='created_at', filter=''}=req.query;
+  let {page=1, limit=10, sortby='created_at', filter='', min_salary, max_salary, min_exp, max_exp, job_type }=req.query;
   const offset=(Number(page)-1)*Number(limit);
   try {
     if(!ALLOW_SEARCH_QUERY.includes(sortby)){
@@ -28,7 +29,8 @@ export const searchJobsListing=async (req, res) => {
     return res.status(401).json({message: "Please Add Only Avaible column list"});
   }
   try {
-    const {rows, rowCount}=await client.query(`select j.*, c.name as company_name from jobs j left join companies c on c.uid=j.company_id where search_title @@ plainto_tsquery($1) order by ${sortby} desc`, [title]);
+    const tsQuery=prefixQuery(title)
+    const {rows, rowCount}=await client.query(`select j.*, c.name as company_name from jobs j left join companies c on c.uid=j.company_id where search_title @@ plainto_tsquery($1) order by ${sortby} desc`, [tsQuery]);
     return  res.status(200).json({message: rows})
   } catch (error) {
     console.log(error)
@@ -36,7 +38,7 @@ export const searchJobsListing=async (req, res) => {
   }
 };
 
-
+ 
 export const getJobsController= async (req, res) => {
   const {id}=req.params;
   const {uid, company_id}=req?.user;
