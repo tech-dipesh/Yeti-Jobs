@@ -7,7 +7,7 @@ const client = new Pool({
   max: 13,
   idleTimeoutMillis: 30000,
   keepAlive: true,
-  connectionTimeoutMillis: 2000,
+  connectionTimeoutMillis: 10000,
 });
 // try {
 //   if(!(process.env.DATABASE_PASSWORD)){
