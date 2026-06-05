@@ -1,6 +1,6 @@
 import {Router} from "express"
 
-import { deleteJobsController, getAllJobsController, getJobsController, postJobsController, putJobsController, searchJobsListing, verifyOwnerController } from "../controllers/jobs.controller.js";
+import { deleteJobsController,  getAllJobsController, ListJobsControllerWithFilter, getJobsController, postJobsController, putJobsController, searchJobsListing, verifyOwnerController } from "../controllers/jobs.controller.js";
 import isOwnwerMiddleware from "../Middleware/isOwner.js";
 import authUserMiddleware from "../Middleware/isLoggedIn.js";
 import { getallSaveJob, storeSaveJob, unsaveListJob } from "../controllers/saveJobs.controller.js";
@@ -10,6 +10,7 @@ import isJobSeeker from "../Middleware/isJobSeeker.js"
 const router=Router();
 
 router.get("/", getAllJobsController);
+router.get("/jobs", ListJobsControllerWithFilter);
 router.get("/search", authUserMiddleware, searchJobsListing);
 
 router.post("/new", authUserMiddleware,  isCompanyEmployee, postJobsController);

@@ -23,3 +23,5 @@ export const ALL_TABLE_LIST=['users', 'jobs', 'companies', 'applications', 'save
 
 export const ALLOW_SEARCH_QUERY=["uid", "title", "description", "salary", "job_type", "is_job_open", "created_by", "created_at", "skills", "total_job_views"];
 
+
+export const SearchSortBy=['created_at', 'salary', 'total_job_views']

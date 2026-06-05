@@ -2,8 +2,31 @@ import express from "express"
 import client from "../db.js"
 import { ALLOW_SEARCH_QUERY } from "../utils/data.js";
 import listingSchema from "../Models/jobs.models.js";
-import prefixQuery from '../utils/Prefixquery.js';
+import {prefixQuery} from '../utils/Prefixquery.js';
 const router=express.Router();
+
+export const ListJobsControllerWithFilter=async (req, res) => {
+  let {page=1, limit=10, sortby='created_at', min_salary=null, max_salary=null, min_exp=null, max_exp=null,status=null, posted=null,skills=null, location=null,  job_type=null}=req.query;
+  const offset=(Number(page)-1)*Number(limit);
+  try {
+    if(!ALLOW_SEARCH_QUERY.includes(sortby)){
+      return res.status(400).json({message: "Please Add Only Avaible column list"});
+    }
+    const sql = "SELECT j.*, c.name AS company_name FROM jobs j LEFT JOIN companies c ON c.uid = j.company_id WHERE ($1::int IS NULL OR salary >= $1) AND ($2::int IS NULL OR salary <= $2) AND ($3::int IS NULL OR experience_years >= $3) AND ($4::int IS NULL OR experience_years <= $4) AND ($5::text IS NULL OR job_type::text = $5) AND ($6::text IS NULL OR is_job_open::text = $6) AND ($7::int IS NULL OR j.created_at >= NOW() - ($7 || ' days')::interval) AND ($8::text[] IS NULL OR skills && $8) AND ($9::text IS NULL OR j.location ILIKE '%' || $9 || '%') ORDER BY CASE WHEN $10::text = 'salary' THEN salary WHEN $10::text = 'total_job_views' THEN total_job_views ELSE EXTRACT(epoch FROM j.created_at)::bigint END DESC LIMIT $11 OFFSET $12";
+    const countsql = "select count(*) from jobs j left join companies c on c.uid = j.company_id where ($1::int is null or salary >= $1) and ($2::int is null or salary <= $2) and ($3::int is null or experience_years >= $3) and ($4::int is null or experience_years <= $4) and ($5::text is null or job_type::text = $5) and ($6::text is null or is_job_open::text = $6) and ($7::int is null or j.created_at >= now() - ($7 || ' days')::interval) and ($8::text[] is null or skills && $8) and ($9::text is null or j.location ilike '%' || $9 || '%')";
+
+  const params = [ min_salary || null, max_salary || null, min_exp || null, max_exp || null, job_type || null, status === 'open' ? true : status === 'closed' ? false : null, posted === '24h' ? 1 : posted === '7d' ? 7 : posted === '30d' ? 30 : null,  skills ? skills:  null, location || null, sortby === 'salary' || sortby === 'created_at' ? sortby : null, limit, offset ];
+  const countparams = [ min_salary || null, max_salary || null, min_exp || null, max_exp || null, job_type || null, status === 'open' ? true : status === 'closed' ? false : null, posted === '24h' ? 1 : posted === '7d' ? 7 : posted === '30d' ? 30 : null,  skills ? skills:  null, location || null]
+  const [{rows: countTotal}, {rows}]=await Promise.all([
+       client.query(countsql, countparams),
+      client.query(sql, params)
+      ])
+    return res.status(200).json({message: rows || [], limit, page, total: countTotal[0].count})
+  } catch (error) {
+    console.log("err", error);
+    return res.status(500).json({message: error.message})
+  }
+};  
 
 export const getAllJobsController=async (req, res) => {
   let {page=1, limit=10, sortby='created_at', filter='', min_salary, max_salary, min_exp, max_exp, job_type }=req.query;
