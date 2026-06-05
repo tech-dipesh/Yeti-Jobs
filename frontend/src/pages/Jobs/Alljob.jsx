@@ -8,6 +8,7 @@ import Loading from '../../components/Loading';
 import Emptycomps from '../../components/Emptycomps';
 import Buttoncomps from '../../components/common/Button';
 import Errorloading from '../../components/common/Errorloading';
+import FilterSidebar from '../../components/common/Jobs/Filtersidebar';
 
 export default function Jobs() {
   const { data, error, loading, execute } = UseFetchData(allJobsList)
@@ -35,27 +36,33 @@ export default function Jobs() {
     await execute({ page });
   }
   return (
-    <div className='min-h-screen grid min-w-screen w-auto bg-slate-900 text-white'>
-      <Errorloading data={{ error }} />
-      <div className='max-w-7xl mx-auto px-6 py-10'>
+    <div className='min-h-screen bg-slate-900 text-white'>
+  <Errorloading data={{ error }} />
+  <div className='max-w-7xl mx-auto px-6 py-10'>
+    <div className='grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8'>
+      <div className='lg:sticky lg:top-24 self-start'>
+        <FilterSidebar />
+      </div>
+      <div>
         <Emptycomps data={jobs} type='Jobs' />
         <div className='flex justify-center gap-24'>
           <Link to='search'>
             <ButtonComps values='Search Job' className='text-4xl' />
           </Link>
         </div>
-
         <div className='container grid grid-cols-1 lg:grid-cols-2 gap-16 p-8'>
-          {jobs && jobs.map(({ uid, title, description, salary, job_type, total_job_views, skills, is_job_open, experience_years, company_name, expired_at }) => (
-            <Jobcomps key={uid} uid={uid} title={title} description={description} salary={salary} job_type={job_type} total_job_views={total_job_views} skills={skills} is_job_open={is_job_open} experience_years={experience_years} company_name={company_name} expired_at={expired_at} />
+          {jobs && jobs.map((job) => (
+            <Jobcomps key={job.uid} {...job} />
           ))}
         </div>
-        {data?.page * data?.limit < data?.total &&
+        {data?.page * data?.limit < data?.total && (
           <span className='grid justify-items-center' onClick={loadMore}>
             <Buttoncomps values={'Load More....'} />
           </span>
-        }
+        )}
       </div>
     </div>
+  </div>
+</div> 
   )
 }
