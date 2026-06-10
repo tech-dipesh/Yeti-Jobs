@@ -8,7 +8,7 @@ import Textcomps from '../components/common/Textcomps';
 import Linkcomps from '../components/common/Linkcomps';
 import Loading from '../components/Loading';
 import Errorpopup from '../components/Error/Errorpopup';
-
+import SEO from '../hooks/useSEO'
 export default function Home() {
   const { data, error, loading } = useAuth();
   const [isVerify, setIsVerify] = useState(false)
@@ -41,7 +41,8 @@ export default function Home() {
   }
   return (
     <div className='bg-slate-700 min-h-screen'>
-  <div className='max-w-6xl mx-auto px-4 py-8 space-y-8'>
+      <SEO title="Yeti Jobs" description='Job Portal Homepage'/>
+    <div className='max-w-6xl mx-auto px-4 py-8 space-y-8'>
       <Errorpopup error={err || err || isVerify}/>
       <Hero isVerify={isVerify} isLogin={isLogin} />
       <div className='grid grid-cols-2 md:grid-cols-4 gap-3'>

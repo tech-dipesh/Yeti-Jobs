@@ -13,7 +13,7 @@
 - Pagination and lazy loading
 - Responsive design (mobile-friendly)
 - ATS Scoring And Suggestion
-
+- Improve a SEO with the React Helment, Google Search Console and robots
 
 ## Techincal Highlights:
 - Centralized API handling using Axios instance
@@ -174,6 +174,7 @@ App runs on: http://localhost:5173
 - Improve the Add Resume Page With Better ui
 - Added a phone number on the Edit User of new ui with the new library
 - Add the Education Separate File
+- Add a Filter Bar on the All the Companies Section
 
 ## Portal:
 - For popup positioning issues, used Portal.
@@ -193,6 +194,7 @@ App runs on: http://localhost:5173
 4. **react-spinners** – loading indicators
 5. **react-icons** – additional icons
 6. **react-toastify** – toast alerts
-8. **@vercel/analytics** – frontend stats and visitor count
+7. **@vercel/analytics** – frontend stats and visitor count
 8. **@vercel/speed-insights/react** – frontend Speed Insights
-8. **react-select** – Select Option for the Add a Education
+9. **react-select** – Select Option for the Add a Education
+10. **react-helmet-async** – Improve a Seo with Adding a metatags.

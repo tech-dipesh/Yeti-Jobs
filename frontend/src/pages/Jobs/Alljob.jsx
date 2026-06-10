@@ -9,6 +9,8 @@ import Emptycomps from '../../components/Emptycomps';
 import Buttoncomps from '../../components/common/Button';
 import Errorloading from '../../components/common/Errorloading';
 import FilterSidebar from '../../components/common/Jobs/Filtersidebar';
+import SEO from '../../hooks/useSEO'
+
 export default function Jobs() {
   const [filters, setFilters] = useState({});
   const { data, error, loading, execute } = UseFetchData(allJobsList)
@@ -38,49 +40,50 @@ export default function Jobs() {
   }
   const ApplyFilter =async (newFilters) => {
     setFilters(newFilters);
-const allValues = { page, sortby: newFilters?.sortby ?? 'created_at', min_salary: newFilters?.minSalary ?? '', max_salary: newFilters?.maxSalary ?? '', min_exp: newFilters?.minExp ?? '', max_exp: newFilters?.maxExp ?? '', skills: newFilters?.skills ?? '', location: newFilters?.location ?? '', job_type: newFilters?.jobType ?? '', status: newFilters?.status ?? '', posted: newFilters?.posted ?? '', };
+    const allValues = { page, sortby: newFilters?.sortby ?? 'created_at', min_salary: newFilters?.minSalary ?? '', max_salary: newFilters?.maxSalary ?? '', min_exp: newFilters?.minExp ?? '', max_exp: newFilters?.maxExp ?? '', skills: newFilters?.skills ?? '', location: newFilters?.location ?? '', job_type: newFilters?.jobType ?? '', status: newFilters?.status ?? '', posted: newFilters?.posted ?? '', };
     const queryStringAll = new URLSearchParams(allValues).toString();
     console.log("query string", queryStringAll);
     await filterexecute({content: queryStringAll})
-  const result = await filterexecute({ content: queryStringAll });
-  if (result?.message) {
-    setJobs(result?.message);
-  }
+    const result = await filterexecute({ content: queryStringAll });
+    if (result?.message) {
+      setJobs(result?.message);
+    }
   };
-const ClearFilter = () => {
-  const cleared = { jobType: '', status: '', posted: '', minSalary: '', maxSalary: '', minExp: '', maxExp: '', skills: '', location: '' };
-  setFilters(cleared);
-  ApplyFilter(cleared);
-}; 
+  const ClearFilter = () => {
+    const cleared = { jobType: '', status: '', posted: '', minSalary: '', maxSalary: '', minExp: '', maxExp: '', skills: '', location: '' };
+    setFilters(cleared);
+    ApplyFilter(cleared);
+  }; 
   if(loading || filterloader){
     return <Loading/>
   }
   return (
-     <div className='min-h-screen bg-slate-900 text-white'>
-  <Errorloading data={{ error }} />
-  <div className='max-w-7xl mx-auto px-6 py-10'>
-    <div className='grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8 items-start'>
-      <div className='sticky top-24 self-start'>
-        <FilterSidebar onApply={ApplyFilter} onClear={ClearFilter} />
-      </div>
-      <div>
-       <Emptycomps data={jobs} type='Jobs' />
-        <div className='flex justify-center mb-6'>
-          <Link to='search'>
-            <ButtonComps values='Search Job' />
-          </Link>
+    <div className='min-h-screen bg-slate-900 text-white'>
+      <SEO title="Yeti Jobs" description='Job Portal All Jobs'/>
+      <Errorloading data={{ error }} />
+      <div className='max-w-7xl mx-auto px-6 py-10'>
+        <div className='grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8 items-start'>
+          <div className='sticky top-24 self-start'>
+            <FilterSidebar onApply={ApplyFilter} onClear={ClearFilter} />
+          </div>
+          <div>
+            <Emptycomps data={jobs} type='Jobs' />
+            <div className='flex justify-center mb-6'>
+              <Link to='search'>
+                <ButtonComps values='Search Job' />
+              </Link>
+            </div>
+            <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+              {jobs && jobs.map((job, i) => <Jobcomps key={i} {...job} />)}
+            </div>
+            {data?.page * data?.limit < data?.total && (
+              <span className='flex justify-center mt-8' onClick={loadMore}>
+                <Buttoncomps values='Load More....' />
+              </span>
+            )}
+          </div>
         </div>
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-          {jobs && jobs.map((job, i) => <Jobcomps key={i} {...job} />)}
-        </div>
-        {data?.page * data?.limit < data?.total && (
-          <span className='flex justify-center mt-8' onClick={loadMore}>
-            <Buttoncomps values='Load More....' />
-          </span>
-        )}
       </div>
     </div>
-  </div>
-</div>
   )
 }

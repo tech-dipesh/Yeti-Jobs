@@ -8,12 +8,15 @@ import ToastConataine from './components/Toast';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import { Suspense } from 'react';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+
 function App() {
   const { data, loading } = useAuth()
   if (loading) {
     return <Loading />
   }
   return (
+    <HelmetProvider>
     <div className='w-full min-h-screen flex flex-col overflow-x-hidden'>
       <Header />
       <Analytics/>
@@ -26,6 +29,7 @@ function App() {
       </main>
       <Footer data={data} />
     </div>
+    </HelmetProvider>
   )
 }
 

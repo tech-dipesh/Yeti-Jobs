@@ -12,7 +12,6 @@ import {allAuthRoutes} from "../Data/UserArray"
 import { Bell } from "lucide-react";
 export default function Header() {
   const {pathname}=useLocation();
-  console.log(pathname==='/auth/login' || pathname==='/auth/signup'?"Yes": "No");
   const navigate = useNavigate()
   const { execute } = useFetchData(logoutUser);
   const [profile, setProfile] = useState(false)
