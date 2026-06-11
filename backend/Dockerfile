@@ -1,17 +1,7 @@
-FROM node:20-alpine AS builder
+FROM node:20-alpine
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci
+RUN npm ci --omit=dev
 COPY . .
-FROM node:20-alpine AS runner
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm ci --only=production 
-
-COPY --from=builder /app/src ./src
-COPY --from=builder /app/server.js ./server.js
-
 EXPOSE 3000
-USER node
-CMD ["node", "server.js"]
+CMD ["sh", "-c", "node db/migrate.js && node server.js"]
