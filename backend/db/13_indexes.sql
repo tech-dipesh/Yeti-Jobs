@@ -31,7 +31,9 @@ create index if not exists idx_user_educations_user_id on user_educations(user_i
 create index if not exists idx_ats_scores_user_id on ats_scores(user_id);
 
 
-
+-- Notifications Index:
+create index idx_notifications_user_created on notifications (users_id, created_at desc);
+create index idx_notifications_user_read on notifications (users_id, read_at);
 
 
 -- Comments

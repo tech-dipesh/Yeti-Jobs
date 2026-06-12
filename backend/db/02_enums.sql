@@ -37,4 +37,11 @@ exception
   when duplicate_object then null;
 END $$;
 
+DO $$ begin
+  create type notifications_type as enum ('new_jobs', 'application_status', 'job_alert', 'bookmark_reminder', 'company_follow', 'application_recieved', 'profile_view', 'message_recieved', 'resume_analysed', 'announcement');
+exception
+  when duplicate_object then null;
+END $$;
+
+
 
