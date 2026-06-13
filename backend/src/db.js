@@ -4,7 +4,7 @@ import "dotenv/config"
 const client = new Pool({
   connectionString: process.env.DATABASE_PASSWORD,
   ssl: {rejectUnauthorized: false},
-  max: 13,
+  max: 40,
   idleTimeoutMillis: 30000,
   keepAlive: true,
   connectionTimeoutMillis: 10000,

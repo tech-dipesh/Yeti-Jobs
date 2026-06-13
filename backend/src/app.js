@@ -13,6 +13,7 @@ import cors from "cors";
 import "./services/email-verification.js"
 import isAdminMIddleware from "./Middleware/isAdmin.js";
 import adminRoutes from "./routes/admin.routes.js";
+import notificationRoutes from "./routes/notifications.routes.js";
 import { serve, setup } from "swagger-ui-express";
 import YAML from "yamljs";
 const swaggerInYAML=YAML.load("./swagger.yaml")
@@ -42,12 +43,13 @@ app.use("/api/v1/users", usersListingRouter)
 app.use("/api/v1/companies", authUserMiddleware, companyRouter)
 app.use("/api/v1/applications", authUserMiddleware,  applicationRouter)
 app.use("/api/v1/admin", authUserMiddleware, isAdminMIddleware, adminRoutes)
+app.use("/api/v1/notifications", authUserMiddleware, notificationRoutes)
 app.get("/api/v1/health", (req, res)=>{
   return res.status(200).json({message: "Ok"})
 });
 
 app.get("/", (req, res) => {
-  return res.status(201).redirect("/api/v1/jobs")
+  return res.status(301).redirect("/api/v1/jobs")
 });
 
 app.use((req, res)=>{
