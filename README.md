@@ -27,7 +27,7 @@ A Scalable job portal built with the **PERN stack** that connects job seekers an
 6. [Folder Structure](#folder-structure)
 7. [Environment Variables](#environment-variables)
 8. [📦 Libraries Used](#libraries-used)
-9. [Installation & Setup](#installation--setup)
+9. [Installation & Setup](#installation-setup)
 10. [Docker Setup](#docker-setup)
 11. [API Documentation](#api-documentation)
 12. [Database Design](#database-design)
@@ -43,11 +43,11 @@ A Scalable job portal built with the **PERN stack** that connects job seekers an
 22. [Updates](#updates)
 23. [Future Improvements](#future-improvements)
 
-## Overview:
+## Overview
 
 The Project is a Job Portal Platform **with** all the features needed to build a job portal platform, such as CRUD operations, **role-based** access control, jobs, companies, apply, withdraw, create a job, create a new company, admin controller, and a cron queue.
 
-## Screenshots:
+## Screenshots
 
 <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
     <img src="frontend/public/Documents/homepage.png" style="border-radius: 20px;" alt="Homepage" width="200" height="150">
@@ -58,13 +58,13 @@ The Project is a Job Portal Platform **with** all the features needed to build a
     <img src="frontend/public/Documents/repsonsive-ui-profile.png" style="border-radius: 20px;" alt="Responsive UI" width="200" height="450">
 </div>
 
-## Demo Url:
+## Demo Url
 
 - Frontend: https://yeti-jobs.vercel.app
 - Backend: https://yeti-jobs.onrender.com/api/v1/
 - Backend API Demo: https://yeti-jobs.onrender.com/api/v1/swagger
 
-## Features:
+## Features
 
 ### Job Seekers:
 
@@ -79,8 +79,9 @@ The Project is a Job Portal Platform **with** all the features needed to build a
 - Individual Company jobs and Description About Company
 - View Single Job
 - ATS Scoring And Feedback for Resume
+- notifications Panel for showing a User Specific Notification Route
 
-### Recruiters (Employees):
+### Recruiters (Employees)
 
 - Company Dashboard
 - All Applicants
@@ -98,7 +99,7 @@ The Project is a Job Portal Platform **with** all the features needed to build a
     All Followers
   ```
 
-### Admin:
+### Admin
 
 - Assign User to companies.
 - Delete/Create/Update Company
@@ -111,13 +112,13 @@ The Project is a Job Portal Platform **with** all the features needed to build a
     All Followers
   ```
 
-### Common:
+### Common
 
 - Authentication (JWT)
 - Email Verification & password reset
 - Role based access control.
 
-## Tech Stack:
+## Tech Stack
 
 - Frontend:
   - React
@@ -130,7 +131,7 @@ The Project is a Job Portal Platform **with** all the features needed to build a
 - Devops:
   - Docker
 
-## Architecture Overview:
+## Architecture Overview
 
 - The System follows a layered architecture:
   Client(React) -> API(Express) -> Service Layer -> PostgreSQL
@@ -140,7 +141,7 @@ The Project is a Job Portal Platform **with** all the features needed to build a
 
 <p align="center">
   <picture>
-      <img src="backend/assets/supabase-schema.png" alt="Database Schema" width="250" height='250'>
+      <img src="assets/supabase.png" alt="Database Schema" width="250" height='250'>
   </picture>
 </p>
 
@@ -269,7 +270,7 @@ vim .env # Insert a: VITE_SERVER_URL on .env file.
 
 > :white_check_mark: your client page will run on the http://localhost:5173
 
-## Docker Setup:
+## Docker Setup
 
 - Docker base has only one single container for the Node.js configuration.
 - Use the `node` image.
@@ -406,6 +407,16 @@ erDiagram
     text grade
   }
 
+  NOTIFICATIONS {
+    uuid uuid PK
+    uuid users_id FK
+    uuid company_id FK
+    uuid job_id FK
+    enum type "new_jobs|application_status|job_alert|bookmark_reminder|company_follow|application_recieved|profile_view|message_recieved|resume_analysed|announcement"
+    timestamp created_at
+    timestamp read_at
+  }
+
   USERS }o--o| COMPANIES : "belongs to"
   USERS ||--o{ JOBS : "creates"
   USERS ||--o{ APPLICATIONS : "submits"
@@ -414,33 +425,66 @@ erDiagram
   USERS ||--o{ USER_EDUCATION : "has"
   USERS ||--o{ USER_COMPANIES_FOLLOWS : "follows"
   USERS ||--o{ EMAIL_VERIFIED : "has"
+  USERS ||--o{ NOTIFICATIONS : "receives"
 
   COMPANIES ||--o{ JOBS : "posts"
   COMPANIES ||--o{ SAVED_JOBS : "referenced in"
   COMPANIES ||--o{ USER_COMPANIES_FOLLOWS : "followed by"
+  COMPANIES ||--o{ NOTIFICATIONS : "triggers"
 
   JOBS ||--o{ APPLICATIONS : "receives"
   JOBS ||--o{ SAVED_JOBS : "saved in"
+  JOBS ||--o{ NOTIFICATIONS : "linked to"
 ```
+## Cron Task
 
-## Cron Task:
+- A cron job runs every night at **12:00 AM (midnight)** using the `node-cron` library.  
+- The Main responsibility is to keep a job listing a clean and the relvent by
+closed a expired job posts
+- The job that checks any jobs where the `created_at` date is older than 30 days
+and the job still marked as open when such job found it update a `is_job_open`
+column from `open` to `closed`
+- `The update will perofm on thesingle update query which is really fast and
+doesn't lock the table for long
+- After the update the script logs number of jobs that were closed 
 
-- A cron task runs at a specific time that we define.
-- I'm using cron for jobs that have an expiry time of 30 days. It checks every night at midnight.
-- At every noon, the cron node checks if any jobs have expired. If expired, it updates the `is_job_active` column in the `jobs` table to "closed".
 
-## Testing:
-
-- Set up the basic configuration using `jest` and `supertest`, and test only the `/api/v1/jobs` endpoints.
-- Add testing using `jest` and `supertest` for all job routes.
-- Include only two test routes initially: `/jobs`, `/jobs/:id`, and `/users/login-status`.
-- More tests will be added in the coming days, mainly for job and user routes.
-
-### Planned:
-
-- Unit testing
-- Integration testing (using supertest)
-- Focus on critical routes (auth, jobs, companies)
+## Testing
+- The test suits is build with jest as test runner and supertest for making http
+request to express without starting network server
+- A central `setup.js` define a base url and eport all the test files, with
+custom `mocks` helper provide a `loginUser` to login in a predefined test user
+#### Tested endpoints:
+- **Jobs endpoints**:
+  - `GET /jobs` – pagination, sorting, and validation of query parameters.
+  - `GET /jobs/search` - Handle search edge case and also a authorized users
+  - `GET /jobs/:id` - Validate a UUID format and handle a non existent id 
+  - `POST /jobs//new` - reject of unauthorized users and invalid data 
+  - `PATCH /jobs/:id/edit` - UUID validate and unauthorized edit attempts
+  - `DELETE /jobs/:id/delete` - similar validation with unauthorized check 
+ - Bookmark endpoints (`saved_jobs/list`, `bookmark_job`, `remove_from_bookmark`) – basic auth and UUID checks.
+  - `verify-owner`  – only owner can access that uid
+<!-- - **Users endpoints**: -->
+<!--   - `GET /users/all` – ensures the response contains the expected fields (`userid`, `firstname`, `lastname`, `email`). -->
+<!--   - `GET /users/login-status` – returns 401 for unauthenticated requests. -->
+<!--   - `POST /users/login` – validation of empty/invalid emails and non‑existent users. -->
+<!--   - `POST /users/signup` – validation of missing fields and invalid email domains. -->
+<!--   - `GET /users/:id` – handles invalid UUID format. -->
+<!--   - `PUT /users/:id` – rejects invalid update data. -->
+<!--   - `DELETE /users/:id` – catches incorrect ID formats. -->
+<!--   - `POST /users/:id/skills` – missing field handling. -->
+<!--   - `POST /users/verify`, `/verify/resend`, `/forget-password`, `/forget-password/verify` – basic input validation. -->
+<!--   - File upload endpoints (`profile-picture`, `resume`) – check for unauthorised access (401/403). -->
+<!--   - `GET /users/following` – requires authentication. -->
+<!--   - `GET /users/logout` – always returns 200 (cookie cleared). -->
+<!--   - `POST /users/add-education` – validation of empty education fields. -->
+<!---->
+### Planned
+- **Unit tests** for utility functions (e.g., UUID validation, email formatting, token generation).  
+- Integration of the tests that simulate a full user flows from end to end:  signup → email verification → login → apply to a job → bookmark → withdraw.  
+- job application status:  (→pending → shortlisted → applied/shorthired/rejected).
+- Handle a edge condition like race condition with apply a same job twice or
+another employee tries to delete a jobs listing that where users is doing something
 
 ## Deployment
 
@@ -473,7 +517,7 @@ PostgreSQL database and file storage (resumes, profile pictures) are both hosted
 
 File uploads are handled via the `@supabase/supabase-js` SDK — files go directly into Supabase Storage buckets and the returned public URL is saved to the database.
 
-## Security:
+## Security
 
 ### validation Security
 
@@ -495,7 +539,7 @@ File uploads are handled via the `@supabase/supabase-js` SDK — files go direct
   - Also have one more feature it's add 12 more responsive header, for better secuirty purpose of prevent from the `xss attack`.
 - Use the `cors` library for only allow my client url dont' allow any external api endpoints which also have a better security feature for avoid a cross side attack."_ — should read something like: _"Uses the `cors` library to whitelist only the client URL, blocking external origins to prevent cross-origin attacks.
 
-### Middlewares:
+### Middlewares
 
 - Validate all incoming requests using middleware on both the client side and the server side to guarantee data consistency and security.
 
@@ -539,7 +583,7 @@ File uploads are handled via the `@supabase/supabase-js` SDK — files go direct
 - **Caching** is not yet implemented but the architecture is ready for it — currently comfortable handling up to ~10k MAU.
 - **Monitoring & observability** is planned for when the user base grows — not a priority at the current scale but will be added before hitting 10k+ users.
 
-## Challenges & Learnings:
+## Challenges & Learnings
 
 - **UI inconsistencies**
   Some components still have minor alignment and responsiveness issues across different screen sizes.
