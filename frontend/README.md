@@ -96,6 +96,8 @@ App runs on: http://localhost:5173
 - For company dashboard, removed explicit ID — direct navigation.
 - For text truncation: used `line-clamp-2`.
 - Extra Validation for Weak Password
+- Reduce a image size by 75% on the Docker Image both client and the Server Side
+- Minor Bug of Instead of Resume add a Image Link.
 
 ## Future Features:
 1. Company can change applicant status

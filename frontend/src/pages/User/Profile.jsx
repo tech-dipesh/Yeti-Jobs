@@ -15,6 +15,7 @@ import Buttoncomps from '../../components/common/Button';
 import { useAuth } from "../../context/Authcontext"
 import getOriginalFileName from '../../services/getOriginalFileName';
 import Followinglist from '../../components/common/User/Followinglist';
+import SEO from '../../hooks/useSEO'
 export default function Individualuser() {
   const [open, setOpen] = useState(false);
   const { data: globalContext } = useAuth()
@@ -48,7 +49,8 @@ export default function Individualuser() {
     }
   }
   const { profile_pic_url, fname, lname, email, education, experience, resume_url, skills, phone_number, degree } = data?.message || {}
-  const originalName = getOriginalFileName(profile_pic_url)
+  const profileOriginalName = getOriginalFileName(profile_pic_url)
+  const resumeOriginalName = getOriginalFileName(resume_url)
   const { role } = globalContext ?? {};
   if (loader || loading) {
     return <Loading />
@@ -58,11 +60,12 @@ export default function Individualuser() {
   }
   return (
     <div className='max-w-3xl mx-auto p-6 space-y-6'>
+      <SEO title="Yeti Jobs" description='Job Portal Profile'/>
       {data &&
         <div className='grid'>
           <div className='flex flex-col items-center mb-4'>
             <img src={profile_pic_url || defaultImage} loading='lazy' alt='profile' className='h-32 w-32 rounded-full object-cover border-4 border-gray-300 shadow-lg' />
-            {profile_pic_url && <span className='text-xs text-gray-400 mt-2 max-w-36 truncate text-center tracking-wide'>{originalName}</span>}
+            {profile_pic_url && <span className='text-xs text-gray-400 mt-2 max-w-36 truncate text-center tracking-wide'>{profileOriginalName}</span>}
           </div>
           <span className='grid justify-center mt-4'> <Linkcomps to={'profile-picture'} content={<ButtonComps values='Change Photo' />}></Linkcomps></span>
           <div className='grid justify-center mb-4'>
@@ -106,7 +109,7 @@ export default function Individualuser() {
           <Errorloading data={{ error: err }} />
           <div className='grid align-middle justify-items-center  gap-3 mt-6 pt-4 '>
             <Textcomps content={'Resume'} />
-            {resume_url ? <Textcomps content={originalName} /> : <Textcomps style={'text-red-500'} content={'No Resume Added'} />}
+            {resume_url ? <Textcomps content={resumeOriginalName} /> : <Textcomps style={'text-red-500'} content={'No Resume Added'} />}
             <div className='flex gap-6'>
               {resume_url && <Linkcomps content={'View Resume'} to={resume_url} />}
               <Linkcomps to='resume' content={<Buttoncomps values={'Upload Resume'} />} />
