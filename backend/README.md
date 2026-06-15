@@ -45,6 +45,11 @@ Backend service for Yeti Jobs built with Node.js, Express, and PostgreSQL, provi
 - GET /search/company
 - GET /dashboard
 
+### Notifications:
+- GET /notifications
+- PATCH /notifications/:id/read
+- POST /notifications/all-read
+
 ## Core Features
 - Job management (CRUD)
 - Application system (apply, withdraw, status)
@@ -52,7 +57,9 @@ Backend service for Yeti Jobs built with Node.js, Express, and PostgreSQL, provi
 - Bookmark jobs
 - Followers system
 - Email verification and password reset
-
+- Noifications System as soon as followed company post as soon company post new
+  Job It'' be shown on the Notifications routes
+  
 
 
 ## Swagger:
@@ -209,7 +216,8 @@ Client → Routes → Controllers → Services → Database
 - Move my system to the src folder structure.
 - One really weird bug during the email confirmation is current Date is freezing and sending a old time rather we should do: `new Date()`
 - set the limit proxy to allow a render: `set proxy, 1`
-
+#### June:
+- Add a Notifications system Integrated
 
 
 ## Applications Feature
@@ -385,4 +393,9 @@ supabase.storage.from('bucketname').getPublicUrl(pathurl)
 ## Docker Setup (March 19)
 - Used `npm ci` instead of `npm i` for smaller, faster image
 - Added `.dockerignore` to exclude: `node_modules`, `.env`, `Dockerfile`, etc.
-- Build command: `docker build -t job_portal .`
+- Build command: `docker build -t yeti-backend .`
+- Run Docker: `docker run -p 3000:3000 --env-file .env yeti-backend`
+
+
+## Major Things After June/26:
+- Trying to Integrate a Notification Routes

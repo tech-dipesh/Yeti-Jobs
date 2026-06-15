@@ -36,6 +36,8 @@ const dropIndexes = `
   DROP INDEX IF EXISTS idx_user_educations_user_id;
   DROP INDEX IF EXISTS idx_ats_scores_user_id;
   DROP INDEX IF EXISTS idx_ats_scores_user_id;
+  DROP INDEX IF EXISTS idx_notifications_user_read;
+  DROP INDEX IF EXISTS idx_notifications_user_created;
 ;`
 
 
