@@ -5,9 +5,9 @@ export const showAllNotifications=async(req, res)=>{
   const {uid}=req.user;
   const {unread}=req.query
   console.log('unread', unread)
-  console.log('uid', uid)
+  console.log('users id', uid)
   try {
-    const {rows}=await client.query("select * from notifications where users_id=$1", [uid]);
+    const {rows}=await client.query("select * from notifications where users_id=$1 order by created_at desc", [uid]);
     return res.status(200).json({ message:  rows});
   } catch (error) {
     console.error(error);
