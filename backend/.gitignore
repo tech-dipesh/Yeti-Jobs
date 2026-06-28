@@ -8,3 +8,5 @@ diagram-dark.png
 enum.md
 sql-commands.sql
 user.sql
+pnpm-lock.yml
+pnpm-lock.yaml
