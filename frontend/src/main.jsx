@@ -26,29 +26,26 @@ const AllBookmarks = lazy(() => import('./pages/Jobs/AllBookmarks'))
 const EditJob = lazy(() => import('./pages/Jobs/EditJob'))
 const Newjob = lazy(() => import('./pages/Jobs/Newjob'))
 
-import Singlecompany from './pages/Companies/Singlecompany'
-import Resetpassword from './pages/User/Resetpassword'
-import VerifyEmail from './pages/User/Verifyemail'
-import Jobs from "./pages/Jobs/Alljob"
-import IsOwnerandloggedIn from './components/auth/isOwnerAndLoggedIn'
-import IsEmployee from './components/auth/IsEmployee'
-import Isadmin from './components/auth/Isadmin'
-import Searchjobs from './pages/Jobs/Searchjobs'
-import IsloggedinUser from "./components/auth/isLoggedInUser"
-import AuthProvider from './context/Authcontext'
+const Singlecompany =lazy(()=> import('./pages/Companies/Singlecompany'))
+const Resetpassword =lazy(()=> import('./pages/User/Resetpassword'))
+const CompanyFollowers =lazy(()=> import('./pages/Companies/CompanyFollowers'))
+const Addeducation =lazy(()=> import('./pages/User/Addeducation'))
+
 import Home from './pages/Home'
 import Login from './pages/User/Login'
 import Signup from './pages/User/Signup'
 import ProfilePhoto from './pages/User/AddProfilePhoto'
 import Errorpage from './pages/Errorpage'
 import Loading from './components/Loading'
-import CompanyFollowers from './pages/Companies/CompanyFollowers'
 import Notfound from './pages/Notfound'
-import Addeducation from './pages/User/Addeducation'
-
-
-
-
+import Jobs from "./pages/Jobs/Alljob"
+import IsOwnerandloggedIn from './components/auth/isOwnerAndLoggedIn'
+import VerifyEmail from './pages/User/Verifyemail'
+import IsEmployee from './components/auth/IsEmployee'
+import Isadmin from './components/auth/Isadmin'
+import Searchjobs from './pages/Jobs/Searchjobs'
+import IsloggedinUser from "./components/auth/isLoggedInUser"
+import AuthProvider from './context/Authcontext'
 
 const router = createBrowserRouter([
   {
