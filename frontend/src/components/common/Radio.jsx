@@ -1,5 +1,12 @@
 export default function Radio({ options, value, click, name, layout = 'vertical' }) {
-  const handleChange = (val) => { if (click) click(val); };
+const handleChange = (val) => {
+  if (!click) return;
+  if (name) {
+    click(prev => ({ ...prev, [name]: val }));
+  } else {
+    click(val);
+  }
+};
   return (
     <div className={`flex ${layout === 'horizontal' ? 'flex-row gap-6' : 'flex-col gap-2'}`}>
       {options.map((opt) => (

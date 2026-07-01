@@ -7,7 +7,7 @@ router.get("/all",showAllNotifications)
 
 router.patch("/read-all", ReadAllNotifications)
 router.post("/:id", validateCorrectUid, sendUserNotifications)
-router.patch("/:id/status", validateCorrectUid, ReadUnreadSingleNotifications)
+router.patch("/:id/read", validateCorrectUid, ReadUnreadSingleNotifications)
 
 
 

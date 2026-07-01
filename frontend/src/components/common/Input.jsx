@@ -2,6 +2,7 @@ export default function InputComps({placeholder, type='text', value, click, erro
   if(error==undefined) error=function(){}
   if(click==undefined) click=function(){}
   const handleEveryInputChange=(e)=>{
+    if(!click)return;
     if(name){
       click((prev)=>({...prev, [name]: e.target.value}))
       error("")
