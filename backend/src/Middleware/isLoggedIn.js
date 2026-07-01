@@ -3,7 +3,7 @@ import "dotenv/config"
 
 const authUserMiddleware = async(req, res, next) => {
   const { token } = req.cookies;
-  if (!token) return res.status(401).json({ message: 'No token Please Loged in First' });
+  if (!token) return res.status(401).json({ message: 'No token Please Logged in First' });
   try {
     req.user = jwt.verify(token, process.env.JSON_SECRET_KEY); 
     if(req.user.verify===false){
