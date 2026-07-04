@@ -13,9 +13,39 @@ export default function Notifications() {
   const { data, loading, execute } = useFetchData(ShowAllNotifications)
   const { execute: toggleRead } = useFetchData(ReadUserSingleNotifications)
   const { execute: readAll } = useFetchData(ReadAllNotifications)
+  const [notifications, setNotifications] = useState([])
   const [tab, setTab] = useState('All')
   const [search, setSearch] = useState('')
   const debouncedSearch = useDebounce(search, 300)
+
+  useEffect(() => { execute() }, [])
+  useEffect(() => { if (data?.message) setNotifications(data.message) }, [data])
+
+  const handleToggle = async (uid, markAsRead) => {
+    await toggleRead({ id: uid, isRead: markAsRead })
+    setNotifications(prev =>
+      prev.map(n => n.uid === uid ? { ...n, read_at: markAsRead ? new Date().toISOString() : null } : n)
+    )
+  }
+const filteredNotifications = useMemo(() => {
+  return notifications
+    .filter(n => {
+      if (tab === 'Unread') return !n.read_at;
+      if (tab === 'Read') return !!n.read_at;
+      return true;
+    })
+    .filter(n => {
+      const searchQuery = debouncedSearch?.toLowerCase();
+      if (!searchQuery) return true;
+
+      return (
+        n.type.includes(searchQuery) ||
+        n.job_title?.toLowerCase().includes(searchQuery) ||
+        n.company_name?.toLowerCase().includes(searchQuery)
+      );
+    });
+}, [notifications, tab, debouncedSearch]);
+
  const handleReadAll = async () => {
     await readAll()
     setNotifications(prev => prev.map(n => ({ ...n, read_at: n.read_at ?? new Date().toISOString() })))
@@ -58,7 +88,38 @@ export default function Notifications() {
           className='w-full bg-[#314158]/60 border border-slate-600/50 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition-all'
         />
 
-        
+        <div className='flex gap-1 bg-slate-800/40 border border-slate-700/40 rounded-xl p-1'>
+          {TABS.map(t => (
+            <button
+              key={t}
+              onClick={() => setTab(t)}
+              className={`flex-1 text-sm font-medium py-1.5 rounded-lg transition-all cursor-pointer
+                ${tab === t ? 'bg-[#314158] text-white shadow-sm' : 'text-slate-400 hover:text-white'}`}
+            >
+              {t}
+              {t === 'Unread' && unreadCount > 0 && (
+                <span className='ml-1.5 text-xs bg-cyan-400/15 text-cyan-400 px-1.5 py-0.5 rounded-full'>
+                  {unreadCount}
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+
+        {FilterNotifications.length === 0 ? (
+          <div className='flex flex-col items-center justify-center py-24 gap-3'>
+            <div className='w-12 h-12 rounded-2xl bg-[#314158]/50 border border-slate-700/50 flex items-center justify-center'>
+              <Bell className='w-5 h-5 text-slate-600' />
+            </div>
+            <p className='text-slate-500 text-sm'>
+              {debouncedSearch ? 'No results found' : tab === 'Unread' ? "You're all caught up" : 'No notifications yet'}
+            </p>
+          </div>
+        ) : (
+          <div className='flex flex-col gap-2 pt-1'>
+            {FilterNotifications.map(n => <Notificationcard key={n.uid} notification={n} onToggleRead={handleToggle} />)}
+          </div>
+        )}
 
       </div>
     </div>
