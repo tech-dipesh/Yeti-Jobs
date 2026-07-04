@@ -1,14 +1,12 @@
 import {Router} from "express";
 import {sendUserNotifications, ReadAllNotifications, ReadUnreadSingleNotifications, showAllNotifications} from '../controllers/notifications.controller.js';
-const router = Router();
 
 import validateCorrectUid from "../Middleware/validateCorrectUid.js";
-router.get("/all",showAllNotifications)
+const router = Router();
 
+router.get("/all",showAllNotifications)
 router.patch("/read-all", ReadAllNotifications)
 router.post("/:id", validateCorrectUid, sendUserNotifications)
 router.patch("/:id/read", validateCorrectUid, ReadUnreadSingleNotifications)
-
-
 
 export default router;
