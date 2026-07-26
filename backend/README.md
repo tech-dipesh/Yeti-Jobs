@@ -15,9 +15,12 @@ Backend service for Yeti Jobs built with Node.js, Express, and PostgreSQL, provi
 - GET /resume
 - POST /upload-profile-picture
 - POST /add-education
+- GET /health
+- GET /:id/verify-owner
 
 ### Jobs
 - GET /
+- GET /jobs
 - GET /search
 - GET /:id
 - POST /new
@@ -27,6 +30,10 @@ Backend service for Yeti Jobs built with Node.js, Express, and PostgreSQL, provi
 - DELETE /:id/remove-bookmark
 
 ### Applications
+- GET /notifications/all
+- PATCH /read-all
+- POST /:id
+- PATCH /:id/read
 - GET /applylist
 - POST /:id/apply
 - DELETE /:id/withdraw
@@ -38,6 +45,8 @@ Backend service for Yeti Jobs built with Node.js, Express, and PostgreSQL, provi
 - GET /:id/dashboard
 - GET /:id/jobs
 - GET /:id/applications
+- POST /:id/follow
+- DELETE /:id/follow
 
 ### Admin
 - POST /assign-user
@@ -88,7 +97,9 @@ Client → Routes → Controllers → Services → Database
 - Helmet for secure headers
 - Rate limiting (anti-brute-force)
 - CORS configuration
-
+- The Payload claims on the jwt have a multiple claims such as: `(uid, role,company_id, verify)`
+- With the exact cookie flags `(httpOnly, secure, sameSite, maxAge)` with sameSite make a `none` which required due to frontend/backend are at the different domains.
+- It's added due to cross origin deployment details with a legitimately non trivals things as a developer.
 
 ## File Upload
 - Uses Supabase for storage
@@ -147,6 +158,14 @@ Client → Routes → Controllers → Services → Database
       <img src="assets/supabase-schema.png" alt="Database Schema" width="250" height='250'>
   </picture>
 </p>
+
+## Database Migration System:
+- Schema is built from 14 numbered SQL file with executed order from `migrate.js`
+- Also Strictly followed a dependency ordering (extensions -> enums -> tables -> indexes -> triggers )
+- which we've to consider a schema evolution and the idempotent migratino with
+the (if not exists ) guards
+- The `migrate.js` which read own directory with the `readdirSync` and relies on the alphabetical/numeric ordering
+
 
 ## Coming Days Features:
 - `npm audit` — check vulnerabilities
@@ -264,6 +283,9 @@ supabase.storage.from('bucketname').getPublicUrl(pathurl)
 - `to_tsquery('help & right')` — both must exist
 - `to_tsquery('help | right')` — one must exist
 - `@@` is match operator
+- The trigger exists that keeps `search_title` in sync automatically on the
+insert/update for the data consistency at the database layer so the app layer
+never has to remember to update it.
 
 
 ## Security Features (2026/02/25)

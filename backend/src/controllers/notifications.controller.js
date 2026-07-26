@@ -1,6 +1,4 @@
 import client from '../db.js';
-
-import validatecorrectuid from '../utils/validatefunuid.js'
 export const showAllNotifications=async(req, res)=>{
   const {uid}=req.user;
   const {unread}=req.query

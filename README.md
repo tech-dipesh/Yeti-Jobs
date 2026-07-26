@@ -242,7 +242,7 @@ Here’s the shorter, cleaner version of what you need — straight to the point
 
 ```bash
   cd backend
-  touch .env # Create Env File
+  cp .env.example .env
   vim .env (Insert all the env keys on here)
 ```
 
@@ -259,7 +259,7 @@ node app.js # Run our nodejs server
 
 ```bash
 cd frontend
-touch .env
+cp .env.example .env
 vim .env # Insert a: VITE_SERVER_URL on .env file.
 ```
 
