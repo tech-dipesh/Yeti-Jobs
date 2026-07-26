@@ -51,7 +51,7 @@ export default function Notificationcard({ notification, onToggleRead }) {
             <FontAwesomeIcon icon={faEllipsisVertical} className='text-xs' />
           </button>
           {open && (
-            <div className='absolute right-0 top-6 z-10 bg-slate-800 border border-slate-700 rounded-xl shadow-xl py-1 min-w-[130px]'>
+            <div className='absolute right-0 top-6 z-10 bg-slate-800 border border-slate-700 rounded-xl shadow-xl py-1 min-w-32.5'>
               <button
                 onClick={() => { handleToggle(); setOpen(false) }}
                 className='w-full text-left text-xs px-4 py-2.5 text-slate-300 hover:bg-[#314158] hover:text-white transition-colors cursor-pointer'

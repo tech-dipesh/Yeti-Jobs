@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Bell } from 'lucide-react'
 import useFetchData from '../../hooks/useFetchData'
 import { ShowAllNotifications, ReadUserSingleNotifications, ReadAllNotifications } from '../../api/auth.notifications.js'
-import { FilterNotifications } from "../../Data/Notificationslist.js";
+// import { FilterNotifications } from "../../Data/Notificationslist.js";
 import Loading from '../../components/Loading'
 import Notificationcard from '../../components/common/User/Notificationcard'
 import useDebounce from '../../hooks/useDebounce'
@@ -19,7 +19,14 @@ export default function Notifications() {
   const debouncedSearch = useDebounce(search, 300)
 
   useEffect(() => { execute() }, [])
-  useEffect(() => { if (data?.message) setNotifications(data.message) }, [data])
+  const NotificationSetFun = ()=>{
+    if (data?.message) setNotifications(data.message) 
+    }
+  useEffect(() => {
+    if (data?.message && JSON.stringify(data.message) !== JSON.stringify(notifications)) {
+      setNotifications(data.message)
+    }
+  }, [data]) 
 
   const handleToggle = async (uid, markAsRead) => {
     await toggleRead({ id: uid, isRead: markAsRead })
@@ -39,7 +46,7 @@ const filteredNotifications = useMemo(() => {
       if (!searchQuery) return true;
 
       return (
-        n.type.includes(searchQuery) ||
+        n.type.toLowerCase().includes(searchQuery) ||
         n.job_title?.toLowerCase().includes(searchQuery) ||
         n.company_name?.toLowerCase().includes(searchQuery)
       );
@@ -62,8 +69,8 @@ const filteredNotifications = useMemo(() => {
 
         <div className='flex items-center justify-between mb-2'>
           <div className='flex items-center gap-3'>
-            <div className='w-9 h-9 rounded-xl bg-[#314158] border border-slate-600/60 flex items-center justify-center'>
-              <Bell className='w-4 h-4 text-cyan-400' />
+            <div className='w-9 h-9 rounded-xl border-y-indigo-900 border border-slate-600/60 flex items-center justify-center'>
+              <Bell className='w-4 h-4 text-slate-700' />
             </div>
             <div>
               <h1 className='text-lg font-bold text-white'>Notifications</h1>
@@ -105,8 +112,7 @@ const filteredNotifications = useMemo(() => {
             </button>
           ))}
         </div>
-
-        {FilterNotifications.length === 0 ? (
+        {filteredNotifications.length === 0 ? (
           <div className='flex flex-col items-center justify-center py-24 gap-3'>
             <div className='w-12 h-12 rounded-2xl bg-[#314158]/50 border border-slate-700/50 flex items-center justify-center'>
               <Bell className='w-5 h-5 text-slate-600' />
@@ -117,7 +123,7 @@ const filteredNotifications = useMemo(() => {
           </div>
         ) : (
           <div className='flex flex-col gap-2 pt-1'>
-            {FilterNotifications.map(n => <Notificationcard key={n.uid} notification={n} onToggleRead={handleToggle} />)}
+            {filteredNotifications.map(n => <Notificationcard key={n.uid} notification={n} onToggleRead={handleToggle} />)}
           </div>
         )}
 

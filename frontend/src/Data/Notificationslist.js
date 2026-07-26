@@ -14,18 +14,18 @@ export const NOTIFICATION_CONFIG = {
 }
 
 
-export const FilterNotifications = notifications .filter(n => {
-    if (tab === 'Unread') return !n.read_at;
-    if (tab === 'Read') return !!n.read_at;
-    return true;
-  })
-  .filter(n => {
-    const search = debouncedSearch?.toLowerCase();
-    if (!search) return true;
+// export const FilterNotifications = notifications.filter(n => {
+//   if (tab === 'Unread') return !n.read_at;
+//   if (tab === 'Read') return !!n.read_at;
+//   return true;
+// })
+// .filter(n => {
+//   const search = debouncedSearch?.toLowerCase();
+//   if (!search) return true;
 
-    return (
-      n.type.includes(search) ||
-      n.job_title?.toLowerCase().includes(search) ||
-      n.company_name?.toLowerCase().includes(search)
-    );
-  });
+//   return (
+//     n.type.includes(search) ||
+//     n.job_title?.toLowerCase().includes(search) ||
+//     n.company_name?.toLowerCase().includes(search)
+//   );
+// });

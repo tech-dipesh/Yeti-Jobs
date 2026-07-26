@@ -72,7 +72,7 @@ const router = createBrowserRouter([
         children: [
           {index: true, element: <Notifications/>}
         ]
-      },  
+      },
       {
         path: "jobs",
         element: <IsloggedinUser />,
