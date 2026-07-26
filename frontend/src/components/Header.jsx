@@ -67,7 +67,8 @@ export default function Header() {
             ) : (
                 <FontAwesomeIcon icon={faUser} size='sm' className="text-white" />
               )}
-          </div>          {profile && (
+          </div>
+          {profile && (
             <nav className='absolute top-14 right-0 bg-neutral-800 shadow-2xl rounded-lg p-2 w-52 border border-neutral-600 z-50 flex flex-col gap-1'>
 
               <div className='px-3 py-2 border-b border-neutral-600 mb-1'>
@@ -89,7 +90,7 @@ export default function Header() {
               </span>
 
               <div className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm
-${verify ? 'bg-green-900/30 text-green-400' : 'bg-red-900/30 text-red-400'}`}
+                ${verify ? 'bg-green-900/30 text-green-400' : 'bg-red-900/30 text-red-400'}`}
               >
                 <FontAwesomeIcon icon={verify ? faUserCheck : faUserXmark} className='w-4' />
                 <span>{verify ? 'Verified Account' : 'Not Verified'}</span>
@@ -135,6 +136,7 @@ ${verify ? 'bg-green-900/30 text-green-400' : 'bg-red-900/30 text-red-400'}`}
 
   const guestNavLinks = (
     <>
+      <Link to={"/notifications"}> <Bell className='cursor-pointer'/></Link>
       <Linkcomps to='/jobs' content='Jobs' />
       <Linkcomps to='/jobs/bookmarks' content='Bookmarks' />
       <Linkcomps to='/applications/me' content='Applied Jobs' />
@@ -158,7 +160,6 @@ ${verify ? 'bg-green-900/30 text-green-400' : 'bg-red-900/30 text-red-400'}`}
 
   const allNavLinks = (
     <div className='hidden md:flex gap-7 ml-auto items-center'>
-      <Link to={"/notifications"}> <Bell className='cursor-pointer'/></Link>
       {role === 'guest' && guestNavLinks}
       {userProfile}
     </div>
