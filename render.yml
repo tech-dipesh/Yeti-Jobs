@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: yeti-jobs-backend
+    env: node
+    region: singapore    
+    rootDir: backend     
+    buildCommand: npm install 
+    startCommand: npm run backend
+    envVars:
+      - key: PORT
+        value: 3000   
+      - key: DATABASE_PASSWORD
+        sync: false
+      - key: URL_SUPABASE_CONNECT
+        sync: false
+      - key: ANON_KEY_SUPABASE
+        sync: false
+      - key: NODEMAILER_MY_EMAIL
+        sync: false
+      - key: NODEMAILER_MY_PASSWORD
+        sync: false
+      - key: NODEMAILER_MY_HOST
+        sync: false
+      - key: JSON_SECRET_KEY
+        generateValue: true 
+      - key: CLIENT_BASE_URL
+        sync: false       
+      - key: MAXAGE
+        value: "604800000"  
+      - key: GROK_API
+        sync: false   
