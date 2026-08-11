@@ -149,6 +149,7 @@ export default function Addresume() {
           className={`p-4  rounded-xl font-semibold transition-colors bg-slate-700 w-auto border-none ${file?.name ? 'cursor-pointer bg-blue-600 text-white' : 'cursor-not-allowed opacity-50 text-neutral-500 bg-neutral-700'}`}
         >{loading ? 'Uploading...' : 'Submit'}</button>
       </div>
+      <Errorloading data={{ error: error || err || errState }} />
     </div>
   )
 }

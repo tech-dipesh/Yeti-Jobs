@@ -10,10 +10,7 @@ const client = new Pool({
   connectionTimeoutMillis: 10000,
 });
 // try {
-//   if(!(process.env.DATABASE_PASSWORD)){
-//     throw new Error("Please Enter DATABASE_PASSWORD")
-//   }
-//   await client.connect()
+//  //   await client.connect()
 //   console.log('connected to database');
 // } catch (error) {
 //   console.log('err', error)
@@ -24,10 +21,13 @@ export { client as connect };
 export {client as Pool}
 (async () => {
   try {
+    if(!(process.env.DATABASE_PASSWORD)){
+       throw new Error("Please Enter DATABASE_PASSWORD ENV")
+     }
     await client.query('SELECT 1');
     console.log('Database connected successfully');
   } catch (err) {
-    console.error('Database connection failed:', err.message);
+    console.error('Database connection failed:', err);
     process.exit(1);
   }
 })();
