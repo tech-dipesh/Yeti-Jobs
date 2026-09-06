@@ -25,8 +25,9 @@ export const applyJobApplicationController=async (req, res)=>{
   const {uid}=req?.user;
   const {id: job_id}=req.params;
   const {cover_letter, notice_period, expected_salary, why_hire}=req.body;
+  const AllBodyValue={...req.body, status: "applied"}
   try {
-    const validateListing=applicationSchema.safeParse(req.body);
+    const validateListing=applicationSchema.safeParse(AllBodyValue);
   if(!validateListing.success){
       const message=validateListing.error.issues[0].message;
       return res.status(422).json({message: message})

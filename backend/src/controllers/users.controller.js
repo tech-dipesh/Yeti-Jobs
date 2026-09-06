@@ -8,7 +8,6 @@ import dns from "dns/promises"
 import VerifyJwt from "../services/verifyJwt.js";
 import jwt from "jsonwebtoken"
 import "dotenv/config"
-import { verify } from "crypto";
 export const getAllUserController= async (req, res)=>{
   try {
     const {rows}=await connect.query("select uid as userId, fname as firstName, lname as lastName, education, email, role, resume_url, profile_pic_url, skills, experience from users")
@@ -19,22 +18,22 @@ export const getAllUserController= async (req, res)=>{
 }
 
 export const sendUserLoggedInStatus=async (req, res)=>{
-    const { token } = req.cookies;
-    const message={login: false, verify: false};
-    try {
-      if (!token) return res.status(401).json({message});
-      req.user = jwt.verify(token, process.env.JSON_SECRET_KEY);   
-      if(req.user.verify==false){
-        message.login=true;
-        return res.status(403).json({message})
-      }
+  const { token } = req.cookies;
+  const message={login: false, verify: false};
+  try {
+    if (!token) return res.status(401).json({message});
+    req.user = jwt.verify(token, process.env.JSON_SECRET_KEY);   
+    if(req.user.verify==false){
       message.login=true;
-      message.verify=true;
-    const {rows}=await connect.query("select profile_pic_url from users where uid=$1", [req.user?.uid])
-      return res.status(200).json({message:req.user, url: rows[0]?.profile_pic_url})
-    } catch(err) {
-      return res.status(403).json({message});
+      return res.status(403).json({message})
     }
+    message.login=true;
+    message.verify=true;
+    const {rows}=await connect.query("select profile_pic_url from users where uid=$1", [req.user?.uid])
+    return res.status(200).json({message:req.user, url: rows[0]?.profile_pic_url})
+  } catch(err) {
+    return res.status(403).json({message});
+  }
 }
 
 export const getloginUserController= async (req, res) => {
@@ -56,8 +55,8 @@ export const getloginUserController= async (req, res) => {
     let {uid, role, company_id=null}=rows[0];
     if(!role)role='guest'
     const verify=await isUserVerifiedEmail(uid)
-   const content={uid, role, company_id, verify};
-   VerifyJwt(res, content)
+    const content={uid, role, company_id, verify};
+    VerifyJwt(res, content)
     return res.status(200).json({message: "Succssfully Logged In"});
   } catch (error) {
     return res.status(500).json({message: error.message}) 
@@ -108,7 +107,7 @@ export const postSignupUserController= async (req, res) => {
       [fname, lname, education, email, hashPassword],
     );
     const {uid, role, fname:firstName, lname:lastName, email:userEmail}=rows[0]
-     sendMail(uid, firstName, lastName, userEmail, 'verify')
+    sendMail(uid, firstName, lastName, userEmail, 'verify')
     const content={uid, role, company_id:null, verify: false};
     VerifyJwt(res, content)
     return res.status(201).json({message: "Succssfully Signed Up, Verification Code have been sent to your mail"})
@@ -126,7 +125,7 @@ export const deleteUserController= async (req, res) => {
     const {rows}=await tableDataFetch('users')
     return res.status(200).json({message: rows});
   } catch (error) {
-   return res.status(500).json({message: error.message});
+    return res.status(500).json({message: error.message});
   }
 };
 
@@ -145,27 +144,27 @@ export const addUserSkills=async (req, res)=>{
       return res.status(401).status(200).json({message: "Skills Already Exist"});
     }
     const {rows}=await connect.query("update users set skills=array_append(skills, $1) where uid=$2 returning *", [skills, uid])
-   return res.status(201).send({message: rows[0]})
+    return res.status(201).send({message: rows[0]})
   } catch (error) {
     return res.status(501).json({message: error.message})
   }
 }
 
 export const putUserController= async(req, res) => {
-   const {id}=req.params;
+  const {id}=req.params;
   const {fname, lname, education, email, experience, number }=req.body;
-    const validateuser=updateUserSchema.safeParse(req?.body);
+  const validateuser=updateUserSchema.safeParse(req?.body);
   if(!validateuser.success){
     const message=validateuser.error.issues[0].message;
     return res.status(422).json({message});
   }
   try {
     const {rows:query}=await connect.query("select exists(select 1 from users where uid=$1)", [id]);
-   if(!query[0].exists){
-    return res.status(201).json({message: "Invalid User Id"})
-   }
+    if(!query[0].exists){
+      return res.status(201).json({message: "Invalid User Id"})
+    }
     await connect.query("update users set fname=$1, lname=$2, education=$3, email=$4, experience=$5, phone_number=$6 where uid=$7", [fname, lname, education, email, experience, number, id])
-   return res.status(200).json({message: "Data Updated Succssfully"})
+    return res.status(200).json({message: "Data Updated Succssfully"})
   } catch (error) {
     console.log('error is', error)
     return res.status(500).json({message: error.message})
@@ -219,9 +218,9 @@ export const resumeInformation=async(req, res)=>{
 
 export const userLoggedOutcontroller=async(req, res)=>{
   const httpOptions={
-  httpOnly: true,
-  secure: true,
-  sameSite: "none"
+    httpOnly: true,
+    secure: true,
+    sameSite: "none"
   }
   res.clearCookie("token", httpOptions);
   return res.status(200).json({message: 'Logged Out Succssfully'});
@@ -230,21 +229,21 @@ export const userLoggedOutcontroller=async(req, res)=>{
 export const UserEducationAdd=async(req, res)=>{
   const {uid}=req.user;
   const validateuser=EducationUserSchema.safeParse(req.body)
-    if(!validateuser.success){
+  if(!validateuser.success){
     const message=validateuser.error.issues[0].message;
     return res.status(422).json({message: message})
   }
   try {
-     const connect=await Pool.connect()
-      await connect.query("begin")
-     const [{rows}]=await Promise.all([
+    const connect=await Pool.connect()
+    await connect.query("begin")
+    const [{rows}]=await Promise.all([
       connect.query("insert into user_educations (university_name, degree, start_date, end_date, grade, user_id) values ($1, $2, $3, $4, $5, $6) returning *", [ university_name, degree, start_date, end_date, grade, uid]),
       connect.query("delete from user_educations where uid=$1", [uid])
     ])
     await connect.query("commit")
     return res.status(201).json({message: rows[0]})
   } catch (error) {
-  await connect.query("rollback")
+    await connect.query("rollback")
     return res.status(500).json({message: error.message})
   } finally{
     await connect.release()
