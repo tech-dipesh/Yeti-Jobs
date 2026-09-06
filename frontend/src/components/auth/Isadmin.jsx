@@ -19,7 +19,7 @@ export default function Isadmin() {
     navigate("/auth/login", { state: { from: location.pathname }, replace: true });
     return;
   }
-  }, [error, navigate])
+  }, [error, navigate, data?.role])
   if (loading) return <Loading />;
   return <Outlet data={data} />
 }

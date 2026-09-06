@@ -1,53 +1,17 @@
 import { useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router'
+import { Link} from 'react-router'
 import Buttoncomps from '../ui/Button';
-import Popup from '../feedback/Popup';
-import InputComps from '../ui/Input';
-import ValidateApplication from '../../auth/Application/ValidateApplications';
-import Errorloading from '../ui/Errorloading';
 import { useAuth } from "../../context/Authcontext"
-import { applyToParticularJob } from '../../api/auth.applications';
-import Errorpopup from '../feedback/Errorpopup';
-import useFetchData from '../../hooks/useFetchData';
-import Loading from '../feedback/Loading';
-import CleanFilterEmptySpace from "../../auth/CleanFilterEmptySpace"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import {IndianRupee} from "lucide-react"
+import ApplyJobPopup from './Applyjobpopup';
 export default function EachJobAction({ setAction, data, }) {
   const { data: userValue } = useAuth()
   const { role } = userValue ?? {}
-  const { id } = useParams()
-  const navigate = useNavigate()
   const [loaddesc, setShowDesc] = useState(false)
   const { description, salary, skills, company_id, is_applied, is_owner, total_job_views } = data || {}
   const [apply, setApply] = useState(false)
-  const [value, setValue] = useState({ cover_letter: '', expected_salary: '', notice_period: '', why_hire: '' })
-  const [error, setError] = useState(null)
-  const { loading, error: apiapplyerror, execute } = useFetchData(applyToParticularJob)
-  const allDivOptions = [
-    { label: 'Cover Letter:', name: 'cover_letter', type: 'text' },
-    { label: 'Expected Salary:', name: 'expected_salary', type: 'number', required: true },
-    { label: 'Notice Period in:', name: 'notice_period', type: 'number', required: true },
-    { label: 'Why Should We Hire You?', name: 'why_hire', type: 'text' }
-  ]
-  const submitFormApply = async (e) => {
-    e.preventDefault()
-    const err = ValidateApplication(value)
-    if (err) {
-      setError(err)
-      return;
-    }
-    const clean = CleanFilterEmptySpace(value);
-    const res = await execute({ id, value: clean })
-    if (res) {
-      setApply(!apply)
-      navigate(0)
-    }
-  }
-  if (loading) {
-    return <Loading />
-  }
   return (
     <>
       <div className='bg-slate-800 rounded-2xl min-h-24'>
@@ -115,30 +79,7 @@ export default function EachJobAction({ setAction, data, }) {
         </div>
       }
       {
-        (!is_applied && apply) &&
-        <Popup header={'Apply To the Job:'} setOpen={setApply} open={apply} height='min-h-auto' width='w-2xl'>
-          <div>
-            <Errorpopup error={apiapplyerror} />
-            <form className='flex flex-col gap-4' onSubmit={submitFormApply}>
-              {allDivOptions?.map(({ label, name, type, required }, i) =>
-                <div className='flex flex-col gap-1' key={i}>
-                  <label className='text-sm text-gray-300'>{label} {required && <span className='text-red-500 text-5xl'>*</span>}</label>
-                  <InputComps value={value[name]} name={name} type={type} click={setValue} placeholder={label} error={setError} height={(name == 'cover_letter' || name == 'why_hire') && 'h-24'} />
-                  {
-                  (name == 'cover_letter' || name == 'why_hire') &&
-                   <span className='text-xs text-gray-400 text-right'>{250 - value[name]?.length} Charachter Left
-                   </span>
-                   }
-                </div>
-              )}
-              <Errorloading data={{ error }} />
-              <div className='justify-center flex'>
-                <Buttoncomps color={'bg-red-500'} />
-              </div>
-            </form>
-          </div>
-        </Popup>
-      }
+        (!is_applied && apply) && <ApplyJobPopup apply={apply} setApply={setApply} /> }
     </>
   )
 }
