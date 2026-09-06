@@ -1,5 +1,4 @@
-import React from 'react'
-import Loading from '../Loading';
+import Loading from '../feedback/Loading';
 export default function Errorloading({data}) {
   let {error, loading}=data;
 

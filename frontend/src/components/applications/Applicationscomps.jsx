@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import { Link } from 'react-router'
-import Linkcomps from '../Linkcomps'
+import Linkcomps from '../ui/Linkcomps'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock,faBan,  faFileLines, faCommentDots, faBuilding } from '@fortawesome/free-solid-svg-icons';

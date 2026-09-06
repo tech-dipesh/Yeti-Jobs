@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Input from "../Input";
-import Radio from '../Radio';
-import Buttoncomps from '../Button';
-import { jobTypeOptions, postedOptions, statusOptions } from '../../../Data/UserArray';
+import Input from "../ui/Input";
+import Radio from '../ui/Radio';
+import Buttoncomps from '../ui/Button';
+import { jobTypeOptions, postedOptions, statusOptions } from '../../Data/UserArray';
 
 const INIT = { jobType: '', status: '', posted: '', minSalary: '', maxSalary: '', minExp: '', maxExp: '', sortBy: 'created_at', skills: '', location: '' };
 

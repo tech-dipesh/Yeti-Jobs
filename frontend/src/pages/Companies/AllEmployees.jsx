@@ -2,10 +2,10 @@ import { useEffect } from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import { getCompanyEmployee } from '../../api/auth.companies'
 import { useParams } from 'react-router';
-import Employecomps from '../../components/common/employees/Employecomps';
-import Errorloading from '../../components/common/Errorloading';
-import Emptycomps from '../../components/Emptycomps';
-import Goback from '../../components/common/Goback';
+import Employecomps from '../../components/emplooyes/Employecomps';
+import Errorloading from '../../components/ui/Errorloading';
+import Emptycomps from '../../components/ui/Emptycomps';
+import Goback from '../../components/ui/Goback';
 export default function AllEmployees() {
   const {data, error, loading, execute}=useFetchData(getCompanyEmployee);
   const {id}=useParams()

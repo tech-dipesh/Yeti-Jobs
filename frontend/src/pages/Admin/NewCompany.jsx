@@ -1,12 +1,12 @@
 import useFetchData from '../../hooks/useFetchData';
 import { postNewCompany } from '../../api/auth.companies';
-import Inputcomps from "../../components/common/Input"
+import Inputcomps from "../../components/ui/Input"
 import { useRef, useState } from 'react';
-import ButtonComps from "../../components/common/Button"
+import ButtonComps from "../../components/ui/Button"
 import validateCompany from '../../auth/ValidateCompany';
 import { useNavigate } from 'react-router';
-import Errorloading from '../../components/common/Errorloading';
-import Textcomps from '../../components/common/Textcomps';
+import Errorloading from '../../components/ui/Errorloading';
+import Textcomps from '../../components/ui/Textcomps';
 import { faFileArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export default function NewCompany() {

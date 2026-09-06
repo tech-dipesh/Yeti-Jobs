@@ -1,5 +1,5 @@
-import Linkcomps from "../Linkcomps"
-import Buttoncomps from '../Button'
+import Linkcomps from "../ui/Linkcomps"
+import Buttoncomps from '../ui/Button'
 import { faCalendarPlus, faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { CgWebsite } from "react-icons/cg";

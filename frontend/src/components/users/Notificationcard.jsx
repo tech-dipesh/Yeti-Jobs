@@ -4,8 +4,8 @@ import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Bell, Briefcase, AlertCircle, Bookmark, Building2, FileCheck, Eye, MessageSquare, FileSearch, Megaphone } from 'lucide-react'
 import { Link } from 'react-router'
-import Timeago from '../../../services/Timeago.js'
-import {NOTIFICATION_CONFIG} from '../../../Data/Notificationslist.js'
+import Timeago from '../../services/Timeago.js'
+import {NOTIFICATION_CONFIG} from '../../Data/Notificationslist.js'
 export default function Notificationcard({ notification, onToggleRead }) {
   const { uid, type, created_at, read_at } = notification
   const c = NOTIFICATION_CONFIG[type] ?? { icon: Bell, color: 'text-slate-400', bg: 'bg-slate-400/10', label: type, getDesc: () => 'New notification', link: () => '/' }

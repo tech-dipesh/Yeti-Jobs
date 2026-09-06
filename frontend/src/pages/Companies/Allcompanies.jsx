@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import { getAllCompanies } from '../../api/auth.companies'
-import Companycomps from '../../components/common/company/Companycomps'
-import Errorloading from "../../components/common/Errorloading"
-import Emptycomps from '../../components/Emptycomps'
-import Buttoncomps from '../../components/common/Button'
+import Companycomps from '../../components/companies/Companycomps'
+import Errorloading from "../../components/ui/Errorloading"
+import Emptycomps from '../../components/ui/Emptycomps'
+import Buttoncomps from '../../components/ui/Button'
 import { useState } from 'react'
-import Loading from '../../components/Loading'
+import Loading from '../../components/feedback/Loading'
 export default function Allcompanies() {
   const [pagination, setPagination]=useState({page: 1})
   const {data, error, loading, execute}=useFetchData(getAllCompanies)

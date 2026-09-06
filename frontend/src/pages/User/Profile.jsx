@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react'
 import { getIndividualUser, postUserSkills } from '../../api/auth.user';
 import { useNavigate, useParams } from 'react-router';
-import Inputcomps from "../../components/common/Input"
-import ButtonComps from '../../components/common/Button';
+import Inputcomps from "../../components/ui/Input"
+import ButtonComps from '../../components/ui/Button';
 import validateText from "../../auth/textValidate"
 import useFetchData from '../../hooks/useFetchData';
-import Textcomps from '../../components/common/Textcomps';
+import Textcomps from '../../components/ui/Textcomps';
 import defaultImage from "../../assets/default-image.webp"
-import Linkcomps from "../../components/common/Linkcomps"
-import Loading from '../../components/Loading';
-import Errorloading from "../../components/common/Errorloading"
-import Popup from '../../components/Popup';
-import Buttoncomps from '../../components/common/Button';
+import Linkcomps from "../../components/ui/Linkcomps"
+import Loading from '../../components/feedback/Loading';
+import Errorloading from "../../components/ui/Errorloading"
+import Popup from '../../components/feedback/Popup';
+import Buttoncomps from '../../components/ui/Button';
 import { useAuth } from "../../context/Authcontext"
 import getOriginalFileName from '../../services/getOriginalFileName';
-import Followinglist from '../../components/common/User/Followinglist';
+import Followinglist from '../../components/users/Followinglist';
 import SEO from '../../hooks/useSEO'
 export default function Individualuser() {
   const [open, setOpen] = useState(false);

@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { createPortal } from "react-dom";
-import Errorloading from "./common/Errorloading";
+import Errorloading from "../ui/Errorloading";
 export default function Popup({ setOpen, error, fetchError, children, header, height, width }) {
 
   return createPortal(

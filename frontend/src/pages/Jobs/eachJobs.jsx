@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
-import Loading from '../../components/Loading';
+import Loading from '../../components/feedback/Loading';
 
-import Buttoncomps from '../../components/common/Button';
+import Buttoncomps from '../../components/ui/Button';
 import useFetchData from '../../hooks/useFetchData';
 import { bookMarkJob, deleteExistingJobs, individualJobs, removeBookmark } from '../../api/auth.job';
-import Confirmation from '../../components/Confirmation';
-import Goback from '../../components/common/Goback';
+import Confirmation from '../../components/feedback/Confirmation';
+import Goback from '../../components/ui/Goback';
 import defaultImage from "../../assets/default-image.webp"
-import Linkcomps from "../../components/common/Linkcomps"
+import Linkcomps from "../../components/ui/Linkcomps"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faBookmark as solid, faShareNodes, faClipboardCheck } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as regular } from '@fortawesome/free-regular-svg-icons';
 import { withdrawToParticularJob } from '../../api/auth.applications';
 import { useAuth } from '../../context/Authcontext';
-import Errorpopup from '../../components/Error/Errorpopup';
-import EachJobAction from '../../components/common/Jobs/EachJobAction';
+import Errorpopup from '../../components/feedback/Errorpopup';
+import EachJobAction from '../../components//jobs/EachJobAction';
 
 export default function EachJob() {
   const { id } = useParams();

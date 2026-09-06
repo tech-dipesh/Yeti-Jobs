@@ -1,7 +1,7 @@
-import ButtonComps from './common/Button'
+import ButtonComps from '../ui/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCreativeCommons } from "@fortawesome/free-brands-svg-icons"
-import Linkcomps from './common/Linkcomps'
+import Linkcomps from '../ui/Linkcomps'
 import { Link } from 'react-router'
 import { faBarsProgress } from '@fortawesome/free-solid-svg-icons';
 export default function Footer({ data }) {

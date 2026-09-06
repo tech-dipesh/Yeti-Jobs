@@ -1,11 +1,11 @@
 import useFetchData from '../../hooks/useFetchData';
 import { getCompanyApplications } from '../../api/auth.companies';
-import Errorloading from '../../components/common/Errorloading';
+import Errorloading from '../../components/ui/Errorloading';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
-import SingleApplicationsCompanycomps from '../../components/common/company/SingleApplicationsCompanycomps';
-import Emptycomps from '../../components/Emptycomps';
-import Goback from '../../components/common/Goback';
+import SingleApplicationsCompanycomps from '../../components/companies/SingleApplicationsCompanycomps';
+import Emptycomps from '../../components/ui/Emptycomps';
+import Goback from '../../components/ui/Goback';
 export default function Allapplications() {
   const {id}=useParams()
   const {data, error, loading, execute}=useFetchData(getCompanyApplications);

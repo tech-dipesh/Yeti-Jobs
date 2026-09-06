@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router'
-import Buttoncomps from '../Button';
-import Popup from '../../Popup';
-import InputComps from '../Input';
-import ValidateApplication from '../../../auth/Application/ValidateApplications';
-import Errorloading from '../Errorloading';
-import { useAuth } from "../../../context/Authcontext"
-import { applyToParticularJob } from '../../../api/auth.applications';
-import Errorpopup from '../../Error/Errorpopup';
-import useFetchData from '../../../hooks/useFetchData';
-import Loading from '../../Loading';
-import CleanFilterEmptySpace from "../../../auth/CleanFilterEmptySpace"
+import Buttoncomps from '../ui/Button';
+import Popup from '../feedback/Popup';
+import InputComps from '../ui/Input';
+import ValidateApplication from '../../auth/Application/ValidateApplications';
+import Errorloading from '../ui/Errorloading';
+import { useAuth } from "../../context/Authcontext"
+import { applyToParticularJob } from '../../api/auth.applications';
+import Errorpopup from '../feedback/Errorpopup';
+import useFetchData from '../../hooks/useFetchData';
+import Loading from '../feedback/Loading';
+import CleanFilterEmptySpace from "../../auth/CleanFilterEmptySpace"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import {IndianRupee} from "lucide-react"

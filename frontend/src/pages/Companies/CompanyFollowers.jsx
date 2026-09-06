@@ -2,10 +2,10 @@ import React from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import { listOfAllCompaniesFollowers } from '../../api/auth.companies'
 import { useEffect } from 'react';
-import Loading from '../../components/Loading';
-import Errorloading from "../../components/common/Errorloading"
-import Emptycomps from "../../components/Emptycomps"
-import Usercomps from "../../components/common/User/Usercomps"
+import Loading from '../../components/feedback/Loading';
+import Errorloading from "../../components/ui/Errorloading"
+import Emptycomps from "../../components/ui/Emptycomps"
+import Usercomps from "../../components/users/Usercomps"
 export default function CompanyFollowers() {
   const { data, error, loading, execute } = useFetchData(listOfAllCompaniesFollowers);
   useEffect(() => { execute() }, [])

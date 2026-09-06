@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import { savedJobsList } from '../../api/auth.job'
 import useFetchData from '../../hooks/useFetchData'
-import Jobcomps from '../../components/common/Jobs/Jobcomps'
-import Errorloading from '../../components/common/Errorloading'
-import Loading from '../../components/Loading'
-import Emptycomps from '../../components/Emptycomps'
+import Jobcomps from '../../components/jobs/Jobcomps'
+import Errorloading from '../../components/ui/Errorloading'
+import Loading from '../../components/feedback/Loading'
+import Emptycomps from '../../components/ui/Emptycomps'
 import { Link } from 'react-router'
-import Buttoncomps from '../../components/common/Button'
+import Buttoncomps from '../../components/ui/Button'
 
 export default function AllBookmarks() {
   const { data, error, loading, execute } = useFetchData(savedJobsList)

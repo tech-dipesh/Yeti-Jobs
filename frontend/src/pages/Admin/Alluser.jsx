@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { getAllUser } from '../../api/auth.user';
-import Usercomps from '../../components/common/User/Usercomps';
+import Usercomps from '../../components/users/Usercomps';
 import useFetchData from '../../hooks/useFetchData';
-import Loading from '../../components/Loading';
-import Errorloading from "../../components/common/Errorloading"
-import Emptycomps from '../../components/Emptycomps';
+import Loading from '../../components/feedback/Loading';
+import Errorloading from "../../components/ui/Errorloading"
+import Emptycomps from '../../components/ui/Emptycomps';
 export default function Alluser() {
   const { data, error, loading, execute } = useFetchData(getAllUser)
 

@@ -2,10 +2,10 @@ import { useEffect } from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import { getAllJobsApplicant } from '../../api/auth.applications'
 import { useParams } from 'react-router'
-import Loading from '../../components/Loading'
-import Employeecomps from '../../components/common/employees/Employecomps'
-import Emptycomps from '../../components/Emptycomps'
-import Errorloading from '../../components/common/Errorloading'
+import Loading from '../../components/feedback/Loading'
+import Employeecomps from '../../components/employees/Employecomps'
+import Emptycomps from '../../components/ui/Emptycomps'
+import Errorloading from '../../components/ui/Errorloading'
 
 export default function Jobapplicant() {
   const { id } = useParams()

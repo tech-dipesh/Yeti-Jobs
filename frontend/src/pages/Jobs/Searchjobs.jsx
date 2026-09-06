@@ -3,12 +3,12 @@ import { useEffect } from 'react'
 import CustomDebounceHook from "../../hooks/useDebounce"
 import useFetchData from '../../hooks/useFetchData'
 import { searchJobs } from '../../api/auth.job'
-import ButtonComps from '../../components/common/Button'
-import Jobcomps from '../../components/common/Jobs/Jobcomps'
-import Errorloading from '../../components/common/Errorloading'
-import Loading from '../../components/Loading'
+import ButtonComps from '../../components/ui/Button'
+import Jobcomps from '../../components/jobs/Jobcomps'
+import Errorloading from '../../components/ui/Errorloading'
+import Loading from '../../components/feedback/Loading'
 import { sortByFilter } from '../../Data/OptionList'
-import Goback from '../../components/common/Goback'
+import Goback from '../../components/ui/Goback'
 export default function Searchjobs() {
   const [search, setSearch] = useState("")
   const [sortby, setSortBy] = useState("created_at")

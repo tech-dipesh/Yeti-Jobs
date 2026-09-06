@@ -1,6 +1,6 @@
-import logoIcon from "../../../assets/logo-rounded.png"
-import Benifits from '../../../Data/Benifits';
-import Textcomps from '../Textcomps';
+import logoIcon from "../../assets/logo-rounded.png"
+import Benifits from '../../Data/Benifits';
+import Textcomps from '..//ui/Textcomps';
 import { CheckCircle } from "lucide-react";
 export default function Registerleftcomps({type}) {
   return (

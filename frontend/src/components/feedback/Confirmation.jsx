@@ -1,4 +1,4 @@
-import Buttoncomps from './common/Button'
+import Buttoncomps from '../ui/Button'
 export default function Confirmation({type, confirm, cancel}) {
   return (
     <div className='fixed inset-x-0 top-10 flex justify-center z-50'>

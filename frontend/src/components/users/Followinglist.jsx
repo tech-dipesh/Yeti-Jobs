@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
-import useFetchData from '../../../hooks/useFetchData'
-import { unFollowCompany } from "../../../api/auth.companies"
-import { listAlluserFollowingCompanies } from '../../../api/auth.user'
-import Popup from '../../Popup'
-import Textcomps from '../Textcomps'
-import Linkcomps from '../Linkcomps'
-import Buttoncomps from '../Button'
-import Errorpopup from '../../Error/Errorpopup'
-import Loading from '../../Loading'
+import useFetchData from '../../hooks/useFetchData'
+import { unFollowCompany } from "../../api/auth.companies"
+import { listAlluserFollowingCompanies } from '../../api/auth.user'
+import Popup from '../feedback/Popup'
+import Textcomps from '../ui/Textcomps'
+import Linkcomps from '../ui/Linkcomps'
+import Buttoncomps from '../ui/Button'
+import Errorpopup from '../feedback/Errorpopup'
+import Loading from '../feedback/Loading'
 export default function Followinglist({ setIsFollowing, isFollowing }) {
   const { data, error, loading, execute } = useFetchData(listAlluserFollowingCompanies)
   const { execute: unFollowaction, error: unfollowerr, data: unfollowdata, loading: unfollowload } = useFetchData(unFollowCompany)

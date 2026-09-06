@@ -2,15 +2,15 @@ import { useEffect, useRef, useState } from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import { individualJobs, updateExistingJobs } from '../../api/auth.job'
 import { useLocation, useNavigate, useParams } from 'react-router'
-import InputComps from '../../components/common/Input'
-import ButtonComps from '../../components/common/Button'
-import Selectcomps from "../../components/common/Selectcomps"
+import InputComps from '../../components/ui/Input'
+import ButtonComps from '../../components/ui/Button'
+import Selectcomps from "../../components/ui/Selectcomps"
 import validateJobs from '../../auth/validateJobs'
 import { JobtypeOption } from '../../Data/OptionList'
-import Loading from '../../components/Loading'
-import Errorloading from '../../components/common/Errorloading'
-import Textcomps from '../../components/common/Textcomps'
-import Goback from '../../components/common/Goback'
+import Loading from '../../components/feedback/Loading'
+import Errorloading from '../../components/ui/Errorloading'
+import Textcomps from '../../components/ui/Textcomps'
+import Goback from '../../components/ui/Goback'
 
 export default function EditJob() {
   const { id } = useParams()

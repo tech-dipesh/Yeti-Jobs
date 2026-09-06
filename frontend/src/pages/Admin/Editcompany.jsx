@@ -3,10 +3,10 @@ import { useNavigate, useParams } from 'react-router'
 import useFetchData from '../../hooks/useFetchData';
 import { getSingleCompany, updateCompany } from '../../api/auth.companies';
 import validateCompany from '../../auth/ValidateCompany';
-import InputComps from '../../components/common/Input';
-import ButtonComps from '../../components/common/Button';
-import Errorloading from '../../components/common/Errorloading';
-import Goback from '../../components/common/Goback';
+import InputComps from '../../components/ui/Input';
+import ButtonComps from '../../components/ui/Button';
+import Errorloading from '../../components/ui/Errorloading';
+import Goback from '../../components/ui/Goback';
 export default function Editcompany() {
   const { id } = useParams();
   const navigate = useNavigate()

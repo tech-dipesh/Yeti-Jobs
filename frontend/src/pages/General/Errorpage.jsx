@@ -1,8 +1,8 @@
 import { useRouteError } from 'react-router'
 import { faBug } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Buttoncomps from '../components/common/Button';
-import Linkcomps from '../components/common/Linkcomps';
+import Buttoncomps from '../../components/ui/Button';
+import Linkcomps from '../../components/ui/Linkcomps';
 
 export default function Error404() {
   const { message, statusText } = useRouteError() ?? {}

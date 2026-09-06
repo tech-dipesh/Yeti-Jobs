@@ -1,10 +1,10 @@
 import { useLocation } from 'react-router'
 import { faFaceSadCry, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Buttoncomps from '../components/common/Button';
-import Linkcomps from '../components/common/Linkcomps';
-import LogoRounded from "../assets/logo-rounded.png"
-import Errorpopup from "../components/Error/Errorpopup"
+import Buttoncomps from '../../components/ui/Button';
+import Linkcomps from '../../components/ui/Linkcomps';
+import LogoRounded from "../../assets/logo-rounded.png"
+import Errorpopup from "../../components/feedback/Errorpopup"
 export default function Notfound() {
   const {pathname} = useLocation();
   return (

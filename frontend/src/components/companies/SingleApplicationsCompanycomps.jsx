@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import { ApplyLowerCasestatusOption } from '../../../Data/OptionList';
+import { ApplyLowerCasestatusOption } from '../../Data/OptionList';
 import Linkcomps from '../Linkcomps';
-import useFetchData from '../../../hooks/useFetchData';
+import useFetchData from '../../hooks/useFetchData';
 import Loading from '../../Loading';
-import Successcomps from '../Success';
-import { changeApplicationStatus } from '../../../api/auth.applications';
-import Errorpopup from '../../Error/Errorpopup';
+import Successcomps from '../ui/Success';
+import { changeApplicationStatus } from '../../api/auth.applications';
+import Errorpopup from '../feedback/Errorpopup';
 
 export default function SingleApplicationsCompanycomps({ job_id, applicant_id, job_title, resume_url, phone_number, status: oldstatus, cover_letter, notice_period, expected_salary, why_hire }) {
   let [status, setStatus] = useState(oldstatus)

@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { useAuth } from '../../context/Authcontext'
 import { Outlet, useNavigate } from 'react-router'
-import Loading from '../Loading'
-import Errorloading from '../common/Errorloading'
+import Loading from '../feedback/Loading'
+import Errorloading from '../ui/Errorloading'
 export default function Isadmin() {
   const { data, error, loading } = useAuth()
   const navigate = useNavigate()

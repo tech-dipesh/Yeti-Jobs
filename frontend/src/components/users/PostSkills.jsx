@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { postUserSkills } from '../../../api/auth.user';
-import useFetchData from '../../../hooks/useFetchData';
-import validateText from '../../../auth/textValidate';
+import { postUserSkills } from '../../api/auth.user';
+import useFetchData from '../../hooks/useFetchData';
+import validateText from '../../auth/textValidate';
 import { useNavigate, useParams } from 'react-router';
 import Errorloading from '../Errorloading';
-import InputComps from '../Input';
-import Buttoncomps from '../Button';
+import InputComps from '../ui/Input';
+import Buttoncomps from '../ui/Button';
 import Loading from '../../Loading';
 
 export default function PostSkills() {

@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
-import InputComps from '../../components/common/Input'
-import ButtonComps from "../../components/common/Button"
+import InputComps from '../../components/ui/Input'
+import ButtonComps from "../../components/ui/Button"
 import { validateEditUser } from '../../auth/User/Validateuser'
 import { getIndividualUser, patchIndivualUser } from "../../api/auth.user"
 import {  useNavigate, useParams } from 'react-router'
 import useFetchData from '../../hooks/useFetchData'
-import Selectcomps from '../../components/common/Selectcomps'
+import Selectcomps from '../../components/ui/Selectcomps'
 import { EducationOption } from '../../Data/OptionList'
-import Loading from '../../components/Loading'
-import Errorloading from '../../components/common/Errorloading'
-import Textcomps from "../../components/common/Textcomps"
+import Loading from '../../components/feedback/Loading'
+import Errorloading from '../../components/ui/Errorloading'
+import Textcomps from "../../components/ui/Textcomps"
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 export default function Edituser() {

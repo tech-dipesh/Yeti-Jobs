@@ -1,7 +1,6 @@
-import Buttoncomps from "./common/Button"
-import ButtonComps from "./common/Button"
-import Linkcomps from "./common/Linkcomps"
-import Errorpopup from "../components/Error/Errorpopup"
+import Buttoncomps from "../ui/Button"
+import Linkcomps from "../ui/Linkcomps"
+import Errorpopup from "../feedback/Errorpopup"
 export default function Hero({ isVerify }) {
   return (
     <main className='max-w-4xl mx-auto space-y-8'>

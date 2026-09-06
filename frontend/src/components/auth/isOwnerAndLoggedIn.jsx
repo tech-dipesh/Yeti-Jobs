@@ -1,6 +1,6 @@
 import { useParams, useNavigate, Outlet, Navigate } from 'react-router';
-import Loading from '../Loading';
-import Errorloading from '../common/Errorloading';
+import Loading from '../feedback/Loading';
+import Errorloading from '../ui/Errorloading';
 import { useAuth } from '../../context/Authcontext';
 import authUid from '../../auth/authUid';
 

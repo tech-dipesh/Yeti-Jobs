@@ -2,15 +2,15 @@ import { useState } from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import { postNewJobs } from '../../api/auth.job'
 import { useNavigate } from 'react-router'
-import InputComps from '../../components/common/Input'
-import ButtonComps from '../../components/common/Button'
+import InputComps from '../../components/ui/Input'
+import ButtonComps from '../../components/ui/Button'
 import validateJobs from '../../auth/validateJobs'
-import Selectcomps from '../../components/common/Selectcomps'
+import Selectcomps from '../../components/ui/Selectcomps'
 import { JobtypeOption } from '../../Data/OptionList'
-import Errorloading from "../../components/common/Errorloading"
-import Loading from '../../components/Loading'
-import Textcomps from '../../components/common/Textcomps'
-import Goback from '../../components/common/Goback'
+import Errorloading from "../../components/ui/Errorloading"
+import Loading from '../../components/feedback/Loading'
+import Textcomps from '../../components/ui/Textcomps'
+import Goback from '../../components/ui/Goback'
 export default function EditJob() {
   const [value, setValue] = useState({
     title: "",

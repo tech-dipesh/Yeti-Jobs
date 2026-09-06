@@ -2,13 +2,13 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router';
 import { allJobsList, FilterWithSearchJobs } from "../../api/auth.job"
 import UseFetchData from "../../hooks/useFetchData"
-import ButtonComps from '../../components/common/Button';
-import Jobcomps from '../../components/common/Jobs/Jobcomps';
-import Loading from '../../components/Loading';
-import Emptycomps from '../../components/Emptycomps';
-import Buttoncomps from '../../components/common/Button';
-import Errorloading from '../../components/common/Errorloading';
-import FilterSidebar from '../../components/common/Jobs/Filtersidebar';
+import ButtonComps from '../../components/ui/Button';
+import Jobcomps from '../../components/jobs/Jobcomps';
+import Loading from '../../components/feedback/Loading';
+import Emptycomps from '../../components/ui/Emptycomps';
+import Buttoncomps from '../../components/ui/Button';
+import Errorloading from '../../components/ui/Errorloading';
+import FilterSidebar from '../../components/jobs/Filtersidebar';
 import SEO from '../../hooks/useSEO'
 
 export default function Jobs() {

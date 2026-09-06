@@ -1,22 +1,22 @@
 import { useRef, useState } from 'react'
 import UseFetchData from '../../hooks/useFetchData'
-import Buttoncomps from "../../components/common/Button"
+import Buttoncomps from "../../components/ui/Button"
 import { getIndividualUser, uploadProfilePicture } from "../../api/auth.user"
 import validateFileUpload from "../../auth/User/validateFileUpload"
-import Errorloading from '../../components/common/Errorloading'
-import Successcomps from '../../components/common/Success'
+import Errorloading from '../../components/ui/Errorloading'
+import Successcomps from '../../components/ui/Success'
 import { useLocation, useParams } from 'react-router'
 import useFetchData from '../../hooks/useFetchData'
 import { useEffect } from 'react'
-import Linkcomps from "../../components/common/Linkcomps"
-import Textcomps from "../../components/common/Textcomps"
-import Loading from '../../components/Loading'
+import Linkcomps from "../../components/ui/Linkcomps"
+import Textcomps from "../../components/ui/Textcomps"
+import Loading from '../../components/feedback/Loading'
 import defaultImage from "../../assets/default-image.webp"
 import getOriginalFileName from '../../services/getOriginalFileName'
 import { faFileArrowUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Errorpopup from '../../components/Error/Errorpopup'
-import Goback from '../../components/common/Goback'
+import Errorpopup from '../../components/feedback/Errorpopup'
+import Goback from '../../components/ui/Goback'
 export default function ProfilePhoto() {
   const { id } = useParams();
   const {state}=useLocation()

@@ -3,8 +3,8 @@ import { Bell } from 'lucide-react'
 import useFetchData from '../../hooks/useFetchData'
 import { ShowAllNotifications, ReadUserSingleNotifications, ReadAllNotifications } from '../../api/auth.notifications.js'
 // import { FilterNotifications } from "../../Data/Notificationslist.js";
-import Loading from '../../components/Loading'
-import Notificationcard from '../../components/common/User/Notificationcard'
+import Loading from '../../components/feedback/Loading'
+import Notificationcard from '../../components/users/Notificationcard'
 import useDebounce from '../../hooks/useDebounce'
 
 const TABS = ['All', 'Unread', 'Read']

@@ -1,15 +1,15 @@
 import { Fragment, useEffect, useState } from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import { getAllAppliedJobs } from '../../api/auth.applications'
-import Jobcomps from '../../components/common/Jobs/Jobcomps'
-import Selectcomps from '../../components/common/Selectcomps'
+import Jobcomps from '../../components/jobs/Jobcomps'
+import Selectcomps from '../../components/ui/Selectcomps'
 import { ApplystatusOption } from '../../Data/OptionList'
 import { Link } from 'react-router'
-import ButtonComps from '../../components/common/Button'
-import Loading from '../../components/Loading'
-import Errorloading from '../../components/common/Errorloading'
-import Emptycomps from '../../components/Emptycomps'
-import Applicationcomps from '../../components/common/applications/Applicationscomps.jsx'
+import ButtonComps from '../../components/ui/Button'
+import Loading from '../../components/feedback/Loading'
+import Errorloading from '../../components/ui/Errorloading'
+import Emptycomps from '../../components/ui/Emptycomps'
+import Applicationcomps from '../../components/applications/Applicationscomps.jsx'
 
 export default function GetallApplied() {
   const {data, error, loading, execute}=useFetchData(getAllAppliedJobs)

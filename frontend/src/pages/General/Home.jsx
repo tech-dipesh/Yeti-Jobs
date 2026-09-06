@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
-import { useAuth } from '../context/Authcontext';
-import Hero from '../components/Hero';
-import { majorFeatures } from '../Data/Benifits';
-import useFetchData from '../hooks/useFetchData';
-import { allJobsList } from '../api/auth.job';
-import Textcomps from '../components/common/Textcomps';
-import Linkcomps from '../components/common/Linkcomps';
-import Loading from '../components/Loading';
-import Errorpopup from '../components/Error/Errorpopup';
-import SEO from '../hooks/useSEO'
+import { useAuth } from '../../context/Authcontext';
+import Hero from '../../components/layout/Hero';
+import { majorFeatures } from '../../Data/Benifits';
+import useFetchData from '../../hooks/useFetchData';
+import { allJobsList } from '../../api/auth.job';
+import Textcomps from '../../components/ui/Textcomps';
+import Linkcomps from '../../components/ui/Linkcomps';
+import Loading from '../../components/feedback/Loading';
+import Errorpopup from '../../components/feedback/Errorpopup';
+import SEO from '../../hooks/useSEO'
 export default function Home() {
   const { data, error, loading } = useAuth();
   const [isVerify, setIsVerify] = useState(false)

@@ -1,18 +1,18 @@
 import { useRef, useState } from 'react'
 import UseFetchData from '../../hooks/useFetchData'
-import Buttoncomps from "../../components/common/Button"
+import Buttoncomps from "../../components/ui/Button"
 import { ResumeInfo, uploadResume } from "../../api/auth.user"
 import validateFileUpload from "../../auth/User/validateFileUpload"
 import { useEffect } from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import { useParams } from 'react-router'
-import Errorloading from '../../components/common/Errorloading'
+import Errorloading from '../../components/ui/Errorloading'
 import { faFileArrowUp, faFilePdf } from '@fortawesome/free-solid-svg-icons'
-import Loading from '../../components/Loading'
+import Loading from '../../components/feedback/Loading'
 import getOriginalFileName from '../../services/getOriginalFileName'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Linkcomps from '../../components/common/Linkcomps'
-import Goback from '../../components/common/Goback'
+import Linkcomps from '../../components/ui/Linkcomps'
+import Goback from '../../components/ui/Goback'
 
 export default function Addresume() {
   const { data: initialData, error: err, loading: loader, execute: callData } = useFetchData(ResumeInfo);

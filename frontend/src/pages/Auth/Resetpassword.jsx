@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import { forgetPassword, verifyForgetPassword } from '../../api/auth.user'
-import InputComps from '../../components/common/Input'
-import Buttomcomps from "../../components/common/Button"
+import InputComps from '../../components/ui/Input'
+import Buttomcomps from "../../components/ui/Button"
 import { validateEmail, validatePassword } from '../../auth/User/Validateuser.js'
-import Errorloading from '../../components/common/Errorloading'
-import Success from '../../components/common/Success'
+import Errorloading from '../../components/ui/Errorloading'
+import Success from '../../components/ui/Success'
 import validateCode from '../../auth/User/Validatecodeemail'
 import { Link, useNavigate } from 'react-router'
-import Goback from '../../components/common/Goback'
+import Goback from '../../components/ui/Goback'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 export default function Resetpassword() {

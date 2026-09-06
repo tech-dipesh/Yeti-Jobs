@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { Link, NavLink, useNavigate, useLocation } from 'react-router'
-import useFetchData from '../hooks/useFetchData'
-import { logoutUser } from '../api/auth.user'
-import { useAuth } from '../context/Authcontext'
+import useFetchData from '../../hooks/useFetchData'
+import { logoutUser } from '../../api/auth.user'
+import { useAuth } from '../../context/Authcontext'
 import { faArrowRightFromBracket, faArrowRotateRight, faBars, faBriefcase, faMagnifyingGlass, faUser, faUserCheck, faUserXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Linkcomps from './common/Linkcomps'
+import Linkcomps from '../ui/Linkcomps'
 import { GrUserAdmin } from 'react-icons/gr'
-import LogoRounded from "../assets/logo-rounded.png"
-import {allAuthRoutes} from "../Data/UserArray"
+import LogoRounded from "../../assets/logo-rounded.png"
+import {allAuthRoutes} from "../../Data/UserArray"
 import { Bell } from "lucide-react";
 export default function Header() {
   const {pathname}=useLocation();

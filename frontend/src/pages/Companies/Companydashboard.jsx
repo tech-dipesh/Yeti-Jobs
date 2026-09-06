@@ -2,10 +2,10 @@ import { useEffect } from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import { getCompanyDashboard } from '../../api/auth.companies'
 import { Link, useNavigate } from 'react-router';
-import Errorloading from '../../components/common/Errorloading';
+import Errorloading from '../../components/ui/Errorloading';
 import { useAuth } from '../../context/Authcontext';
-import ButtonComps from '../../components/common/Button';
-import Loading from '../../components/Loading';
+import ButtonComps from '../../components/ui/Button';
+import Loading from '../../components/feedback/Loading';
 
 export default function Companydashboard() {
   const navigate = useNavigate()
