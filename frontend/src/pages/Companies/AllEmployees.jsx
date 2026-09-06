@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import useFetchData from '../../hooks/useFetchData'
 import { getCompanyEmployee } from '../../api/auth.companies'
 import { useParams } from 'react-router';
-import Employecomps from '../../components/emplooyes/Employecomps';
+import Employecomps from '../../components/employees/Employecomps';
 import Errorloading from '../../components/ui/Errorloading';
 import Emptycomps from '../../components/ui/Emptycomps';
 import Goback from '../../components/ui/Goback';

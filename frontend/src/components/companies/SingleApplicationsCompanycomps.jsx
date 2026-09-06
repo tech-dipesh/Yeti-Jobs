@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { ApplyLowerCasestatusOption } from '../../Data/OptionList';
-import Linkcomps from '../Linkcomps';
+import Linkcomps from '../ui/Linkcomps';
 import useFetchData from '../../hooks/useFetchData';
-import Loading from '../../Loading';
+import Loading from '../feedback/Loading';
 import Successcomps from '../ui/Success';
 import { changeApplicationStatus } from '../../api/auth.applications';
 import Errorpopup from '../feedback/Errorpopup';

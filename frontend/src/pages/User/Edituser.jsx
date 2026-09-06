@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, lazy } from 'react'
 import InputComps from '../../components/ui/Input'
 import ButtonComps from "../../components/ui/Button"
 import { validateEditUser } from '../../auth/User/Validateuser'
@@ -11,7 +11,7 @@ import Loading from '../../components/feedback/Loading'
 import Errorloading from '../../components/ui/Errorloading'
 import Textcomps from "../../components/ui/Textcomps"
 import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
+const PhoneInput =lazy(()=>import('react-phone-number-input'))
 export default function Edituser() {
   const { id } = useParams();
   const navigate=useNavigate()
