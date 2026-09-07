@@ -1,11 +1,13 @@
 {
   "name": "yeti-jobs",
   "private": true,
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A Scalable job portal built with the **PERN stack** that connects job seekers and recruiters with advanced search, application tracking, ATS Scoring and role based access control.",
   "scripts": {
     "frontend": "npm run dev --prefix frontend",
-    "backend": "cd backend && nodemon server.js"
+    "front":  "npm run dev --prefix frontend",
+    "backend": "cd backend && nodemon server.js",
+    "back": "cd backend && nodemon server.js"
   },
   "repository": {
     "type": "git",

@@ -4,3 +4,12 @@ mock-readme.md
 NUL
 assets/bug.log
 frontend/src/components/layout/Colorsuggestion.jsx
+
+
+*.env
+backend/package-lock.json
+backend/node_modules/
+# This is The Back Miscellanious Content:
+backend/sql-commands.sql
+backend/user.sql
+backend/pnpm-lock.yaml

@@ -1,4 +1,3 @@
--- Table Definition
 create TABLE if not exists user_companies_follows (
     uid uuid not null default gen_random_uuid() primary key,
     user_id uuid not null,
