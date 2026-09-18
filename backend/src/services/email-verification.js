@@ -23,15 +23,14 @@ const sendMail=async(uid, firstName, lastName, userEmail, type)=>{
   readFile=readFile.replace("{{otp}}", random6DigitNumber)
   readFile=readFile.replaceAll("{{type}}", type=='verify'? "Email Verification":"Forget Password")
   readFile=readFile.replaceAll("{{belowmethod}}", type=='verify'? "Signup":"Reset Password")
-  const Title=`Please Verify Your Email For ${type=='verify'?'Login':'For Forget Passowrd'}'`
   try {
     await transporter.sendMail({
-    from: `${Title} <${email}>`,
+    from: `Yeti Jobs Security`,
     to: userEmail,
     subject: `Please ${type} Your Email!`,
     html: readFile,
   });
-  if(type=='verify'){
+    if(type=='verify'){
     await connect.query("insert into email_verified(user_id, verified_type, verified_code)  values($1, 'verify_mail', $2)",[uid, random6DigitNumber])
   }
   else{
