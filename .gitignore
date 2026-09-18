@@ -1,15 +1,13 @@
-future-ideas.md
-mock-readme.md
-.env
-NUL
+# This Is Root:
+*.env
 assets/bug.log
 frontend/src/components/layout/Colorsuggestion.jsx
 
-
-*.env
-backend/package-lock.json
-backend/node_modules/
 # This is The Back Miscellanious Content:
 backend/sql-commands.sql
+backend/node_modules/
+backend/package-lock.json
 backend/user.sql
 backend/pnpm-lock.yaml
+*.md
+!README.md
