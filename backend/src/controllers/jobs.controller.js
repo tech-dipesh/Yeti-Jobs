@@ -17,7 +17,6 @@ export const ListJobsControllerWithFilter=async (req, res) => {
     if (skills) {
       skillsParam = Array.isArray(skills) ? skills : skills.split(',').map(s => s.trim());
     }
-    console.log('skillsParam', skillsParam)
     const sql = "select j.*, c.name as company_name from jobs j left join companies c on c.uid = j.company_id where ($1::int is null or salary >= $1) and ($2::int is null or salary <= $2) and ($3::int is null or experience_years >= $3) and ($4::int is null or experience_years <= $4) and ($5::text is null or job_type::text = $5) and ($6::text is null or is_job_open::text = $6) and ($7::int is null or j.created_at >= now() - ($7 || ' days')::interval) and ($8::text[] is null or skills @> $8) and ($9::text is null or j.location ilike $9) order by case when $10::text = 'salary' then salary when $10::text = 'total_job_views' then total_job_views else extract(epoch from j.created_at)::bigint end asc limit $11 offset $12";
     const countsql = "select count(*) from jobs j left join companies c on c.uid = j.company_id where ($1::int is null or salary >= $1) and ($2::int is null or salary <= $2) and ($3::int is null or experience_years >= $3) and ($4::int is null or experience_years <= $4) and ($5::text is null or job_type::text = $5) and ($6::text is null or is_job_open::text = $6) and ($7::int is null or j.created_at >= now() - ($7 || ' days')::interval) and ($8::text[] is null or skills @> $8) and ($9::text is null or j.location ilike $9)";
 
@@ -27,7 +26,6 @@ export const ListJobsControllerWithFilter=async (req, res) => {
       client.query(countsql, countparams),
       client.query(sql, params)
     ])
-    console.log('rowa is', rows)
     return res.status(200).json({message: rows || [], limit, page, total: countTotal[0].count})
   } catch (error) {
     console.log("err", error);

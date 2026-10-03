@@ -19,6 +19,8 @@ const userSchema = z.object({
     .regex(z.regexes.email, "Please Match the Email Format Type"),
   password: z
   .string({ required_error: "Please Enter a Password" })
+  .min(7, {message: "Password Must be between 7 and 15 characters long."})
+  .max(15, {message: "Password Must be between 7 and 15 characters long."})
   .trim()
     .regex(PASSWORD_REGEX, "Please Match the Password Format"),
 });

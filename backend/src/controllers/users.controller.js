@@ -22,7 +22,7 @@ export const sendUserLoggedInStatus=async (req, res)=>{
   const message={login: false, verify: false};
   try {
     if (!token) return res.status(401).json({message});
-    req.user = jwt.verify(token, process.env.JSON_SECRET_KEY);   
+    req.user = jwt.verify(token, process.env.JSON_SECRET_KEY);
     if(req.user.verify==false){
       message.login=true;
       return res.status(403).json({message})
@@ -59,7 +59,7 @@ export const getloginUserController= async (req, res) => {
     VerifyJwt(res, content)
     return res.status(200).json({message: "Succssfully Logged In"});
   } catch (error) {
-    return res.status(500).json({message: error.message}) 
+    return res.status(500).json({message: error.message})
   }
 };
 
@@ -137,7 +137,6 @@ export const addUserSkills=async (req, res)=>{
     return res.status(201).json({message: "Please Enter Skills."})
   }
   try {
-    
     const {rows: ifExist, rowCount}=await connect.query("select skills from users where uid=$1", [uid])
     const {skills: doesSkillExist}=ifExist[0];
     if(doesSkillExist!=null && doesSkillExist.includes(skills)){

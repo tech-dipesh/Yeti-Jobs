@@ -63,7 +63,7 @@ export default function Searchjobs() {
           ))
             :
             <div className='flex items-center justify-center text-gray-400 text-lg col-span-full'>
-              No Results For: <span className='text-white  font-semibold'>{debounce && debounce}</span>
+              No Results For: <span className='text-white  font-semibold pl-1'> {debounce && debounce}</span>
             </div>
           }
         </div>

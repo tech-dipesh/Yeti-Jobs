@@ -1,9 +1,21 @@
+import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { createPortal } from "react-dom";
 import Errorloading from "../ui/Errorloading";
-export default function Popup({ setOpen, error, fetchError, children, header, height, width }) {
-
+export default function Popup({ setOpen, open, error, fetchError, children, header, height, width }) {
+  console.log("value");
+  useEffect(() => {
+    const keyclick = (event) => {
+      if (event.key === 'Escape') {
+        setOpen(!open)
+      }
+    }
+        window.addEventListener('keydown', keyclick);
+    return () => {
+          window.removeEventListener('keydown', keyclick);
+        };
+  }, [])
   return createPortal(
     <div className="fixed inset-0 flex justify-center items-center z-50">
       <div className="fixed inset-0 flex justify-center items-center bg-black/60 backdrop-blur-sm">

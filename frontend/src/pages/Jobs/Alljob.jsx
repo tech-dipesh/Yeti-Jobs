@@ -62,10 +62,10 @@ export default function Jobs() {
       <SEO title="Yeti Jobs" description='Job Portal All Jobs'/>
       <Errorloading data={{ error }} />
       <div className='max-w-7xl mx-auto px-6 py-10'>
-        <div className='grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8 items-start'>
-          <div className='sticky top-24 self-start'>
+        <div className='grid grid-cols-1  gap-8 items-start'>
+          {/* <div className='sticky top-24 self-start'> lg:grid-cols-[280px_1fr]
             <FilterSidebar onApply={ApplyFilter} onClear={ClearFilter} />
-          </div>
+          </div>*/}
           <div>
             <Emptycomps data={jobs} type='Jobs' />
             <div className='flex justify-center mb-6'>
@@ -76,7 +76,7 @@ export default function Jobs() {
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
               {jobs && jobs.map((job, i) => <Jobcomps key={i} {...job} />)}
             </div>
-            {data?.page * data?.limit < data?.total && (
+            {data?.message.length>0 && data?.page * data?.limit < data?.total && (
               <span className='flex justify-center mt-8' onClick={loadMore}>
                 <Buttoncomps values='Load More....' />
               </span>
