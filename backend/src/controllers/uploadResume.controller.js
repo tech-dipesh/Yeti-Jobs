@@ -54,12 +54,8 @@ const uploadResume = async (req, res) => {
     if (error) {
       return res.status(400).json({ message: error.message });
     }
-
-    const {
-      data: { publicUrl },
-    } = supabase.storage.from("resume").getPublicUrl(path);
-    console.log("prd", pdfContent);
-    const [first, second] = await Promise.all([
+    const { data: { publicUrl } } = supabase.storage.from("resume").getPublicUrl(path);
+    await Promise.all([
       Pool.query("update users set resume_url=$1 where uid=$2 returning *", [
         publicUrl,
         userId,

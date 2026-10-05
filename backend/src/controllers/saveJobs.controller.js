@@ -24,7 +24,6 @@ const storeSaveJob=async (req, res)=>{
     await connect.query("insert into saved_jobs (job_id, user_id) values ($1, $2) returning *", [id, uid])
     return res.status(201).json({message: "Jobs have been bookmarked"})
   } catch (error) {
-    console.log('storave save job', error);
     return res.status(500).json({message: error.message})
   }
 }

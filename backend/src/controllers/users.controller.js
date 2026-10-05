@@ -107,7 +107,7 @@ export const postSignupUserController= async (req, res) => {
       [fname, lname, education, email, hashPassword],
     );
     const {uid, role, fname:firstName, lname:lastName, email:userEmail}=rows[0]
-    sendMail(uid, firstName, lastName, userEmail, 'verify')
+    await sendMail(uid, firstName, lastName, userEmail, 'verify')
     const content={uid, role, company_id:null, verify: false};
     VerifyJwt(res, content)
     return res.status(201).json({message: "Succssfully Signed Up, Verification Code have been sent to your mail"})

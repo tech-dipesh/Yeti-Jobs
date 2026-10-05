@@ -9,7 +9,6 @@ export const ListJobsControllerWithFilter=async (req, res) => {
   let {page=1, limit=10, sortby='created_at', min_salary=null, max_salary=null, min_exp=null, max_exp=null,status=null, posted=null,skills=null, location=null,  job_type=null}=req.query;
   const offset=(Number(page)-1)*Number(limit);
   try {
-    console.log('sort by', sortby)
     if(!ALLOW_SEARCH_QUERY.includes(sortby)){
       return res.status(400).json({message: "Please Add Only Avaible column list"});
     }

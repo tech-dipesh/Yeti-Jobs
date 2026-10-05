@@ -19,7 +19,7 @@ export const getAllCompaniesList= async (req, res)=>{
   } catch (error) {
     return res.status(500).json({message: error.message})
   } finally{
-    await connect.release()
+    if(client) await connect.release()
   }
 }
 export const getCompanyController= async(req, res) => {
