@@ -3,8 +3,8 @@ import {allWeakPassword} from "../../Data/UserArray"
 
 export const validatePassword=(password)=>{
   if (!password) return "Please Enter Password";
-  if(password.length<6) return "Password Must be at least 6 digit Letter."
-  if(password.length>25) return "Password Max can be a 25 digit Letter."
+  if(password.length<7) return "Password Must be at least 7 digit Letter."
+  if(password.length>15) return "Password Max can be a 15 digit Letter."
   if (!/[A-Z]/.test(password)) {
     return "Please Include at least one uppercase letter.";
   }

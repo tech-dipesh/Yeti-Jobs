@@ -75,7 +75,7 @@ export default function Header() {
                 <p className='text-xs text-neutral-400 uppercase tracking-widest mb-1'>Signed in as</p>
                 <div className='flex items-center gap-2'>
                   <span className='text-white font-semibold capitalize text-sm'>{role}</span>
-                  <span className='bg-blue-600 p-1 rounded-md text-white text-xs'>
+                  <span className='bg-blue-600 p-1 mt-1 rounded-md text-white text-xs'>
                     {roleIcon[role]}
                   </span>
                 </div>
@@ -98,7 +98,7 @@ export default function Header() {
 
               <button
                 onClick={reexecute}
-                className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-neutral-700 text-slate-200 text-sm transition-colors w-full text-left'
+                className='flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-neutral-700 text-slate-200 text-sm transition-colors w-full text-left cursor-pointer'
               >
                 <FontAwesomeIcon icon={faArrowRotateRight} className='text-neutral-400 w-4' />
                 <span>Refresh Session</span>

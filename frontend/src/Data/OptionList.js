@@ -15,3 +15,10 @@ export const sortByFilter=[
   {backend: 'location', frontend: 'Location'},
   {backend: 'total_job_views', frontend: 'Most Popular'},
 ]
+
+export const SOCIALS = [
+  { name: 'LinkedIn', href: 'https://linkedin.com/in/tech-dipesh' },
+  { name: 'GitHub', href: 'https://github.com/tech-dipesh' },
+  { name: 'LeetCode', href: 'https://leetcode.com/u/tech-dipesh' },
+  { name: 'Email', href: 'mailto:dipsharmadev+project@gmail.com' },
+]
