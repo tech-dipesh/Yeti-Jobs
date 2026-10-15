@@ -82,13 +82,13 @@ export const getJobsController= async (req, res) => {
 };
 
 export const postJobsController= async (req, res) => {
-  let {title, description, job_type, salary, skills, experience_years}=req.body;
+  let {title, description, job_type, salary, skills, experience_years, location}=req.body;
   const {company_id, uid}=req.user;
   if (typeof skills === 'string') {
     skills = skills.split(',').map(skill => skill.trim());
   }
   experience_years=experience_years ??0;
-  const allListing={title, description, job_type, salary, skills, experience_years}
+  const allListing={title, description, job_type, salary, skills, experience_years, location}
   const validateListing=listingSchema.safeParse(allListing);
   if(!validateListing.success){
     const message=validateListing.error.issues[0].message;

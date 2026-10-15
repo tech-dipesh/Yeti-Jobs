@@ -4,7 +4,6 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { createPortal } from "react-dom";
 import Errorloading from "../ui/Errorloading";
 export default function Popup({ setOpen, open, error, fetchError, children, header, height, width }) {
-  console.log("value");
   useEffect(() => {
     const keyclick = (event) => {
       if (event.key === 'Escape') {

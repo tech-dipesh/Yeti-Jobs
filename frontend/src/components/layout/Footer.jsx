@@ -1,42 +1,61 @@
-import ButtonComps from '../ui/Button'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCreativeCommons } from "@fortawesome/free-brands-svg-icons"
-import Linkcomps from '../ui/Linkcomps'
 import { Link } from 'react-router'
-import { faBarsProgress } from '@fortawesome/free-solid-svg-icons';
-export default function Footer({ data }) {
-  const socials = [
-    { name: 'Twitter', link: 'https://linkedin.com/in/tech-dipesh' },
-    { name: 'Github', link: 'https://github.com/tec_dipesh' },
-    { name: 'LeetCode', link: 'https://leetcode.com/u/tech-dipesh' },
-    { name: 'Email', link: 'mailto:dipsharmadev+project@gmail.com' }
-  ]
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCreativeCommons } from '@fortawesome/free-brands-svg-icons'
+import { faBarsProgress } from '@fortawesome/free-solid-svg-icons'
+import ButtonComps from '../ui/Button'
+import { SOCIALS } from '@/Data/OptionList'
+const wrap ='w-fit text-xs outline-none focus-visible:underline focus-visible:underline-offset-4 [&_button]:px-3 [&_button]:py-1 [&_button]:text-xs'
 
-  const { company_id } = data ?? {};
+function ExternalAction({ href, children }) {
   return (
-    <footer className="grid grid-cols-2 lg:flex lg:flex-row justify-between items-center p-6 text-sm border-t bg-zinc-800 text-gray-300">
-      <div className="grid grid-cols-1 lg:flex gap-4">
-        <h2>Socials:</h2>
-        {socials.map(({ name, link }, i) => <Linkcomps key={i} to={link} content={name} />)}
-      </div>
-      {/* <div className='lg:grid lg:none'> */}
-      <div className='flex flex-col items-start gap-2 lg:contents'>
-      <p className='text-gray-500  font-sans'><FontAwesomeIcon icon={faCreativeCommons} />2026 Dipendra  Sharma. All rights reserved.</p>
-      <div className='grid grid-cols-1 gap-2 w-full text-nowrap lg:flex lg:w-auto'>
-        {company_id && <Linkcomps to='companies/dashboard' content={<ButtonComps values='Dashboard' />} />}
-        <Linkcomps to={'/jobs/search'} content={<ButtonComps values='Search Jobs' />} />
-        <Linkcomps to={'https://github.com/tech-dipesh/yeti-jobs/issues'} content={<ButtonComps values='Request Issue/Features?' />} />
-        <Link to={'https://yeti-jobs.onrender.com/api/v1/swagger'} target='_blank' className='text-xs text-white font-medium underline-offset-4 hover:underline hover:text-blue-400 transition-colors duration-200e w-fit'><ButtonComps values='View API Docs ↗' /></Link>
-        <Link to={'https://stats.uptimerobot.com/DJs087hnNB'} target='_blank' className='text-xs text-white font-medium underline-offset-4 hover:underline hover:text-blue-400 transition-colors duration-200e w-fit'><ButtonComps 
-        values={
-          <span>
-          API Status Page
-          <FontAwesomeIcon icon={faBarsProgress}/>
-          </span>
-        }/>
+    <a href={href} className={wrap} >
+      <ButtonComps values={children} />
+    </a>
+  )
+}
+
+export default function Footer({ data }) {
+  const { company_id } = data ?? {}
+  return (
+    <footer className="border-t bg-zinc-800 text-gray-300 text-sm">
+      <div className="flex flex-col gap-3 p-4 lg:flex-row lg:items-center lg:justify-between">
+        <nav aria-label="Social links" className="flex flex-wrap items-center gap-2">
+          <span className="text-gray-300">Socials:</span>
+          {SOCIALS.map(({ name, href }) => (
+            <ExternalAction key={name} href={href}>
+              {name}
+            </ExternalAction>
+          ))}
+        </nav>
+
+        <nav aria-label="Product and developer links" className="flex flex-wrap items-center gap-2">
+          {company_id && (
+            <Link to="/companies/dashboard" className={wrap}>
+              <ButtonComps values="Dashboard" />
+            </Link>
+          )}
+          <Link to="/jobs/search" className={wrap}>
+            <ButtonComps values="Search jobs" />
           </Link>
+          <ExternalAction href="https://github.com/tech-dipesh/yeti-jobs/issues">
+            Request feature
+          </ExternalAction>
+          <ExternalAction href="https://yeti-jobs.onrender.com/api/v1/swagger">
+            API docs
+          </ExternalAction>
+          <ExternalAction href="https://stats.uptimerobot.com/DJs087hnNB">
+            <span className="inline-flex items-center gap-1">
+              API status
+              <FontAwesomeIcon icon={faBarsProgress} aria-hidden="true" />
+            </span>
+          </ExternalAction>
+        </nav>
       </div>
-      </div>
+
+      <p className="px-4 pb-3 text-xs text-gray-500 font-sans">
+        <FontAwesomeIcon icon={faCreativeCommons} aria-hidden="true" /> {new Date().getFullYear()} Dipendra Sharma. All
+        rights reserved.
+      </p>
     </footer>
   )
 }
