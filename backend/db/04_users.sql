@@ -11,6 +11,7 @@ create TABLE if not exists users (
     profile_pic_url text,
     skills _text,
     experience int4,
+    created_at TIMESTAMPTZ default NOW(),
     constraint users_company_id_fkey foreign key (company_id) references companies(uid) ON DELETE cascade,
     primary key (uid)
 );

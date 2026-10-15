@@ -6,16 +6,16 @@ export const validatePassword=(password)=>{
   if(password.length<7) return "Password Must be at least 7 digit Letter."
   if(password.length>15) return "Password Max can be a 15 digit Letter."
   if (!/[A-Z]/.test(password)) {
-    return "Please Include at least one uppercase letter.";
+    return "Password must have least one uppercase letter.";
   }
   if (!/[a-z]/.test(password)) {
-    return "Please Include at least one lowercase letter.";
+    return "Password must have at least one lowercase letter.";
   }
   if (!/\d/.test(password)) {
-    return "Please Include at least one number.";
+    return "Password must have at least one number.";
   }
   if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-    return "Please Include at least one special character.";
+    return "Password must have at least one special character.";
   }
   if(allWeakPassword.includes(password)){
     return "Inserted Password is Commonly Used Use Another Password"

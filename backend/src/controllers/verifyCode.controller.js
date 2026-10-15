@@ -1,5 +1,5 @@
 import connect from "../db.js";
-import sendMail from "../services/email-verification.js";
+import sendMail from "../services/email-brevo.js";
 import bcrypt from "bcryptjs";
 import currentDate from "../utils/currentDateFormat.js";
 import VerifyJwt from "../services/verifyJwt.js";
@@ -47,7 +47,8 @@ export const resendVerificationCode=async (req, res)=>{
     }
     const {rows}=await connect.query("select fname, lname, email from users where uid=$1", [uid])
     const {fname, lname, email}=rows[0];
-     sendMail(uid, fname, lname, email, 'verify');
+    const emailConfig={ uid, firstName: fname, lastName: lname, userEmail: email, type:'verify'  }
+     sendMail(emailConfig);
    return res.status(201).json({message: 'Resend Verification Code Have Been sent to your mail'})
   } catch (error) {
   return  res.status(500).json({message: error.message})
@@ -66,7 +67,8 @@ export const forgetEmailPassword=async (req,res)=>{
       return res.status(422).json({message: "Email Doesnt Exist."})
     }
     const {fname, lname, uid}=rows[0];
-    sendMail(uid, fname, lname, email, 'forget')
+    const emailConfig={ uid, firstName:fname, lastName: lname, userEmail, type:'forget'  }
+    sendMail(emailConfig)
     return res.status(201).json({message: 'The password Have Beeen forget you can check your email for verify your code.'})
   } catch (error) {
     return res.status(401).json({message: error.message})

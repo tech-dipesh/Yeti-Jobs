@@ -10,7 +10,7 @@ import cookieParser from "cookie-parser";
 import authUserMiddleware from "./Middleware/isLoggedIn.js";
 import rateLimit from "express-rate-limit";
 import cors from "cors";
-import "./services/email-verification.js"
+import "./services/email-brevo.js"
 import isAdminMIddleware from "./Middleware/isAdmin.js";
 import adminRoutes from "./routes/admin.routes.js";
 import notificationRoutes from "./routes/notifications.routes.js";

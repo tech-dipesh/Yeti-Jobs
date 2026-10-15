@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import connect from "../db.js";
 import tableDataFetch from "../utils/Querytablehelper.js";
 import userSchema, { EducationUserSchema, loginUserSchema, updateUserSchema } from "../Models/users.models.js";
-import sendMail from "../services/email-verification.js";
+import sendMail from "../services/email-brevo.js";
 import isUserVerifiedEmail from "../utils/isUserEmailVerified.js";
 import dns from "dns/promises"
 import VerifyJwt from "../services/verifyJwt.js";
@@ -107,7 +107,8 @@ export const postSignupUserController= async (req, res) => {
       [fname, lname, education, email, hashPassword],
     );
     const {uid, role, fname:firstName, lname:lastName, email:userEmail}=rows[0]
-    await sendMail(uid, firstName, lastName, userEmail, 'verify')
+    const emailConfig={ uid, firstName, lastName, userEmail, type:'verify'  }
+    await sendMail(emailConfig)
     const content={uid, role, company_id:null, verify: false};
     VerifyJwt(res, content)
     return res.status(201).json({message: "Succssfully Signed Up, Verification Code have been sent to your mail"})
