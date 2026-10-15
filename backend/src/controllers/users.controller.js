@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import connect from "../db.js";
 import tableDataFetch from "../utils/Querytablehelper.js";
 import userSchema, { EducationUserSchema, loginUserSchema, updateUserSchema } from "../Models/users.models.js";
-import sendMail from "../services/email-brevo.js";
+import sendMail, { isTempEmail } from "../services/email-brevo.js";
 import isUserVerifiedEmail from "../utils/isUserEmailVerified.js";
 import dns from "dns/promises"
 import VerifyJwt from "../services/verifyJwt.js";
@@ -81,14 +81,16 @@ export const getUserProfile=  async (req, res) => {
 export const postSignupUserController= async (req, res) => {
   try {
     const { fname, lname, education, email, password} = req.body;
-    const allUser={fname, lname, education, email, password}
-    const validateuser=userSchema.safeParse(allUser);
+    const validateuser=userSchema.safeParse(req.body);
     if(!validateuser.success){
       const message=validateuser.error.issues[0].message;
       return res.status(422).json({message: message})
     }
     const domain = email.split('@')[1];
     try {
+      if (isTempEmail(email)) {
+        return res.status(422).json({ message: "Please use a permanent email address. Temporary email services are not allowed." })
+      }
       const checkDomainExistance = await dns.resolveMx(domain);
       if (!checkDomainExistance || checkDomainExistance.length === 0) {
         return res.status(422).json({ message: "Invalid email domain: No mail servers found." });
