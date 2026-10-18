@@ -17,7 +17,6 @@ export async function sendEmail({uid, firstName, lastName, userEmail, type} ) {
   readFile=readFile.replaceAll("{{belowmethod}}", type=='verify'? "Signup":"Reset Password")
   const vertype = type === 'verify' ? 'verify_mail' : 'forget_password';
    await connect.query( "insert into email_verified(user_id, verified_type, verified_code) values($1, $2, $3)", [uid, vertype, random6DigitNumber] );
-   console.log("usermeial", userEmail);
   const response = await fetch(brevoApiUrl, {
     method: "POST",
     headers: {
@@ -31,11 +30,9 @@ export async function sendEmail({uid, firstName, lastName, userEmail, type} ) {
       htmlContent: readFile,
     }),
   })
-  console.log("response", response);
-  const body=await response.json()
-  console.log("body", body);
+  const bodyContent=await response.json()
   if (!response.ok) {
-    throw new Error(`Brevo send failed: ${response.status} ${await response.text()}`)
+    throw new Error(`Brevo send failed: ${response.status} ${JSON.stringify(bodyContent)}`)
   }
 }
 
