@@ -19,11 +19,11 @@ export default function Notifications() {
   const [search, setSearch] = useState('')
   const debouncedSearch = useDebounce(search, 300)
 
-  useEffect(() => { execute() }, [execute])
+  useEffect(() => { execute() }, [])
 
   useEffect(() => {
     if (data?.message) setNotifications(data.message)
-  }, [data])
+  }, [])
 
   const handleToggle = async (uid, markAsRead) => {
     await toggleRead({ id: uid, isRead: markAsRead })
@@ -45,10 +45,7 @@ export default function Notifications() {
       .filter(n => (tab === 'Unread' ? !n.read_at : tab === 'Read' ? !!n.read_at : true))
       .filter(n => {
         if (!q) return true
-        return (
-          n.type.toLowerCase().includes(q) ||
-          n.job_title?.toLowerCase().includes(q) ||
-          n.company_name?.toLowerCase().includes(q)
+        return ( n.type.toLowerCase().includes(q) || n.job_title?.toLowerCase().includes(q) || n.company_name?.toLowerCase().includes(q)
         )
       })
     return [
@@ -87,11 +84,7 @@ export default function Notifications() {
 
         <div>
           <label htmlFor='notification-search' className='sr-only'>Search notifications</label>
-          <input
-            id='notification-search'
-            type='search'
-            placeholder='Search by job, company or type'
-            value={search}
+          <input id='notification-search' type='search' placeholder='Search by job, company or type' value={search}
             onChange={e => setSearch(e.target.value)}
             className='w-full rounded-md border border-slate-700 bg-zinc-800 px-3 py-2 text-sm text-gray-300 placeholder-slate-400 outline-none transition-colors duration-200 focus:border-slate-400'
           />
@@ -99,11 +92,7 @@ export default function Notifications() {
 
         <div className='flex gap-5 border-b border-slate-700'>
           {TABS.map(t => (
-            <button
-              key={t}
-              type='button'
-              aria-pressed={tab === t}
-              onClick={() => setTab(t)}
+            <button key={t} type='button' aria-pressed={tab === t} onClick={() => setTab(t)}
               className={`-mb-px cursor-pointer border-b-2 pb-2 text-sm outline-none transition-colors duration-200 focus-visible:underline focus-visible:underline-offset-4
                 ${tab === t ? 'border-cyan-400 text-white' : 'border-transparent text-slate-400 hover:text-gray-300'}`}
             >
