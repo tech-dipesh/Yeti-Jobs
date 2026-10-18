@@ -5,6 +5,7 @@ import usersListingRouter from "./routes/users.routes.js"
 import companyRouter from "./routes/companies.routes.js"
 import applicationRouter from "./routes/applications.routes.js"
 import "dotenv/config"
+import "./services/env.js"
 import "./services/cron-task.js"
 import cookieParser from "cookie-parser";
 import authUserMiddleware from "./Middleware/isLoggedIn.js";
