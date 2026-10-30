@@ -25,7 +25,7 @@ export default function Login() {
   const { data, loading, error: apierror, execute } = useFetchData(loginUser)
   useEffect(() => {
     if(checkUserError?.login && checkUserError?.verify==false){
-      navigate(state?.from || "/verify-email")
+      navigate(state?.from || "/auth/verify-email")
     }
     if(checkuser){
       navigate(state?.from || '/')

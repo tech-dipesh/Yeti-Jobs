@@ -34,6 +34,5 @@ sql-commands.sql
 user.sql
 vercel.json
 assets
-db/migrate.js
 db/remove_index.js
 swagger.yaml
