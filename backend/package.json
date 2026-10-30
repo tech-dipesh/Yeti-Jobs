@@ -3,7 +3,7 @@
   "main": "app.js",
   "private": true,
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "pnx nodemon server.js",
     "start": "node server.js",
     "migrate": "node db/migrate.js",
     "index_remove": "node db/remove_index.js",

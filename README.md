@@ -12,6 +12,10 @@ A Scalable job portal built with the **PERN stack** that connects job seekers an
   <strong>Climb your career like a Yeti climbs a mountain.</strong>
 </p>
 
+[![ci](https://img.shields.io/github/actions/workflow/status/tech-dipesh/yeti-jobs/keep-alive.yaml?label=ci)](https://github.com/tech-dipesh/yeti-jobs/actions)
+[![web](https://img.shields.io/website?url=https://yeti-jobs.vercel.app&=web)](https://yeti-jobs.vercel.app)
+[![api](https://img.shields.io/website?url=https:/api.dipsharma.me/api/v1/docs/&label=api)](https://api.dipsharma.me/api/v1/docs/)
+
 ##  System Architecture:
   <picture>
       <img src="assets/system-architecture.png" alt="Yeti Jobs">
@@ -271,22 +275,10 @@ vim .env # Insert a: VITE_SERVER_URL on .env file.
 > :white_check_mark: your client page will run on the http://localhost:5173
 
 ## Docker Setup
-
-- Docker base has only one single container for the Node.js configuration.
-- Use the `node` image.
-- In the coming time, I plan to migrate my database to Docker.
-- First, build the image of the Node.js application.
-
-```bash
-cd backend
-docker build -t yeti-jobs-backend . # on current folder
-```
-
-- Now Run the Docker Container:
-  ```bash
-  docker run -d -p 3000:3000 --name yeti-jobs-backend: # Run's on the backgound
-  ```
-
+This project is fully containerized using **Docker** and **Docker Compose**.
+- **Frontend:** React (Vite) served via a lightweight Node.js `serve` container.
+- **Backend:** Node.js/Express API running on a multi-stage Alpine image.
+- **Database:** PostgreSQL 15 with a persistent volume.
 ## API Documentation
 
 - Swagger UI: https://yeti-jobs.onrender.com/api/v1/swagger

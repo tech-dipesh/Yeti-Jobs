@@ -35,4 +35,3 @@ user.sql
 vercel.json
 assets
 db/remove_index.js
-swagger.yaml

@@ -22,9 +22,8 @@ const app = express();
 
 
 
-
 app.use(cors({
-  origin: process.env.CLIENT_BASE_URL,
+  origin: [process.env.CLIENT_BASE_URL, "http://localhost:5173"],
   credentials: true,
   exposedHeaders: ['Content-Length']
 }));
@@ -38,6 +37,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 
+app.use("/docs", serve, setup(swaggerInYAML));
 app.use("/api/v1/swagger",serve, setup(swaggerInYAML));
 app.use("/api/v1/jobs",  jobListingRouter)
 app.use("/api/v1/users", usersListingRouter)
