@@ -8,5 +8,8 @@ backend/sql-commands.sql
 backend/node_modules/
 backend/package-lock.json
 backend/user.sql
+frontend/node_modules/
+frontend/.env
+
 *.md
 !README.md

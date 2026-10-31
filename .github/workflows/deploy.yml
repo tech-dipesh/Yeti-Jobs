@@ -8,6 +8,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -25,25 +28,23 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 24
-          cache: pnpm
+          cache: 'pnpm'
+          cache-dependency-path: './frontend/pnpm-lock.yaml'
 
       - name: Install
         run: pnpm install --frozen-lockfile
 
-      - name: Typecheck
-        run: pnpm exec tsc --noEmit
+      - name: Lint
+        run: pnpm lint
 
       - name: Build
         run: pnpm build
 
-      - name: Install Vercel CLI
-        run: pnpm add -g vercel@latest
-
       - name: Pull Vercel Environment
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        run: pnx vercel@latest pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Build Vercel Project
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: pnx vercel@latest build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy to Vercel
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: pnx vercel@latest deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
