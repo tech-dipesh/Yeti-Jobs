@@ -1,5 +1,4 @@
-const validateJobs=({title, description, job_type, skills, salary, location}, oldValue=null)=>{
-  const numregex=/^[1-9]\\d*$/
+const validateJobs=({title, description, job_type, skills, salary, location})=>{
   if(!title){
     return "Please Enter the Title."
   }

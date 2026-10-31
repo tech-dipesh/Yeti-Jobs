@@ -8,7 +8,6 @@ const INIT = { jobType: '', status: '', posted: '', minSalary: '', maxSalary: ''
 
 export default function FilterSidebar({ onApply, onClear }) {
   const [filters, setFilters] = useState(INIT);
-  const set = (name) => (val) => setFilters((p) => ({ ...p, [name]: val }));
   const handleApply = () => onApply?.(filters);
   const handleClear = () => { setFilters(INIT); onClear?.(INIT); };
 

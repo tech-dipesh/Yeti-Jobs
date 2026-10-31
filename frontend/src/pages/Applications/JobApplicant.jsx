@@ -22,7 +22,7 @@ export default function Jobapplicant() {
       <Emptycomps data={data?.message} type={'All Applicant'} />
       <div className='container grid grid-cols-2 gap-16 p-8'>
         {data && data.message.map(({ applied_at, experience, full_name, resume_url, skills, education }, i) => (
-          <Employeecomps education={education} key={i} full_name={full_name} applied_at={applied_at} experience={experience} skills={skills} />
+          <Employeecomps education={education} key={i} full_name={full_name} applied_at={applied_at} experience={experience} skills={skills} resume_url={resume_url}/>
         ))}
       </div>
     </div>
