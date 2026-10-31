@@ -12,9 +12,11 @@ A Scalable job portal built with the **PERN stack** that connects job seekers an
   <strong>Climb your career like a Yeti climbs a mountain.</strong>
 </p>
 
-[![ci](https://img.shields.io/github/actions/workflow/status/tech-dipesh/yeti-jobs/keep-alive.yaml?label=ci)](https://github.com/tech-dipesh/yeti-jobs/actions)
+
+[![Deploy Status](https://img.shields.io/github/actions/workflow/status/tech-dipesh/yeti-jobs/deploy.yml?label=deploy)](https://github.com/tech-dipesh/yeti-jobs/actions)
 [![web](https://img.shields.io/website?url=https://yeti-jobs.vercel.app&=web)](https://yeti-jobs.vercel.app)
-[![api](https://img.shields.io/website?url=https:/api.dipsharma.me/api/v1/docs/&label=api)](https://api.dipsharma.me/api/v1/docs/)
+[![api](https://img.shields.io/website?url=https://api.dipsharma.me/api/v1/swagger&label=api)](https://api.dipsharma.me/api/v1/swagger)
+![IP](https://img.shields.io/badge/IP-16.4.79.104-blue)
 
 ##  System Architecture:
   <picture>
@@ -65,8 +67,8 @@ The Project is a Job Portal Platform **with** all the features needed to build a
 ## Demo Url
 
 - Frontend: https://yeti-jobs.vercel.app
-- Backend: https://yeti-jobs.onrender.com/api/v1/
-- Backend API Demo: https://yeti-jobs.onrender.com/api/v1/swagger
+- Backend: https://api.dipsharma.me/api/v1/
+- Backend API Demo: https://api.dipsharma.me/api/v1/swagger
 
 ## Features
 
@@ -134,6 +136,10 @@ The Project is a Job Portal Platform **with** all the features needed to build a
   - Raw PostgreSQL
 - Devops:
   - Docker
+- Deployment:
+  - AWS EC2
+  - Nginx (Reverse Proxy)
+  - Vercel (Client)
 
 ## Architecture Overview
 
@@ -275,13 +281,49 @@ vim .env # Insert a: VITE_SERVER_URL on .env file.
 > :white_check_mark: your client page will run on the http://localhost:5173
 
 ## Docker Setup
-This project is fully containerized using **Docker** and **Docker Compose**.
 - **Frontend:** React (Vite) served via a lightweight Node.js `serve` container.
 - **Backend:** Node.js/Express API running on a multi-stage Alpine image.
 - **Database:** PostgreSQL 15 with a persistent volume.
-## API Documentation
+### Option 1: Run At ONCE:
+Run Unified Compose:
+1. Ensure you have created your `.env` file in the root directory:
+   ```env
+   cp .env.example .env && vim .env # Insert Everything
+   ```
 
-- Swagger UI: https://yeti-jobs.onrender.com/api/v1/swagger
+2. Build And Start:
+   ```bash
+   docker compose up -d --build
+   ```
+
+3. **Get All SITE**:
+   - **Frontend UI:** [http://localhost:5173](http://localhost:5173)
+   - **Backend API:** [http://localhost:3000](http://localhost:3000)
+   - **PostgreSQL:** `localhost:5432`
+
+4. To stop the stack:
+   ```bash
+   docker compose down # We can pass a -v
+   ```
+---
+
+### Option 2: Isolated
+1. Backend API:
+```bash
+cd backend
+docker build -t yeti-api .
+docker run -d -p 3000:3000 --env-file .env --name yeti-api yeti-api
+```
+
+2. Frontend UI:
+```bash
+cd frontend
+docker build -t yeti-web .
+docker run -d -p 5173:5173 --name yeti-web yeti-web
+```
+
+## API Documentation
+- Swagger UI: https://api.dipsharma.me/api/v1/swagger
 - It Will Provide a Interactive Graphical User Interface to Api Documentation to all our backend endpoints.
 - View all available routes (jobs, users, companies, etc.)
 - Check request parameters, body, and headers
@@ -487,15 +529,13 @@ The React app is deployed on Vercel, which auto-detects the Vite setup with no c
 - Add `VITE_SERVER_URL` in Vercel's environment variables dashboard.
 - Every push to `main` triggers an automatic redeploy.
 
-### Backend — Render
+### Backend — AWS EC2
+The Node.js backend is containerized with Docker and hosted on an AWS EC2 instance.
+> **Note:** Vercel supports Express via serverless functions, but I Choose AWS EC2 More Complex Real World Deployment.
 
-The Node.js/Express server is deployed as a Web Service on Render.
-
-> **Note:** Vercel does support Express via serverless functions and a `vercel.json` config — it was explored but Render was chosen for its persistent server model, which fits Express better than a serverless environment.
-
-- Uses an IPv6-compatible connection pooler to connect to Supabase PostgreSQL.
-- **Cold start:** Render's free tier sleeps after 15 minutes of inactivity. A cron job pings the server every 15 minutes to keep it alive.
-- Add all backend environment variables in Render's dashboard before deploying.
+- **SSH Security & CI/CD Challenge:** Locking down Port 22 (SSH) to a specific IP caused deployment friction. To solve this, I plan to implement a GitHub Actions CI/CD pipeline that automatically builds, tests, and deploys the Docker container on every push to `main`, removing the need for manual SSH access.
+- **Resource Management:** Configured a Linux Swap file on the micro instance to prevent Out-Of-Memory (OOM) container crashes, and utilized Nginx as a reverse proxy to manage SSL termination via Certbot.
+- **Environment Variables:** Secured backend configuration by injecting environment variables at runtime via Docker `--env-file`, keeping secrets out of the Git repository.
 
 ### Database & Storage — Supabase
 
