@@ -1,11 +1,11 @@
 services:
   - type: web
-    name: yeti-jobs-backend
+    name: yeti-api
     env: node
     region: singapore    
     rootDir: backend     
-    buildCommand: npm install 
-    startCommand: npm run backend
+    buildCommand: pnpm install 
+    startCommand: pnpm run backend
     envVars:
       - key: PORT
         value: 3000   
@@ -15,9 +15,9 @@ services:
         sync: false
       - key: ANON_KEY_SUPABASE
         sync: false
-      - key: NODEMAILER_MY_EMAIL
+      - key: BREVO_FROM_EMAIL
         sync: false
-      - key: NODEMAILER_MY_PASSWORD
+      - key: BREVO_API
         sync: false
       - key: NODEMAILER_MY_HOST
         sync: false

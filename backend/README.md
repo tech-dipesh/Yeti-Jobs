@@ -168,8 +168,8 @@ the (if not exists ) guards
 
 
 ## Coming Days Features:
-- `npm audit` — check vulnerabilities
-- `npm prune` — remove unnecessary packages
+- `pnpm audit` — check vulnerabilities
+- `pnpm prune` — remove unnecessary packages
 
 
 ## Useful Features:

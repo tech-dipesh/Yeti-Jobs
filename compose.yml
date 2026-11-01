@@ -16,21 +16,20 @@ services:
 
   backend:
     build: ./backend
-    container_name: yeti-backend
+    container_name: yeti-api
     environment:
-      PORT: 3000
+      PORT: 5000
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       URL_SUPABASE_CONNECT: ${URL_SUPABASE_CONNECT}
       ANON_KEY_SUPABASE: ${ANON_KEY_SUPABASE}
-      NODEMAILER_MY_EMAIL: ${NODEMAILER_MY_EMAIL}
-      NODEMAILER_MY_PASSWORD: ${NODEMAILER_MY_PASSWORD}
-      NODEMAILER_MY_HOST: ${NODEMAILER_MY_HOST}
+      BREVO_API: ${BREVO_API}
+      BREVO_FROM_EMAIL: ${BREVO_FROM_EMAIL}
       JSON_SECRET_KEY: ${JSON_SECRET_KEY}
       CLIENT_BASE_URL: http://localhost:5173
       MAXAGE: ${MAXAGE}
       GROK_API: ${GROK_API}
     ports:
-      - "3000:3000"
+      - "5000:5000"
     depends_on:
       - postgres
     networks:
@@ -39,7 +38,7 @@ services:
 
   frontend:
     build: ./frontend
-    container_name: yeti-frontend
+    container_name: yeti-web
     environment:
       VITE_SERVER_URL: ${VITE_SERVER_URL}
     ports:

@@ -65,8 +65,8 @@ https://yeti-jobs.onrender.com/api/v1
 
 ## Setup:
 - cd frontend  
-npm install  
-npm run dev  
+pnpm install  
+pnpm run dev  
 
 App runs on: http://localhost:5173
 
