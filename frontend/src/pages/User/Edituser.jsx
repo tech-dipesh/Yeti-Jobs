@@ -18,16 +18,18 @@ export default function Edituser() {
   const [value, setValue] = useState({ fname: '', lname: '', education: '', email: '', experience: '', number: '' });
   const [error, setError] = useState("")
   const { execute: fetchUser, data: startValue, error: errorData, loading } = useFetchData(getIndividualUser);
-  const { data, execute: updateUser, error: patchError, loading: isUpdating } = useFetchData(patchIndivualUser);
+  const {  execute: updateUser, error: patchError, loading: isUpdating } = useFetchData(patchIndivualUser);
   const [number, setNumber]=useState()
   useEffect(() => {
     fetchUser(id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
   useEffect(() => {
     if(errorData){
       navigate("/")
     }
     if (startValue?.message) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setValue({
         fname: startValue.message.fname || '',
         lname: startValue.message.lname || '',

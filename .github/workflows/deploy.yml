@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -31,6 +31,10 @@ jobs:
       - name: Install
         working-directory: ./frontend
         run: pnpm install --frozen-lockfile
+
+      - name: Type Check
+        working-directory: ./frontend
+        run: pnpm lint
 
       - name: Build
         working-directory: ./frontend

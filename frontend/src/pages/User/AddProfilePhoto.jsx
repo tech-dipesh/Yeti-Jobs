@@ -40,7 +40,7 @@ export default function ProfilePhoto() {
       setContent(file)
       const name = file.name
       const type = file.type.split("/")[0]
-      const splitFileName = file.name.split(".")[1];
+      // const splitFileName = file.name.split(".")[1];
       const totalSize = (file.size) / 1000;
       setFile({ name, type, size: totalSize })
     }

@@ -12,34 +12,37 @@ import FilterSidebar from '../../components/jobs/Filtersidebar';
 import SEO from '../../hooks/useSEO'
 
 export default function Jobs() {
-  const [filters, setFilters] = useState({});
+  const [, setFilters] = useState({});
   const { data, error, loading, execute } = UseFetchData(allJobsList)
-  const { data: filterdata, error: filtererror, loading: filterloader, execute: filterexecute } = UseFetchData(FilterWithSearchJobs)
+  const {  loading: filterloader, execute: filterexecute } = UseFetchData(FilterWithSearchJobs)
   const [jobs, setJobs] = useState([])
+  const [page, setPage]=useState(1)
   const isTrue = useRef(false)
-  let page = 1;
   useEffect(() => {
-    execute({ page })
+    execute({ page: 1 })
   }, [])
 
   useEffect(() => {
-    if (isTrue && data?.message) {
-      setJobs((prev) => [...prev, ...data.message])
-    }
-    else if (data?.message) {
-      setJobs(data.message)
-      isTrue.current = true;
-    }
+     if (!data?.message) return;
+     if (isTrue.current) {
+       setJobs((prev) => [...prev, ...data.message])
+     } else {
+       setJobs(data.message)
+       isTrue.current = true;
+     }
   }, [data?.message])
+  
   if (loading) {
     return <Loading />
   }
   const loadMore = async () => {
-    page++;
+    const nPage = page + 1;
+    setPage(nPage)
     await execute({ page });
   }
   const ApplyFilter =async (newFilters) => {
     setFilters(newFilters);
+    setPage(1)
     const allValues = { page, sortby: newFilters?.sortby ?? 'created_at', min_salary: newFilters?.minSalary ?? '', max_salary: newFilters?.maxSalary ?? '', min_exp: newFilters?.minExp ?? '', max_exp: newFilters?.maxExp ?? '', skills: newFilters?.skills ?? '', location: newFilters?.location ?? '', job_type: newFilters?.jobType ?? '', status: newFilters?.status ?? '', posted: newFilters?.posted ?? '', };
     const queryStringAll = new URLSearchParams(allValues).toString();
     console.log("query string", queryStringAll);

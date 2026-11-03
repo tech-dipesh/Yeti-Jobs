@@ -16,7 +16,7 @@ export default function Assignusertocompanies() {
   const [value, setValue] = useState({ company_id: '', uid: '' })
   const debounce = CustomDebounceHook(companySearch, 350)
   const debounce1 = CustomDebounceHook(userSearch, 350)
-  let { data: userdata, error: usererror, execute: userexec } = useFetchData(getSearchUsers);
+  let { data: userdata, error: usererror, execute: userexec, clearData } = useFetchData(getSearchUsers);
   let { data: compdata, error: comperror, execute: compexec } = useFetchData(getSearchCompanies);
   const { data, error: apierror, loading, execute } = useFetchData(assignCompaniesToUsers);
 
@@ -44,7 +44,7 @@ export default function Assignusertocompanies() {
           <div className='bg-slate-800 border border-slate-600 rounded-2xl p-6 flex flex-col  gap-4'>
               <div className='flex items-center justify-between flex-wrap gap-2'>
               <h2 className='text-slate-100  font-semibold text-lg border border-slate-500 rounded-lg px-4 py-1.5 w-fit'>Users</h2>
-              <span className='p-2' onClick={() => { setUsersSearch(''); userdata.message = []; setValue(prev => ({ ...prev, uid: null })) }}><ButtonComps values='Clear' /></span>
+            <span className='p-2' onClick={() => { setUsersSearch(''); clearData(); setValue(prev => ({ ...prev, uid: null })) }}><ButtonComps values='Clear' /></span>
               {/* <button onClick={() => className='text-sm bg-slate-700 hover:bg-slate-600 text-slate-300 border border-slate-500 px-3 py-1 rounded-lg transition-colors' */}
               {/* > Clear</button> */}
               <InputComps
@@ -89,7 +89,7 @@ export default function Assignusertocompanies() {
               <div className='flex items-center justify-between flex-wrap gap-2'>
               <h2 className='text-slate-100 font-semibold text-lg border border-slate-500 rounded-lg px-4 py-1.5 w-fit'>Companies</h2>
               <span className='p-2'
-                onClick={() => { setCompanySearch(''); compdata.message = []; setValue((prev) => ({ ...prev, company_id: null })) }}
+                onClick={() => { setCompanySearch(''); compexec(); setValue((prev) => ({ ...prev, company_id: null })) }}
               ><ButtonComps values='Clear' /></span>
               {/* <button onClick={() => className='text-sm bg-slate-700 hover:bg-slate-600 text-slate-300 border border-slate-500 px-3 py-1 rounded-lg transition-colors' */}
               {/* > Clear</button> */}

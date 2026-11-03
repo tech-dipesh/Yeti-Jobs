@@ -13,7 +13,7 @@ export default function Searchjobs() {
   const [search, setSearch] = useState("")
   const [sortby, setSortBy] = useState("created_at")
   const debounce = CustomDebounceHook(search, 300)
-  const { data, error, loading, execute } = useFetchData(searchJobs);
+  const { data, error, loading, execute, clearData } = useFetchData(searchJobs);
   useEffect(() => {
     if (debounce) {
       execute({ title: debounce, order: sortby });
@@ -21,7 +21,7 @@ export default function Searchjobs() {
   }, [debounce]);
   const clearFilter = () => {
     setSearch(""),
-    data.message = [];
+    clearData(),
     setSortBy("created_at")
   }
   if (loading) {

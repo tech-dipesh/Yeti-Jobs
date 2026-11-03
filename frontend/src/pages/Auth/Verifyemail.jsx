@@ -36,6 +36,7 @@ export default function VerifyEmail() {
   }, [data, isUser, navigate, state?.from])
   useEffect(() => {
   if (apiresend) {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setError(apiresend)
   }
 }, [apiresend])

@@ -11,7 +11,7 @@ const TABS = ['All', 'Unread', 'Read']
 const isToday = (iso) => new Date(iso).toDateString() === new Date().toDateString()
 
 export default function Notifications() {
-  const { data, loading, execute } = useFetchData(ShowAllNotifications)
+  const {  loading, execute } = useFetchData(ShowAllNotifications)
   const { execute: toggleRead } = useFetchData(ReadUserSingleNotifications)
   const { execute: readAll } = useFetchData(ReadAllNotifications)
   const [notifications, setNotifications] = useState([])
@@ -19,10 +19,9 @@ export default function Notifications() {
   const [search, setSearch] = useState('')
   const debouncedSearch = useDebounce(search, 300)
 
-  useEffect(() => { execute() }, [])
-
   useEffect(() => {
-    if (data?.message) setNotifications(data.message)
+    execute();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleToggle = async (uid, markAsRead) => {

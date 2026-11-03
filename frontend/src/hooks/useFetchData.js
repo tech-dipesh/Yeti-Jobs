@@ -18,7 +18,10 @@ export default function useFetchData(fetchFn) {
       const msg = response?.data?.message || message || "Network Error";
       setState({ data: null, error: msg, loading: false });
       return null;
+    }
   }
-}
-  return {...state, execute}
+  const clearData = () => {
+    setState({ data: null, error: "", loading: false });
+  };
+  return {...state, execute, clearData}
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext } from 'react'
 import { isUserLoggedIn } from '../api/auth.user'
 import useFetchData from '../hooks/useFetchData'
