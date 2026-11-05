@@ -1,5 +1,5 @@
 ## Yeti Jobs Backend
-Backend service for Yeti Jobs built with Node.js, Express, and PostgreSQL, providing secure REST APIs for job management, applications, authentication, and company workflows.
+Backend service for Yeti Jobs built with Node.js, Express, and PostgreSQL, providing secure REST APIs for job management, applications, authentication, and company workflows. With Deployed on the AWS EC2.
 
 - Project Started: 2026/Feb/19
 
@@ -72,7 +72,7 @@ Backend service for Yeti Jobs built with Node.js, Express, and PostgreSQL, provi
 
 
 ## Swagger:
-- Swagger UI: `https://yeti-jobs.onrender.com/api/v1/swagger`
+- Swagger UI: `https://api.dipsharma.me/api/v1/swagger`
 
 
 ## Architecture
@@ -86,6 +86,13 @@ Backend service for Yeti Jobs built with Node.js, Express, and PostgreSQL, provi
 Flow:
 Client → Routes → Controllers → Services → Database
 
+
+## Infrastructure & Devops:
+*   **AWS EC2 Deployment:** Replaced PaaS with AWS EC2 (IaaS) to eliminate cold starts and achieve sub-200ms response times.
+*   **Secure Access:** Configured AWS SSM (Systems Manager) for secure, port-less server access, strictly avoiding open SSH ports.
+*   **Reverse Proxy & SSL:** Configured Nginx as a reverse proxy to manage traffic routing, and automated SSL/TLS certificates via Certbot.
+*   **Containerization:** Dockerized the Node.js application with optimized, multi-stage builds.
+*   **Networking:** Mapped a custom subdomain (`api.dipsharma.me`) to an AWS Elastic IP and configured strict Security Groups for inbound/outbound rules.
 
   
 ## Authentication & Security
@@ -118,6 +125,8 @@ Client → Routes → Controllers → Services → Database
 - SELECT EXISTS optimization
 - Pagination using LIMIT and OFFSET
 - EXPLAIN ANALYZE for query optimization
+Mitigated server memory limits by configuring Linux Swap, preventing Out-Of-Memory (OOM) container crashes (Exit 137).
+Optimized database connection pooling using pg.Pool to handle concurrent transactions safely without leaking connections.
 
 ## Middleware
 
@@ -234,7 +243,7 @@ the (if not exists ) guards
 - port our local database to the supabase database.
 - Move my system to the src folder structure.
 - One really weird bug during the email confirmation is current Date is freezing and sending a old time rather we should do: `new Date()`
-- set the limit proxy to allow a render: `set proxy, 1`
+- set the limit proxy to allow on the EC2: `set proxy, 1`
 #### June:
 - Add a Notifications system Integrated
 
@@ -413,11 +422,10 @@ never has to remember to update it.
 
 
 ## Docker Setup (March 19)
-- Used `npm ci` instead of `npm i` for smaller, faster image
+- Used `pn ci` instead of `pn i` for smaller, faster image
 - Added `.dockerignore` to exclude: `node_modules`, `.env`, `Dockerfile`, etc.
 - Build command: `docker build -t yeti-backend .`
 - Run Docker: `docker run -p 3000:3000 --env-file .env yeti-backend`
-
 
 ## Major Things After June/26:
 - Trying to Integrate a Notification Routes

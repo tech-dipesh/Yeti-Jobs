@@ -39,7 +39,7 @@ A Scalable job portal built with the **PERN stack** that connects job seekers an
 12. [Database Design](#database-design)
 13. [Cron Task](#cron-task)
 14. [Testing](#testing)
-15. [Deployment](#deployment)
+15. [Deployment & CI/CD](#deployment--ci-cd)
 16. [Security](#security)
 17. [Performance Optimization](#performance-optimization)
 18. [Scalability Consideration](#scalability-consideration)
@@ -259,8 +259,8 @@ Here’s the shorter, cleaner version of what you need — straight to the point
 - After inserting all the env keys
 
 ```bash
-npm i # Install all our node libraries
-node app.js # Run our nodejs server
+pn i
+pn run dev
 ```
 
 > :white_check_mark: your server will run on the http://localhost:PORT
@@ -274,8 +274,8 @@ vim .env # Insert a: VITE_SERVER_URL on .env file.
 ```
 
 ```bash
- npm i:  # Install all our node libraires
- npm run dev  # load our react page to browser
+ pnpm i
+ pn run dev  # load our react page to browser
 ```
 
 > :white_check_mark: your client page will run on the http://localhost:5173
@@ -357,6 +357,7 @@ erDiagram
     text profile_pic_url
     text[] skills
     int experience
+    timestamptz created_at
   }
 
   COMPANIES {
@@ -520,7 +521,7 @@ custom `mocks` helper provide a `loginUser` to login in a predefined test user
 - Handle a edge condition like race condition with apply a same job twice or
 another employee tries to delete a jobs listing that where users is doing something
 
-## Deployment
+## Deployment & CI/CD
 
 ### Frontend — Vercel
 
@@ -536,6 +537,10 @@ The Node.js backend is containerized with Docker and hosted on an AWS EC2 instan
 - **SSH Security & CI/CD Challenge:** Locking down Port 22 (SSH) to a specific IP caused deployment friction. To solve this, I plan to implement a GitHub Actions CI/CD pipeline that automatically builds, tests, and deploys the Docker container on every push to `main`, removing the need for manual SSH access.
 - **Resource Management:** Configured a Linux Swap file on the micro instance to prevent Out-Of-Memory (OOM) container crashes, and utilized Nginx as a reverse proxy to manage SSL termination via Certbot.
 - **Environment Variables:** Secured backend configuration by injecting environment variables at runtime via Docker `--env-file`, keeping secrets out of the Git repository.
+
+### CI/CD
+- Render Backend Keep-Alive: Configured a GitHub Actions scheduled workflow to periodically send requests to the backend health endpoint, preventing Render's free-tier instance from sleeping and reducing cold-start delays.
+- Vercel Frontend CI/CD: Implemented a GitHub Actions pipeline triggered on every push to `main`. It installs dependencies using pnpm, runs lint checks, validates the production build, pulls Vercel production environment variables, builds the project, and deploys to production only after successful checks.
 
 ### Database & Storage — Supabase
 
